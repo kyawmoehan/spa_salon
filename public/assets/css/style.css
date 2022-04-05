@@ -1,0 +1,126 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.service-card:hover .report_icons_service,
+.customer-card:hover .report_icons_customer,
+.item-card:hover .report_icons_item,
+.sale-card:hover .report_icons_sale {
+    transform: scale(1.1);
+    /* transform: rotate(-360deg); */
+}
+
+.report_icons_service,
+.report_icons_customer,
+.report_icons_item,
+.report_icons_sale {
+    transition: all ease 0.5s;
+}
+
+
+/* .service-card:hover,
+.customer-card:hover,
+.item-card:hover,
+.sale-card:hover {
+    transform: rotate(360deg);
+    transition: all ease 0.5s;
+} */
+
+.service-card {
+    background-color: hsl(240, 100%, 50%);
+}
+
+.service-card-more {
+    padding: 0;
+    margin: 0;
+    background-color: hsl(240, 100%, 69%);
+}
+
+.service-card-more:hover {
+    background-color: hsl(230, 100%, 69%);
+}
+
+.report_icons_service {
+    color: hsl(240, 100%, 69%);
+    font-size: 80px;
+    line-height: 90px;
+    padding: 0;
+    margin: 0;
+}
+
+.customer-card {
+    background-color: hsl(40, 100%, 50%);
+}
+
+.customer-card-more {
+    padding: 0;
+    margin: 0;
+    background-color: hsl(40, 100%, 69%);
+}
+
+.customer-card-more:hover {
+    background-color: hsl(35, 100%, 69%);
+}
+
+.report_icons_customer {
+    color: hsl(40, 100%, 69%);
+    font-size: 80px;
+    line-height: 90px;
+    padding: 0;
+    margin: 0;
+}
+
+.sale-card {
+    background-color: hsl(0, 100%, 50%);
+}
+
+.sale-card-more {
+    padding: 0;
+    margin: 0;
+    background-color: hsl(0, 100%, 69%);
+}
+
+.sale-card-more:hover {
+    background-color: hsl(0, 100%, 77%);
+}
+
+.report_icons_sale {
+    color: hsl(0, 100%, 69%);
+    font-size: 80px;
+    line-height: 90px;
+    padding: 0;
+    margin: 0;
+}
+
+.item-card {
+    background-color: hsl(115, 92%, 29%);
+}
+
+.item-card-more {
+    padding: 0;
+    margin: 0;
+    background-color: hsl(115, 84%, 35%);
+}
+
+.item-card-more:hover {
+    background-color: hsl(105, 62%, 40%);
+}
+
+.report_icons_item {
+    color: hsl(115, 84%, 35%);
+    font-size: 80px;
+    line-height: 90px;
+    padding: 0;
+    margin: 0;
+}
+
+.report_text p {
+    font-size: 18px;
+    font-weight: bold;
+}
