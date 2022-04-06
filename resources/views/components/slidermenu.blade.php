@@ -2,7 +2,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <h1>
-                <a href="index.php" class="navbar-brand text-light">Dashboard</a>
+                <a href="{{route('home')}}" class="navbar-brand text-light">Dashboard</a>
             </h1>
         </div>
     </div>
@@ -11,6 +11,7 @@
             <nav>
                 <ul class="metismenu" id="menu">
                     <ul class="metismenu" id="menu">
+                        @if(Auth::user()->hasRole('admin'))
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="fa fa-shopping-basket"></i><span>Items</span></a>
@@ -19,6 +20,7 @@
                                 <li><a href="itemList.php">List</a></li>
                             </ul>
                         </li>
+                        @endif
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-credit-card"></i><span>Sale &
                                     Service</span></a>
@@ -52,6 +54,7 @@
                                 <li><a href="./customerList.php">List</a></li>
                             </ul>
                         </li>
+                         @if(Auth::user()->hasRole('admin'))
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-shopping-cart-full"></i><span>Purchase</span></a>
@@ -68,6 +71,7 @@
                                 <li><a href="./gnCostList.php">List</a></li>
                             </ul>
                         </li>
+                       
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-na"></i><span>Usage
                                     Items</span></a>
@@ -76,20 +80,21 @@
                                 <li><a href="./usageItemList.php">List</a></li>
                             </ul>
                         </li>
+                        
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-id-badge"></i><span>User</span></a>
                             <ul class="collapse">
-                                <li><a href="./user.php">Add</a></li>
-                                <li><a href="./userList.php">List</a></li>
+                                <li><a href="{{route('user.create')}}">Add</a></li>
+                                <li><a href="{{route('user.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-face-smile"></i><span>Staff</span></a>
                             <ul class="collapse">
-                                <li><a href="./staff.php">Add </a></li>
-                                <li><a href="./staffList.php">List</a></li>
+                                <li><a href="{{route('staff.create')}}">Add </a></li>
+                                <li><a href="{{route('staff.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
@@ -116,6 +121,7 @@
                                 <li><a href="./inventory.php">Inventory</a></li>
                             </ul>
                         </li>
+                        @endif
                     </ul>
             </nav>
         </div>

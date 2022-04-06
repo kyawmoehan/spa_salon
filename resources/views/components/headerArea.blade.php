@@ -18,8 +18,8 @@
         </div>
         <div class="col-sm-6 clearfix row d-flex justify-content-end align-items-center">
             <div class="user-profile  pull-right col-sm-11 d-flex justify-content-end pr-2">
-                <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                <h4 class="user-name text-dark dropdown-toggle" data-toggle="dropdown">admin <i
+                <img class="avatar user-thumb" src="{{asset('assets/images/author/avatar.png')}}" alt="avatar">
+                <h4 class="user-name text-dark dropdown-toggle" data-toggle="dropdown">{{Auth::user()->name}} <i
                         class="fa fa-angle-down"></i></h4>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Settings</a>
