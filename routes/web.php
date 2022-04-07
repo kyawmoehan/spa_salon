@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,6 @@ Route::get('/', [PageController::class, 'dashboard'])->name('home');
 
 Route::resource('user', UserController::class, ["name" => "user"]);
 Route::resource('staff', StaffController::class, ["name" => "staff"]);
-
+Route::resource('customer', CustomerController::class, ["name" => "customer"]);
 
 require __DIR__.'/auth.php';

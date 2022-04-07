@@ -23,13 +23,17 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        
         $allusers = User::query();
+        $searched = false;
         if (request('search')) {
-            $allusers->where('name', 'Like', '%' . request('search') . '%')->orWhere('email', 'Like', '%' . request('search') . '%')->get();
+            $allusers
+            ->where('name', 'Like', '%' . request('search') . '%')
+            ->orWhere('email', 'Like', '%' . request('search') . '%')
+            ->get();
+            $searched = true;
         }
         $users = $allusers->orderBy('id')->paginate(10);
-        return view('user.user_list', compact('users'));
+        return view('user.user_list', compact(['users', 'searched']));
     }
 
     /**

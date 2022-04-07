@@ -4,8 +4,11 @@
 <div class="main-content-inner">
     <form method="GET" action="{{route('staff.index')}}">
         @csrf
-        <input type="search" placeholder="Search here" name="search"/>
-        <button type="submit">Search</button>
+        <input type="search" placeholder="Search here" name="search" />
+        <button type="submit" >Search</button>
+        @if($searched)
+        <a href="{{route('staff.index')}}" >Clear Search</a>
+        @endif
     </form>
     <table class="table table-hover progress-table text-center" id="myTable1">
         <thead class="text-uppercase">

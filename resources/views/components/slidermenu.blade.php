@@ -50,8 +50,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-user"></i><span>Customer</span></a>
                             <ul class="collapse">
-                                <li><a href="./customer.php">Add</a></li>
-                                <li><a href="./customerList.php">List</a></li>
+                                <li><a href="{{route('customer.create')}}">Add</a></li>
+                                <li><a href="{{route('customer.index')}}">List</a></li>
                             </ul>
                         </li>
                          @if(Auth::user()->hasRole('admin'))

@@ -21,6 +21,7 @@ class StaffController extends Controller
     public function index(Request $request)
     {
         $AllStaff = Staff::query();
+        $searched = false;
         if (request('search')) {
             $AllStaff
             ->where('name', 'Like', '%' . request('search') . '%')
@@ -30,9 +31,10 @@ class StaffController extends Controller
             ->orWhere('address', 'Like', '%' . request('search') . '%')
             ->orWhere('position', 'Like', '%' . request('search') . '%')
             ->get();
+            $searched = true;
         }
         $all_staff = $AllStaff->orderBy('id')->paginate(10);
-        return view('staff.staff_list', compact('all_staff'));
+        return view('staff.staff_list', compact(['all_staff', 'searched']));
     }
 
     /**

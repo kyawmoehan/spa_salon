@@ -7,6 +7,9 @@
         @csrf
         <input type="search" placeholder="Search here" name="search"/>
         <button type="submit">Search</button>
+        @if($searched)
+            <a href="{{route('user.index')}}" >Clear Search</a>
+        @endif
     </form>
     <table class="table table-hover progress-table text-center" id="myTable1">
         <thead class="text-uppercase">
