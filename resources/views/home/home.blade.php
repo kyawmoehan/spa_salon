@@ -46,11 +46,11 @@
             </a>
         </div>
         <div class="col-lg-3 mb-2">
-            <a href="./items.php" class="card customer-card">
+            <a href="{{route('customer.index')}}" class="card customer-card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-7 report_text">
-                            <h3 class="text-light">25</h3>
+                            <h3 class="text-light">{{$new_customers}}</h3>
                             <p class="text-light">New customer</p>
                         </div>
                         <div class="col-sm-5 report_icons_customer">

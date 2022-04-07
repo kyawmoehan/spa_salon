@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon;
+
+use App\Models\Customer;
 
 class PageController extends Controller
 {
@@ -14,6 +17,8 @@ class PageController extends Controller
 
     
     public function dashboard(){
-        return view('home/home');
+        $new_customers = Customer::whereDate('created_at', '=', Carbon\Carbon::today())
+                            ->count();
+        return view('home/home', compact(['new_customers']));
     }
 }
