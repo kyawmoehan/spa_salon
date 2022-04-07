@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +23,6 @@ Route::get('/', [PageController::class, 'dashboard'])->name('home');
 Route::resource('user', UserController::class, ["name" => "user"]);
 Route::resource('staff', StaffController::class, ["name" => "staff"]);
 Route::resource('customer', CustomerController::class, ["name" => "customer"]);
+Route::resource('item', ItemController::class, ["name" => "item"]);
 
 require __DIR__.'/auth.php';

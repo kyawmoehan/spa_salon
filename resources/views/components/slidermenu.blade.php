@@ -16,8 +16,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="fa fa-shopping-basket"></i><span>Items</span></a>
                             <ul class="collapse">
-                                <li><a href="items.php">Add</a></li>
-                                <li><a href="itemList.php">List</a></li>
+                                <li><a href="{{route('item.create')}}">Add</a></li>
+                                <li><a href="{{route('item.index')}}">List</a></li>
                             </ul>
                         </li>
                         @endif
