@@ -20,6 +20,14 @@
                                 <li><a href="{{route('item.index')}}">List</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="javascript:void(0)" aria-expanded="true"><i
+                                    class="fa fa-shopping-basket"></i><span>Item Type</span></a>
+                            <ul class="collapse">
+                                <li><a href="{{route('type.create')}}">Add</a></li>
+                                <li><a href="{{route('type.index')}}">List</a></li>
+                            </ul>
+                        </li>
                         @endif
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-credit-card"></i><span>Sale &
