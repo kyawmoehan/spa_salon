@@ -7,6 +7,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\GeneralCostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,6 @@ Route::resource('staff', StaffController::class, ["name" => "staff"]);
 Route::resource('customer', CustomerController::class, ["name" => "customer"]);
 Route::resource('type', TypeController::class, ["name" => "type"]);
 Route::resource('item', ItemController::class, ["name" => "item"]);
+Route::resource('generalcost', GeneralCostController::class, ["name" => "generalcost"]);
 
 require __DIR__.'/auth.php';

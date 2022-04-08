@@ -75,8 +75,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-stats-up"></i><span>General
                                     Cost</span></a>
                             <ul class="collapse">
-                                <li><a href="./gnCost.php">Add</a></li>
-                                <li><a href="./gnCostList.php">List</a></li>
+                                <li><a href="{{route('generalcost.create')}}">Add</a></li>
+                                <li><a href="{{route('generalcost.index')}}">List</a></li>
                             </ul>
                         </li>
                        

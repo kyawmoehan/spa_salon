@@ -66,17 +66,18 @@ class ItemController extends Controller
         ]);
 
         $this->authorize('create', Item::class);
-         // store data 
-         $item = new Item();
-         $item->name = request('name');
-         $item->type_id = request('type_id');
-         $item->code = request('code');
-         $item->price = request('price');
-         $item->unit = request('unit');
-         $item->available = request('available');
-         $item->remark = request('remark');
+        
+        // store data 
+        $item = new Item();
+        $item->name = request('name');
+        $item->type_id = request('type_id');
+        $item->code = request('code');
+        $item->price = request('price');
+        $item->unit = request('unit');
+        $item->available = request('available');
+        $item->remark = request('remark');
  
-         $item->save();
+        $item->save();
          
         return redirect()->route('item.index');
     }
@@ -144,6 +145,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
+        dd($item);
         $this->authorize('delete', $item);
         $item->delete();
         return redirect()->route('item.index');
