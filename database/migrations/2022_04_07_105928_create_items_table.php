@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->foreignId('type_id');
             $table->string('code')->unique();
             $table->integer('price');
             $table->string('unit');
-            $table->string('available');
+            $table->boolean('available');
             $table->text('remark')->nullable();
             $table->timestamps();
         });

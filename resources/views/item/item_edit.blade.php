@@ -12,13 +12,17 @@
 
             <div class="form-group row">
                 <label for="Name" class="form-label col-sm-2">Item Type:</label>
-                <select class="form-control col-sm-10 mb-2" name="type">
-                    <option >Select Type</option>
-                    <option {{$item->type == 'Type1' ? 'selected': ''}}>Type1</option>
-                    <option {{$item->type == 'Type2' ? 'selected': ''}}>Type2</option>
-                    <option {{$item->type == 'Type3' ? 'selected': ''}}>Type3</option>
-                    <option {{$item->type == 'Type4' ? 'selected': ''}}>Type4</option>
-                    <option {{$item->type == 'Type5' ? 'selected': ''}}>Type5</option>
+                <select class="form-control col-sm-10 mb-2" name="type_id">
+                    <option value="" disabled="" selected>
+                        Select Type
+                    </option>
+                    @foreach($types as $type)
+                        <option value="{{$type->id}}"
+                        @if($item->type_id == $type->id)
+                            {{'selected'}}
+                        @endif
+                        >{{$type->name}}</option>
+                    @endforeach
                 </select>
                 @error('type')
                     <div class="text-danger">{{ $message }}</div>
@@ -48,7 +52,7 @@
             </div>
             <div class="form-group row">
                 <label for="Purchase_price" class="form-label col-sm-2">Purchase Price:</label>
-                <input class="form-control col-sm-10 mb-2" type="text" id="Purchase_price" name="price"
+                <input class="form-control col-sm-10 mb-2" type="number" id="Purchase_price" name="price"
                 value="{{$item->price}}"/>
                 @error('price')
                     <div class="text-danger">{{ $message }}</div>
@@ -68,8 +72,13 @@
             </div>
             <div class="form-group row">
                 <label for="available" class="form-label col-sm-2">Available:</label>
-                <input class="form-control col-sm-10 mb-2" type="text" id="available" name="available"
-                value="{{$item->available}}"/>
+                <select class="form-control col-sm-10 mb-2" name="available">
+                    <option value="" disabled="" selected>
+                        Select
+                    </option>
+                    <option value="1" {{$item->available == '1' ? 'selected': ''}}>Available</option>
+                    <option value="0" {{$item->available == '0' ? 'selected': ''}}>Unavailable</option>
+                </select>
                 @error('available')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

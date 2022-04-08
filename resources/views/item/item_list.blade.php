@@ -39,6 +39,7 @@
                     <th scope="col">Item Code</th>
                     <th scope="col">Purchase Price</th>
                     <th scope="col">Unit</th>
+                    <th scope="col">Available</th>
                     <th scope="col">Remark</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -48,10 +49,11 @@
                 <tr>
                     <th>{{$key+1}}</th>
                     <td>{{$item->name}}</td>
-                    <td>{{$item->type}}</td>
+                    <td>{{$item->type->name}}</td>
                     <td>{{$item->code}}</td>
                     <td>{{$item->price}}</td>
                     <td>{{$item->unit}}</td>
+                    <td>{{$item->available == 1 ? "Available":"Unavailable"}}</td>
                     <td>{{$item->remark}}</td>
                     <td>
                         <ul class="d-flex justify-content-center">

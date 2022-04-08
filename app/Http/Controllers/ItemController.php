@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -25,8 +26,7 @@ class ItemController extends Controller
         $searched = false;
         if (request('search')) {
             $all_item
-            ->where('name', 'Like', '%' . request('search') . '%')
-            ->orWhere('type', 'Like', '%' . request('search') . '%')      
+            ->where('name', 'Like', '%' . request('search') . '%')      
             ->orWhere('code', 'Like', '%' . request('search') . '%')      
             ->orWhere('unit', 'Like', '%' . request('search') . '%')        
             ->get();
@@ -43,7 +43,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('item.item_create');
+        $types = Type::all();
+        return view('item.item_create', compact('types'));
     }
 
     /**
@@ -57,7 +58,7 @@ class ItemController extends Controller
         //Validation
         $request->validate([
             'name' => 'required',
-            'type' => 'required',
+            'type_id' => 'required',
             'code' => 'required',
             'price' => 'required',
             'unit' => 'required',
@@ -68,7 +69,7 @@ class ItemController extends Controller
          // store data 
          $item = new Item();
          $item->name = request('name');
-         $item->type = request('type');
+         $item->type_id = request('type_id');
          $item->code = request('code');
          $item->price = request('price');
          $item->unit = request('unit');
@@ -99,7 +100,8 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        return view('item.item_edit', compact('item'));
+        $types = Type::all();
+        return view('item.item_edit', compact(['item', 'types']));
     }
 
     /**
@@ -113,7 +115,7 @@ class ItemController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'type' => 'required',
+            'type_id' => 'required',
             'code' => 'required',
             'price' => 'required',
             'unit' => 'required',
@@ -122,7 +124,7 @@ class ItemController extends Controller
         $this->authorize('update', $item);
         // store data
         $item->name = request('name');
-        $item->type = request('type');
+        $item->type_id = request('type_id');
         $item->code = request('code');
         $item->price = request('price');
         $item->unit = request('unit');

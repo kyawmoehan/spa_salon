@@ -22,7 +22,7 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="fa fa-shopping-basket"></i><span>Item Type</span></a>
+                                    class="fa fa-tags"></i><span>Item Type</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('type.create')}}">Add</a></li>
                                 <li><a href="{{route('type.index')}}">List</a></li>
