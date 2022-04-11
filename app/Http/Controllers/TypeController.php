@@ -112,7 +112,6 @@ class TypeController extends Controller
     {
         $this->authorize('delete', $type);
         $type->delete();
-
         return redirect()->route('type.index');
     }
 }
