@@ -75,7 +75,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $items->links("pagination::bootstrap-5") }}
+        {{ $items->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
         <div class="mt-3">
             <a href="{{route('item.create')}}"
                 class="btn mt-auto btn-info ml-auto mb-2 col-sm-1 d-flex justify-content-center align-items-center">

@@ -47,7 +47,7 @@
         </tbody>
        
     </table>
-    {{ $users->links("pagination::bootstrap-5") }}
+    {{ $users->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
     <div class="mt-3">
         <a href="{{route('user.create')}}"
             class="btn mt-auto btn-info ml-auto mb-2 col-md-1 d-flex justify-content-center align-items-center">

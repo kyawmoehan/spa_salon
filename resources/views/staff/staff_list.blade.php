@@ -57,7 +57,7 @@
             </tr>
             @endforeach
         </tbody>
-        {{ $all_staff->links("pagination::bootstrap-5") }}
+        {{ $all_staff->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
     </table>
     <div class="mt-3">
         <a href="{{route('staff.create')}}"

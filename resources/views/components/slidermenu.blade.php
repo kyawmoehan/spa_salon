@@ -75,8 +75,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-shopping-cart-full"></i><span>Purchase</span></a>
                             <ul class="collapse">
-                                <li><a href="./purchase.php">Add</a></li>
-                                <li><a href="./purchaseList.php">List</a></li>
+                                <li><a href="{{route('purchase.create')}}">Add</a></li>
+                                <li><a href="{{route('purchase.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>

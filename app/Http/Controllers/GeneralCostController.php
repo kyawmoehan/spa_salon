@@ -20,7 +20,7 @@ class GeneralCostController extends Controller
 
     public function index()
     {
-        $this->authorize('create', GeneralCost::class);
+        $this->authorize('viewAny', GeneralCost::class);
         $allGeneralCost = GeneralCost::query();
         $searched = false;
         $totalCost = 0;
