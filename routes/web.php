@@ -11,6 +11,7 @@ use App\Http\Controllers\GeneralCostController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PurchaseItemController;
 use App\Http\Controllers\CounterItemController;
+use App\Http\Controllers\UsageItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,6 @@ Route::resource('generalcost', GeneralCostController::class, ["name" => "general
 Route::resource('service', ServiceController::class, ["name" => "service"]);
 Route::resource('purchase', PurchaseItemController::class, ["name" => "purchase"]);
 Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
+Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 
 require __DIR__.'/auth.php';

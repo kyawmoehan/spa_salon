@@ -92,8 +92,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-na"></i><span>Usage
                                     Items</span></a>
                             <ul class="collapse">
-                                <li><a href="./usageItem.php">Add</a></li>
-                                <li><a href="./usageItemList.php">List</a></li>
+                                <li><a href="{{route('usage.create')}}">Add</a></li>
+                                <li><a href="{{route('usage.index')}}">List</a></li>
                             </ul>
                         </li>
                         

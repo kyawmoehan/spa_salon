@@ -30,8 +30,8 @@
             </div>
             @endif
             </div>
-        </form>
-        <div class="mt-3 mb-3">
+    </form>
+    <div class="mt-3 mb-3">
             <form method="GET" action="{{route('counter.index')}}">
                 @csrf
                 <div class="d-flex">
@@ -42,7 +42,7 @@
                     @endif
                 </div>
             </form>
-        </div >
+    </div >
         <table class="table table-hover progress-table text-center" id="myTable1">
             <thead class="text-uppercase">
                 <tr>

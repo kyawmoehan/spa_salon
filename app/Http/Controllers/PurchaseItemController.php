@@ -36,7 +36,7 @@ class PurchaseItemController extends Controller
                 $query
                 ->where('name', 'Like', "%{$data}%");          
             });
-            $this->page = 1;
+            // $this->page = 1;
             $searched = true;
         }
        

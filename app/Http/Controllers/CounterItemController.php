@@ -37,7 +37,6 @@ class CounterItemController extends Controller
                 $query
                 ->where('name', 'Like', "%{$data}%");          
             });
-            $this->page = 1;
             $searched = true;
         }
        
