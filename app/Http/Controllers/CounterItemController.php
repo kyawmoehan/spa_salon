@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PurchaseItem;
+use App\Models\CounterItem;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Carbon;
 use App\Http\Controllers\ItemLisstController;
 
-class PurchaseItemController extends Controller
+class CounterItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function __construct() 
     {
         $this->middleware('role:admin');
@@ -22,17 +23,17 @@ class PurchaseItemController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', PurchaseItem::class);
-        $allPurchase= PurchaseItem::query();
+        $this->authorize('viewAny', CounterItem::class);
+        $allCounter= CounterItem::query();
         $searched = false;
         if(request('fromdate')){
             $from = request('fromdate');
             $to = request('todate');
-            $allPurchase->whereBetween('date', [$from, $to])->get();
+            $allCounter->whereBetween('date', [$from, $to])->get();
             $searched = true;
         }else if (request('search')) {
             $data = request('search');
-            $allPurchase->whereHas('item', function($query) use ($data) {
+            $allCounter->whereHas('item', function($query) use ($data) {
                 $query
                 ->where('name', 'Like', "%{$data}%");          
             });
@@ -40,8 +41,8 @@ class PurchaseItemController extends Controller
             $searched = true;
         }
        
-        $purchaseItems = $allPurchase->orderByDesc('date')->paginate(20);
-        return view('purchase.purchase_list', compact(['purchaseItems', 'searched']));
+        $counterItems = $allCounter->orderByDesc('date')->paginate(10);
+        return view('counter.counter_list', compact(['counterItems', 'searched']));
     }
 
     /**
@@ -52,7 +53,7 @@ class PurchaseItemController extends Controller
     public function create()
     {
         $items = Item::all();
-        return view('purchase.purchase_create', compact('items'));
+        return view('counter.counter_create', compact('items'));
     }
 
     /**
@@ -71,29 +72,31 @@ class PurchaseItemController extends Controller
             'purchase_price' => 'required',
         ]);
 
-        $this->authorize('create', PurchaseItem::class);
+        $this->authorize('create', CounterItem::class);
 
-         // store data 
-        $purchase = new PurchaseItem();
-        $purchase->item_id = request('item_id');
-        $purchase->date = Carbon\Carbon::parse($request->date);
-        $purchase->quantity = request('quantity');
-        $purchase->purchase_price = request('purchase_price');
-        $purchase->remark = request('remark');
+        // store data 
+        $counter = new CounterItem();
+        $counter->item_id = request('item_id');
+        $counter->date = Carbon\Carbon::parse($request->date);
+        $counter->quantity = request('quantity');
+        $counter->purchase_price = request('purchase_price');
+        $counter->remark = request('remark');
        
-        $purchase->save();
-        (new ItemListController)->addItem(request('item_id'), 'purchase', request('quantity'));
+        $counter->save();
           
-        return redirect()->route('purchase.index');
+        // item list
+        (new ItemListController)->addItem(request('item_id'), 'counter', request('quantity'));
+        
+        return redirect()->route('counter.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PurchaseItem  $purchaseItem
+     * @param  \App\Models\CounterItem  $counterItem
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseItem $purchaseItem)
+    public function show(CounterItem $counterItem)
     {
         //
     }
@@ -101,23 +104,23 @@ class PurchaseItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PurchaseItem  $purchaseItem
+     * @param  \App\Models\CounterItem  $counterItem
      * @return \Illuminate\Http\Response
      */
-    public function edit(PurchaseItem $purchase)
+    public function edit(CounterItem $counter)
     {
         $items = Item::all();
-        return view('purchase.purchase_edit', compact(['purchase', 'items']));
+        return view('counter.counter_edit', compact(['counter', 'items']));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PurchaseItem  $purchaseItem
+     * @param  \App\Models\CounterItem  $counterItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseItem $purchase)
+    public function update(Request $request, CounterItem $counter)
     {
         //Validation
         $request->validate([
@@ -126,39 +129,39 @@ class PurchaseItemController extends Controller
             'purchase_price' => 'required',
         ]);
 
-        $this->authorize('update', $purchase);
+        $this->authorize('update', $counter);
 
          // store data 
-        $purchase->date = Carbon\Carbon::parse($request->date);
-        $purchase->quantity = request('quantity');
-        $purchase->purchase_price = request('purchase_price');
-        $purchase->remark = request('remark');
+        $counter->date = Carbon\Carbon::parse($request->date);
+        $counter->quantity = request('quantity');
+        $counter->purchase_price = request('purchase_price');
+        $counter->remark = request('remark');
        
-        $purchase->save();
-
+        $counter->save();
+        
         //item lsit 
         if(request('quantity') > request('oldQty')){
             $quantity = request('quantity') - request('oldQty');
-            (new ItemListController)->addItem($purchase->item_id, 'purchase', $quantity);
+            (new ItemListController)->addItem($counter->item_id, 'counter', $quantity);
         }else if(request('quantity') < request('oldQty')){
             $quantity = request('oldQty') - request('quantity');
-            (new ItemListController)->removeItem($purchase->item_id, 'purchase', $quantity);
+            (new ItemListController)->removeItem($counter->item_id, 'counter', $quantity);
         }
           
-        return redirect()->route('purchase.index');
+        return redirect()->route('counter.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PurchaseItem  $purchaseItem
+     * @param  \App\Models\CounterItem  $counterItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseItem $purchase)
+    public function destroy(CounterItem $counter)
     {
-        $this->authorize('delete', $purchase);
-        $purchase->delete();
-        (new ItemListController)->removeItem($purchase->item_id, 'purchase', $purchase->quantity);
-        return redirect()->route('purchase.index');
+        $this->authorize('delete', $counter);
+        $counter->delete();
+        (new ItemListController)->removeItem($counter->item_id, 'counter', $counter->quantity);
+        return redirect()->route('counter.index');
     }
 }

@@ -125,8 +125,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-home"></i><span>Counter</span></a>
                             <ul class="collapse">
-                                <li><a href="./counter.php">Add</a></li>
-                                <li><a href="./counterList.php">Counter List</a></li>
+                                <li><a href="{{route('counter.create')}}">Add</a></li>
+                                <li><a href="{{route('counter.index')}}">Counter List</a></li>
                             </ul>
                         </li>
                         <li>
