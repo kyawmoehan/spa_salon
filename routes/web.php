@@ -12,6 +12,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PurchaseItemController;
 use App\Http\Controllers\CounterItemController;
 use App\Http\Controllers\UsageItemController;
+use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,6 @@ Route::resource('service', ServiceController::class, ["name" => "service"]);
 Route::resource('purchase', PurchaseItemController::class, ["name" => "purchase"]);
 Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
 Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
+Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
 
 require __DIR__.'/auth.php';

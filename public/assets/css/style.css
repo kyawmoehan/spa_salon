@@ -124,3 +124,24 @@ body {
     font-size: 18px;
     font-weight: bold;
 }
+
+.item-btn-wapper,
+.service-btn-wapper {
+    height: 90px;
+}
+
+.item-button,
+.service-button {
+    width: 100%;
+    height: 100%;
+}
+
+.s_item_card,
+.s_service_card {
+    height: 150px;
+    overflow-y: auto;
+}
+
+.s_invoice {
+    height: 300px;
+}
