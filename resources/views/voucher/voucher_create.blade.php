@@ -19,12 +19,18 @@
         </div>
         <div class="col-sm-6 clearfix row d-flex justify-content-end align-items-center">
             <div class="user-profile  pull-right col-sm-11 d-flex justify-content-end pr-2">
-                <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                <h4 class="user-name text-dark dropdown-toggle" data-toggle="dropdown">minkhant <i
+                <img class="avatar user-thumb" src="{{asset('assets/images/author/avatar.png')}}" alt="avatar">
+                <h4 class="user-name text-dark dropdown-toggle" data-toggle="dropdown">
+                    {{Auth::user()->name}} <i
                         class="fa fa-angle-down"></i></h4>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Log Out</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <a class="dropdown-item" href="{{route('logout')}}"  onclick="event.preventDefault();
+                        this.closest('form').submit();">Log Out</a>
+                    </form>        
                 </div>
             </div>
             <ul class="notification-area pull-right col-sm-1 pr-0">
@@ -62,6 +68,9 @@
                 <div class="p-2">
                     <h5>
                         Voucher Id - <span id="voucher-id"></span>
+                        <button class="btn btn-danger" onclick="deleteVoucher()">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </h5>
                 </div>
                 <div class="row d-flex justify-content-between align-items-center">
@@ -69,7 +78,8 @@
                         <h6>Customer - <span id="customer-name"></span></h6>
                     </div>
                     <div class="col-3">
-                        <input type="date" class="form-control form-control-sm col-3">
+                        <input type="date" class="form-control form-control-sm col-3"
+                        value="<?php echo (new DateTime())->format('Y-m-d'); ?>">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -87,12 +97,15 @@
                                     <label for="service" class="form-check-label">Service</label>
                                 </div>
                             </div>
-                            <div class="card-body" style="height: 450px;
-    overflow-y: auto;">
-                                <!-- <select class="form-select">
-                                    <option value="">select here ..</option>
-                                </select> -->
+                            <div class="card-body" style="height: 450px;overflow-y: auto;">
                                 <div class="item-box row d-none">
+                                    <div class="col-12 mb-3">
+                                        <label for="">Item Source</label>
+                                        <select name="" id="item-from" class="form-select form-select-sm" required>
+                                            <option value="purchase" >Default</option>
+                                            <option value="counter">Counter</option>
+                                        </select>
+                                    </div>
                                     @foreach($items as $item)
                                     <div class="col-4 item-btn-wapper mb-2">
                                         <button class="item-button btn btn-secondary"
@@ -103,9 +116,24 @@
                                     @endforeach
                                 </div>
                                 <div class="service-box row d-none">
+                                    <div class="col-6 mb-3">
+                                        <label for="">Staff</label>
+                                        <select name="" id="staff-select" class="form-select form-select-sm mb-1" required>
+                                            <option value="" disabled>Select Staff ...</option>
+                                            @foreach($staffs as $staff)
+                                            <option value="{{$staff->name}},{{$staff->id}}">{{$staff->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="">Staff Percentage</label>
+                                        <input type="number" id="staff-pct"  step="0.1" class="form-select form-select-sm" required value="1">
+                                    </div>
+                                    
                                     @foreach($services as $service)
                                     <div class="col-4 service-btn-wapper mb-2">
-                                        <button class="service-button btn btn-secondary">
+                                        <button class="service-button btn btn-secondary"
+                                        onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}')">
                                             {{$service->name}}
                                         </button>
                                     </div>
@@ -124,9 +152,11 @@
                                             <th class="text-dark">Item Name</th>
                                             <th class="text-dark">Quantity</th>
                                             <th class="text-dark">Price</th>
+                                            <th class="text-dark">Source</th>
                                             <!-- <th style="text-align:center;" class="text-dark">Source</th> -->
                                             <!-- <th style="text-align:center;">Stock Price</th> -->
                                             <th class="text-dark">Total</th>
+                                            <th class="text-dark">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="addMoreItem" id="items-table">
@@ -169,11 +199,9 @@
                                         <tr>
                                             <th class="text-dark">No.</th>
                                             <th class="text-dark">Service</th>
-                                            <th class="text-dark">Qty</th>
-                                            <th class="text-dark">Unit Price</th>
-                                            <!-- <th style="text-align:center;" class="text-dark">Source</th> -->
-                                            <!-- <th style="text-align:center;">Stock Price</th> -->
                                             <th class="text-dark">Staff</th>
+                                            <th class="text-dark">Staff Percentage</th>
+                                            <th class="text-dark">Staff Amount</th>
                                             <th class="text-dark">Amount</th>
                                             <th>
                                                 <!-- <a class="btn btn-sm btn-success add_more rounded-circle">
@@ -183,7 +211,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="addMoreItem">
+                                    <tbody class="addMoreItem"  id="service-table">
                                         <tr>
                                             <td class="text-dark"><b>1</b></td>
                                             <td>
@@ -230,7 +258,7 @@
                                     <div class="col-12 mt-auto">
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Total </label>
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="text" class="form-control form-control-sm" disabled id="total-amount">
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paid </label>
@@ -255,3 +283,4 @@
     </div>
 </div>
 @include('partials/footer')
+<script src="{{asset('js/voucher.js')}}"></script>

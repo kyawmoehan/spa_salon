@@ -38,6 +38,7 @@
                                 <li><a href="./servicesList.php">Service List</a></li>
                             </ul>
                         </li>
+                        @if(Auth::user()->hasRole('admin'))
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-dashboard"></i><span>Service</span></a>
@@ -46,6 +47,7 @@
                                 <li><a href="{{route('service.index')}}">Service List</a></li>
                             </ul>
                         </li>
+                        @endif
                         <!-- <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-credit-card"></i><span>Sale</span></a>

@@ -27,7 +27,8 @@ class VoucherController extends Controller
         $customers = Customer::all();
         $items = Item::all();
         $services = Service::all();
-        return view('voucher.voucher_create', compact(['customers','items', 'services']));
+        $staffs = Staff::all();
+        return view('voucher.voucher_create', compact(['customers','items', 'services', 'staffs']));
     }
 
     /**
