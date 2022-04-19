@@ -14,6 +14,8 @@ use App\Http\Controllers\CounterItemController;
 use App\Http\Controllers\UsageItemController;
 use App\Http\Controllers\VoucherController;
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,5 +40,6 @@ Route::resource('purchase', PurchaseItemController::class, ["name" => "purchase"
 Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
 Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
+
 
 require __DIR__.'/auth.php';

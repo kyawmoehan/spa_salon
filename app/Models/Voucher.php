@@ -10,10 +10,32 @@ class Voucher extends Model
     use HasFactory;
 
     protected $fillable = [
-        'voucher_id',
+        'voucher_number',
+        'customer_id',
         'date',
         'total',
         'paid',
-        'discount'
+        'discount',
+        'voucher_staff',
+        'remark',
     ];
+
+    public function voucherStaff()
+    {
+        return $this->hasMany(VoucherStaff::class);
+    }
+
+    public function voucherItems()
+    {
+        return $this->hasMany(ItemVoucher::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'voucher_staff');
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
 }

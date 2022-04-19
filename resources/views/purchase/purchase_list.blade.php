@@ -30,7 +30,7 @@
             </div>
             @endif
             </div>
-        </form>
+    </form>
         <div class="mt-3 mb-3">
             <form method="GET" action="{{route('purchase.index')}}">
                 @csrf

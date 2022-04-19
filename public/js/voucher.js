@@ -1,4 +1,5 @@
 var SELECTEDCHECK = "";
+var ALLTOTAL = 0;
 
 
 // get local storage
@@ -104,7 +105,11 @@ function checkBtn(id){
      
     });
     // total amount
+    ALLTOTAL = total;
     $('#total-amount').val(total);
+    voucherPct = $('#voucher-discount').val();
+    paid = total -((voucherPct/100)*total);
+    $('#voucher-paid').val(paid);
     
 }
 
@@ -114,6 +119,13 @@ function getVouchers(){
     let getVoucherArray = JSON.parse(getVoucherStr);
     if(getVoucherArray.length == 0){
         $( "#customer-check" ).empty();
+        $( "#items-table" ).empty();
+        $( "#service-table" ).empty();
+        $( "#voucher-id" ).empty();
+        $( "#customer-name" ).empty();
+        $( "#total-amount" ).val('');
+        $( "#voucher-discount" ).val(0);
+        $( "#voucher-paid" ).val('');
         return;
     }
     $( "#customer-check" ).empty();
@@ -249,6 +261,45 @@ function delteService(serviceId, staffId){
     checkBtn(SELECTEDCHECK);
 }
 
+// save voucher
+function voucherSave(){
+    let voucher = getVoucherById(SELECTEDCHECK);
+    let date = $( "#voucher-date" ).val();
+
+    let voucherData = voucher;
+    voucherData.date = date; 
+    voucherData.total = ALLTOTAL;   
+    voucherData.paid =  $('#voucher-paid').val();
+    voucherData.discount=  $('#voucher-discount').val();
+    voucherData.remark = $('#voucher-remark').val();
+    voucherData._token = $('meta[name="csrf-token"]').attr('content');
+    console.log(voucherData);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/voucher",
+        type: "post",
+        dateType: "JSON",
+        // contentType: 'application/json',
+        data: voucherData,
+        success:function(data){
+            console.log(data);
+            deleteVoucher();
+        },
+    });
+}
+
+// 
+function voucherDiscount(){
+    let total = $('#total-amount').val();
+    voucherPct = $('#voucher-discount').val();
+    paid = total -((voucherPct/100)*total);
+    $('#voucher-paid').val(paid); 
+}
+
 $(window).load(function(){
         // uuid
         function generate() {
@@ -262,12 +313,14 @@ $(window).load(function(){
         // add button
         $( "#voucher-add" ).on( "click", function() {
             let customerName = $('#voucher-select-cust').find(":selected").text();
+            let customerId = $('#voucher-select-cust').val();
+            console.log(customerId);
             uuid = generate();
             let voucher = {
                 id: uuid,
                 customerName: customerName,
+                customerId: customerId,
             };
-          console.log(localStorage.getItem('vouchers'))
             if (localStorage.getItem("vouchers").length === 0) {
                 let voucherArray = [];
                 voucherArray.push(voucher);
@@ -284,5 +337,5 @@ $(window).load(function(){
             
             getVouchers();
             checkBtn(uuid);
-          });   
+        });
 });

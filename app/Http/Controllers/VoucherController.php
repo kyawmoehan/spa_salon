@@ -7,7 +7,13 @@ use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Service;
 use App\Models\Staff;
+use App\Models\VoucherStaff;
+use App\Models\ItemVoucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\ItemLisstController;
+
 
 class VoucherController extends Controller
 {
@@ -16,19 +22,29 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct() 
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct() 
+    // {
+    //     $this->middleware('auth');
+    // }
 
 
     public function index()
     {
-        $customers = Customer::all();
-        $items = Item::all();
-        $services = Service::all();
-        $staffs = Staff::all();
-        return view('voucher.voucher_create', compact(['customers','items', 'services', 'staffs']));
+        $allVouchers= Voucher::query();
+        $searched = false;
+        if(request('fromdate')){
+            $from = request('fromdate');
+            $to = request('todate');
+            $allVouchers->whereBetween('date', [$from, $to])->get();
+            $searched = true;
+        }else if (request('search')) {
+            $allVouchers
+            ->where('voucher_number', 'Like', '%' . request('search') . '%')           
+            ->get();
+            $searched = true;
+        }
+        $vouchers = $allVouchers->orderByDesc('date')->paginate(10);
+        return view('voucher.voucher_list', compact(['vouchers', 'searched']));
     }
 
     /**
@@ -38,7 +54,11 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $items = Item::all();
+        $services = Service::all();
+        $staffs = Staff::all();
+        return view('voucher.voucher_create', compact(['customers','items', 'services', 'staffs']));
     }
 
     /**
@@ -49,7 +69,47 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        
+        $voucher = new Voucher();
+        $voucher->voucher_number = $input['id'];
+        $voucher->date = $input['date'];
+        $voucher->customer_id = $input['customerId'];
+        $voucher->total = $input['total'] ;
+        $voucher->paid = $input['paid'];
+        $voucher->discount = $input['discount'];
+        $voucher->remark = $input['remark'];
+        $voucher->voucher_staff = Auth::user()->id;
+        $voucher->save();
+
+        if(array_key_exists('services', $input)){
+            foreach($input['services'] as $service){
+                $staff = new VoucherStaff();
+                $staff->staff_id = $service['staffId'];
+                $staff->service_id = $service['serviceId'];
+                $staff->staff_pct = $service['staffPct'];
+                $staff->staff_amount = $service['staffAmount'];
+                $staff->date = $input['date'];
+                $voucher->voucherStaff()->save($staff);
+            }
+        }
+        
+        if(array_key_exists('items', $input)){
+            foreach($input['items'] as $item){
+                $itemV = new ItemVoucher();
+                $itemV->item_id = $item['itemId'];
+                $itemV->quantity = $item['quantity'];
+                $itemV->item_price = $item['itemPrice'];
+                $itemV->source = $item['source'];
+                $itemV->date = $input['date'];
+                $voucher->voucherItems()->save($itemV);
+                (new ItemListController)->removeItem($item['itemId'], $item['source'], $item['quantity']);
+            }
+        }
+
+        $test = array_key_exists('services', $input);
+
+        return response()->json(['success'=>'hi', 'data'=> $test]);
     }
 
     /**
@@ -60,7 +120,7 @@ class VoucherController extends Controller
      */
     public function show(Voucher $voucher)
     {
-        //
+        return view('voucher.voucher_view', compact('voucher'));
     }
 
     /**

@@ -6,7 +6,7 @@
 
             <div class=" d-flex justify-content-start align-items-center">
                 <div class="my-auto m-1">
-                    <a href="./index.php">
+                    <a href="{{route('voucher.index')}}">
                         <i class="fa fa-arrow-left fw-bolder" style="color:#7801ff;"></i>
                     </a>
                 </div>
@@ -79,6 +79,7 @@
                     </div>
                     <div class="col-3">
                         <input type="date" class="form-control form-control-sm col-3"
+                        id="voucher-date"
                         value="<?php echo (new DateTime())->format('Y-m-d'); ?>">
                     </div>
                 </div>
@@ -252,24 +253,24 @@
                             <div class="card-body row">
                                 <div class="col-5">
                                     <label for="remark">Remark</label>
-                                    <textarea name="" id="remark" cols="30" rows="10" style="resize: none;"></textarea>
+                                    <textarea name="" id="voucher-remark" cols="30" rows="10" style="resize: none;"></textarea>
                                 </div>
                                 <div class="col-7 row">
                                     <div class="col-12 mt-auto">
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Total </label>
-                                            <input type="text" class="form-control form-control-sm" disabled id="total-amount">
+                                            <input type="number" class="form-control form-control-sm" disabled id="total-amount">
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paid </label>
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="number" class="form-control form-control-sm" id="voucher-paid">
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Discount </label>
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="number" class="form-control form-control-sm" id="voucher-discount" value="0" step="0.1" onkeyup="voucherDiscount()">
                                         </div>
                                         <div class="form-group d-flex justify-content-between row">
-                                            <button class="btn btn-secondary col-4" style="height: 80px;">print</button>
+                                            <button class="btn btn-secondary col-4" style="height: 80px;" onclick="voucherSave()">Save</button>
                                             <button class="btn btn-secondary col-7" style="height: 80px;">print</button>
                                         </div>
                                     </div>

@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('item_vouchers', function (Blueprint $table) {
             $table->id();
-            $table->string('voucher_number')->unique();
-            $table->foreignId('customer_id');
+            $table->foreignId('voucher_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('item_id');
+            $table->integer('quantity');
+            $table->integer('item_price');
+            $table->string('source');
             $table->date('date');
-            $table->integer('total');
-            $table->integer('paid');
-            $table->integer('discount');
-            $table->integer('voucher_staff');
-            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('item_vouchers');
     }
 };

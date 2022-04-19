@@ -6,6 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Spa Beauty</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/icon/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css"> -->

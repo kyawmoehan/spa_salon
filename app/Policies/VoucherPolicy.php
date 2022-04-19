@@ -53,7 +53,7 @@ class VoucherPolicy
      */
     public function update(User $user, Voucher $voucher)
     {
-        return $user->role->name == "admin";
+        // return $user->role->name == "admin";
     }
 
     /**
@@ -65,7 +65,7 @@ class VoucherPolicy
      */
     public function delete(User $user, Voucher $voucher)
     {
-        return $user->role->name == "admin";
+        // return $user->role->name == "admin";
     }
 
     /**
