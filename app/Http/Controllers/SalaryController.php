@@ -20,7 +20,26 @@ class SalaryController extends Controller
 
     public function index()
     {
-        return view('salary.salary_list');
+        $this->authorize('viewAny', Salary::class);
+       
+        $allSalaries = Salary::query();
+        $searched = false;
+        if(request('fromdate')){
+            $from = request('fromdate');
+            $to = request('todate');
+            $allSalaries->whereBetween('date', [$from, $to])->get();
+            $searched = true;
+        }else if (request('search')) {
+            $data = request('search');
+            $allSalaries->whereHas('staff', function($query) use ($data) {
+                $query
+                ->where('name', 'Like', "%{$data}%");          
+            });
+            // $this->page = 1;
+            $searched = true;
+        }
+        $salaries = $allSalaries->orderByDesc('date')->paginate(10);
+        return view('salary.salary_list', compact(['salaries', 'searched']));
     }
 
     /**
@@ -63,7 +82,6 @@ class SalaryController extends Controller
         $salary->save();
          
         return redirect()->route('salary.index');
-
     }
 
     /**
@@ -74,7 +92,7 @@ class SalaryController extends Controller
      */
     public function show(Salary $salary)
     {
-        //
+        
     }
 
     /**
@@ -85,7 +103,8 @@ class SalaryController extends Controller
      */
     public function edit(Salary $salary)
     {
-        //
+        $staffs = Staff::all();
+        return view('salary.salary_edit', compact(['salary', 'staffs']));
     }
 
     /**
@@ -97,7 +116,26 @@ class SalaryController extends Controller
      */
     public function update(Request $request, Salary $salary)
     {
-        //
+        //Validation
+        $request->validate([
+            'staff_id' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+        ]);
+
+        $this->authorize('update', $salary);
+        
+        // store data 
+        $salary->staff_id = request('staff_id');
+        $salary->amount = request('amount');
+        $salary->service_amount = request('service_amount');
+        $salary->total_amount = request('total_amount');
+        $salary->date = request('date');
+        $salary->remark = request('remark');
+ 
+        $salary->save();
+         
+        return redirect()->route('salary.index');
     }
 
     /**
@@ -108,6 +146,8 @@ class SalaryController extends Controller
      */
     public function destroy(Salary $salary)
     {
-        //
+        $this->authorize('delete', $salary);
+        $salary->delete();
+        return redirect()->route('salary.index');
     }
 }

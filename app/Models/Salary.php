@@ -19,6 +19,6 @@ class Salary extends Model
 
     public function staff()
     {
-        return $this->belongsTo(staff::class);
+        return $this->belongsTo(Staff::class);
     }
 }

@@ -68,7 +68,8 @@
                     <td>{{$purchaseItem->remark}}</td>
                     <td>
                         <ul class="d-flex justify-content-center">
-                            <li class="mr-3"><a href="{{route('purchase.edit', $purchaseItem)}}" class="text-secondary"><i class="fa fa-edit"></i></a>
+                            <li class="mr-3">
+                                <a href="{{route('purchase.edit', $purchaseItem)}}" class="text-secondary"><i class="fa fa-edit"></i></a>
                             </li>
                             <li>
                                 <form action="{{route('purchase.destroy', $purchaseItem)}}" 
