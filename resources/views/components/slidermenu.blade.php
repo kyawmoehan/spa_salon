@@ -120,8 +120,8 @@
                             <a href="javascript:void(0)" aria-expanded="true"><i
                                     class="ti-money"></i><span>Salary</span></a>
                             <ul class="collapse">
-                                <li><a href="./salary.php">Add </a></li>
-                                <li><a href="./salaryList.php">List</a></li>
+                                <li><a href="{{route('salary.create')}}">Add </a></li>
+                                <li><a href="{{route('salary.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>

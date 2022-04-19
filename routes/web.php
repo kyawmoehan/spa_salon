@@ -13,6 +13,8 @@ use App\Http\Controllers\PurchaseItemController;
 use App\Http\Controllers\CounterItemController;
 use App\Http\Controllers\UsageItemController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\VoucherStaffController;
 
 use Illuminate\Http\Request;
 
@@ -40,6 +42,7 @@ Route::resource('purchase', PurchaseItemController::class, ["name" => "purchase"
 Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
 Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
-
+Route::resource('salary', SalaryController::class, ["name" => "salary"]);
+Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 
 require __DIR__.'/auth.php';
