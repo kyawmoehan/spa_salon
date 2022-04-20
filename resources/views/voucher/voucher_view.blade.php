@@ -4,7 +4,18 @@
     <div class="main-content-inner">
         <div class="d-flex justify-content-between mb-2 mt-2">
             <h4>Voucher Number: {{$voucher->voucher_number}}</h4>
-            <h4>Casher: {{$voucher->user->name}}</h4>
+            <div class="d-flex">
+                <h4>Casher: {{$voucher->user->name}}</h4>
+                <form action="{{route('voucher.destroy', $voucher)}}" 
+                method="POST"
+                class="d-inline-block" onsubmit="return confirm('Are you sure?')" >
+                @csrf
+                @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <i class="ti-trash"></i>
+                    </button>
+                </form> 
+            </div>
         </div>
         <div class="mt-4">
             <h4>

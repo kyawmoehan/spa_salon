@@ -154,6 +154,14 @@ class VoucherController extends Controller
      */
     public function destroy(Voucher $voucher)
     {
-        //
+        $this->authorize('delete', $voucher);
+        if(count($voucher->voucherItems) != 0){
+            foreach($voucher->voucherItems as $item){
+                (new ItemListController)->addItem($item->item_id, $item->source, 
+                $item->quantity);
+            }
+        }
+        $voucher->delete();
+        return redirect()->route('voucher.index');
     }
 }
