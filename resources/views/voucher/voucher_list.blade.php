@@ -35,7 +35,10 @@
             <form method="GET" action="{{route('voucher.index')}}">
                 @csrf
                 <div class="d-flex">
-                    <input type="search" placeholder="Search here" class=""  name="search" />
+                    <input class="form-check-input" type="checkbox" value="1" name="half-payment" id="half-payment">
+                    <label class="form-check-label" for="half-payment">
+                        Half Payament
+                    </label>
                     <button type="submit" >Search</button>
                     @if($searched)
                         <a href="{{route('voucher.index')}}" >Clear Search</a>
@@ -43,6 +46,18 @@
                 </div>
             </form>
         </div >
+        <!-- <div class="mt-3 mb-3">
+            <form method="GET" action="{{route('voucher.index')}}">
+                @csrf
+                <div class="d-flex">
+                    <input type="search" placeholder="Search here" class=""  name="search" />
+                    <button type="submit" >Search</button>
+                    @if($searched)
+                        <a href="{{route('voucher.index')}}" >Clear Search</a>
+                    @endif
+                </div>
+            </form>
+        </div > -->
         <table class="table table-hover progress-table text-center" id="myTable1">
             <thead class="text-uppercase">
                 <tr>

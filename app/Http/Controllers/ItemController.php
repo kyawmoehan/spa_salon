@@ -150,4 +150,11 @@ class ItemController extends Controller
         $item->delete();
         return redirect()->route('item.index');
     }
+
+    public function getItems(Request $request)
+    {
+        $searched = $request->searched;
+        $allItems = Item::where('name', 'Like', '%' . $searched . '%')->get();
+        return response()->json($allItems, 200);
+    }
 }

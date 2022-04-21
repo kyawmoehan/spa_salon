@@ -41,6 +41,7 @@ function checkBtn(id){
         <td>
             <button onclick="decreaseItem(${item['itemId']}, '${item['source']}')">-</button>
             ${item['quantity']}
+            <button onclick="increaseItem(${item['itemId']}, '${item['source']}')">+</button>
         </td>
         <td>
             ${item['itemPrice']}
@@ -131,6 +132,11 @@ function getVouchers(){
         $("#payment").val('cash');
         return;
     }
+    $('#item-search').val('');
+    $("#show-items").removeClass("d-none");
+    $("#get-show-items").addClass("d-none");
+
+
     $( "#customer-check" ).empty();
     $.each( getVoucherArray, function( i, item ) {       
         var newListItem = `<li class="check_customer_name list-group-item d-flex justify-content-between align-items-center pe-0 py-0">` + item['customerName'] + 
@@ -188,6 +194,21 @@ function addItem(itemId, itemName, itemPrice){
     checkBtn(SELECTEDCHECK);
 }
 
+// increase item 
+function increaseItem(itemId, source){
+    let getVoucherArray = getLocalstorage();
+    const index = getVoucherArray.findIndex(object => {
+        return object.id === SELECTEDCHECK;
+      });
+      const itemIndex = getVoucherArray[index].items.findIndex(object => {
+        return object.itemId == itemId && object.source == source;
+    });
+    getVoucherArray[index].items[itemIndex].quantity += 1;
+    
+    localStorage.setItem("vouchers", JSON.stringify(getVoucherArray));
+    checkBtn(SELECTEDCHECK);
+}
+
 // decrease item
 function decreaseItem(itemId, source){
     let getVoucherArray = getLocalstorage();
@@ -199,7 +220,7 @@ function decreaseItem(itemId, source){
     });
     getVoucherArray[index].items[itemIndex].quantity -= 1;
     if(getVoucherArray[index].items[itemIndex].quantity == 0){
-        delteItem(itemId);
+        delteItem(itemId, source);
         return;
     }
     localStorage.setItem("vouchers", JSON.stringify(getVoucherArray));
@@ -381,12 +402,49 @@ function voucherSave(){
     });
 }
 
-// 
+// voucher discount
 function voucherDiscount(){
     let total = $('#total-amount').val();
     voucherPct = $('#voucher-discount').val();
     paid = total -((voucherPct/100)*total);
     $('#voucher-paid').val(paid); 
+}
+
+// item searched
+function itemSearch(){
+    let search = $('#item-search').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/getitems",
+            type: "get",
+            data: {searched: search},
+            success:function(data){
+                // console.log(data);
+                if(search == null || search == ""){
+                    $("#show-items").removeClass( "d-none" );
+                    $("#get-show-items").addClass( "d-none" );
+                }else{
+                    $("#show-items").addClass( "d-none" );
+                    $("#get-show-items").removeClass( "d-none" );
+                }
+                $( "#get-show-items" ).empty();
+                $.each( data, function( i, item ) { 
+                    var newListItem = `
+                    <div class="col-4 item-btn-wapper mb-2">
+                        <button class="item-button btn btn-secondary"
+                        onclick="addItem('${item['id']}', '${item['name']}', '${item['price']}')">
+                            ${item['name']}
+                        </button>
+                    </div>
+                    `; 
+                    $( "#get-show-items" ).append( newListItem );
+                });
+            },
+        });
 }
 
 $(window).load(function(){
@@ -403,7 +461,6 @@ $(window).load(function(){
         $( "#voucher-add" ).on( "click", function() {
             let customerName = $('#voucher-select-cust').find(":selected").text();
             let customerId = $('#voucher-select-cust').val();
-            console.log(customerId);
             uuid = generate();
             let voucher = {
                 id: uuid,

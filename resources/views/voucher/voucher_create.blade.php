@@ -107,14 +107,26 @@
                                             <option value="counter">Counter</option>
                                         </select>
                                     </div>
-                                    @foreach($items as $item)
-                                    <div class="col-4 item-btn-wapper mb-2">
-                                        <button class="item-button btn btn-secondary"
-                                        onclick="addItem('{{$item->id}}','{{$item->name}}','{{$item->price}}')">
-                                            {{$item->name}}
-                                        </button>
-                                    </div>       
-                                    @endforeach
+
+                                    <div class="col-12 mb-3">
+                                        <input type="text" class="form-select form-select-sm"
+                                        placeholder="Search Item" required id="item-search"
+                                        onkeyup="itemSearch()">
+                                    </div>
+                                    
+                                    <div class="row d-none" id="get-show-items">
+
+                                    </div>
+                                    <div class="row" id="show-items">
+                                        @foreach($items as $item)
+                                            <div class="col-4 item-btn-wapper mb-2">
+                                                <button class="item-button btn btn-secondary"
+                                                onclick="addItem('{{$item->id}}','{{$item->name}}','{{$item->price}}')">
+                                                    {{$item->name}}
+                                                </button>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="service-box row d-none">
                                     <div class="col-6 mb-3">

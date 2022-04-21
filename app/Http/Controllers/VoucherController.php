@@ -43,6 +43,11 @@ class VoucherController extends Controller
             ->orwhere('payment', 'Like', '%' . request('search') . '%')           
             ->get();
             $searched = true;
+        }else if(request("half-payment")){
+            $allVouchers
+            ->where('half_payment', '=', request("half-payment"))           
+            ->get();
+            $searched = true;
         }
         $vouchers = $allVouchers->orderByDesc('date')->paginate(10);
         return view('voucher.voucher_list', compact(['vouchers', 'searched']));

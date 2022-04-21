@@ -43,6 +43,8 @@ Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
 Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
 Route::resource('salary', SalaryController::class, ["name" => "salary"]);
+
+Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 
 require __DIR__.'/auth.php';
