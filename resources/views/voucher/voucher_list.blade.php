@@ -52,6 +52,7 @@
                     <th scope="col">Paid</th>
                     <th scope="col">Discount</th>
                     <th scope="col">Customer</th>
+                    <th scope="cool">Payment</th>
                     <th scope="col">Casher</th>
                     <th scope="col">Date</th>
                     <th scope="col">Action</th>
@@ -66,6 +67,7 @@
                     <th>{{$voucher->paid}}</th>
                     <th>{{$voucher->discount}}</th>
                     <th>{{$voucher->customer->name}}</th>
+                    <th>{{$voucher->payment}}</th>
                     <th>{{$voucher->user->name}}</th>
                     <th>{{$voucher->date}}</th>
                     <th>

@@ -27,6 +27,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
+                <th scope="col">Percentage</th>
+                <th scope="col">Byname Percentage</th>
                 <th scope="col">Remark</th>
                 <th scope="col">Action</th>
             </tr>
@@ -37,6 +39,8 @@
                 <th>{{$key+1}}</th>
                 <td>{{$service->name}}</td>
                 <td>{{$service->price}} ks</td>
+                <td>{{$service->normal_pct}}</td>
+                <td>{{$service->name_pct}}</td>
                 <td>
                     {{$service->remark}}
                 </td>

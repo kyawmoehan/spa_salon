@@ -39,7 +39,8 @@ class VoucherController extends Controller
             $searched = true;
         }else if (request('search')) {
             $allVouchers
-            ->where('voucher_number', 'Like', '%' . request('search') . '%')           
+            ->where('voucher_number', 'Like', '%' . request('search') . '%')
+            ->orwhere('payment', 'Like', '%' . request('search') . '%')           
             ->get();
             $searched = true;
         }
@@ -77,6 +78,8 @@ class VoucherController extends Controller
         $voucher->customer_id = $input['customerId'];
         $voucher->total = $input['total'] ;
         $voucher->paid = $input['paid'];
+        $voucher->payment = $input['payment'];
+        $voucher->half_payment = $input['halfPayment'];
         $voucher->discount = $input['discount'];
         $voucher->remark = $input['remark'];
         $voucher->voucher_staff = Auth::user()->id;

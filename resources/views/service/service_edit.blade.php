@@ -26,6 +26,17 @@
                 @enderror
             </div>
             <div class="form-group row">
+                <label for="normal_pct" class="form-label col-sm-2">Percentage :</label>
+                <input class="form-control col-sm-10 mb-2" type="number" id="normal_pct" name="normal_pct" step="0.1" value="{{$service->normal_pct}}"/>
+                @error('normal_pct')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group row">
+                <label for="name_pct" class="form-label col-sm-2">By Name Percentage (Optional)</label>
+                <input class="form-control col-sm-10 mb-2" type="number" id="name_pct" name="name_pct" step="0.1" value="{{$service->name_pct}}"/>
+            </div>
+            <div class="form-group row">
                 <label for="remark" class="form-label col-sm-2">Remark</label>
                 <textarea style="resize: none; padding-top: 35px; height:200px;" class="form-control col-sm-10 mb-2"
                     type="tel" id="remark" name="remark">{{$service->remark}}</textarea>

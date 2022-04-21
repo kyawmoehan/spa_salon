@@ -122,19 +122,27 @@
                                         <select name="" id="staff-select" class="form-select form-select-sm mb-1" required>
                                             <option value="" disabled>Select Staff ...</option>
                                             @foreach($staffs as $staff)
-                                            <option value="{{$staff->name}},{{$staff->id}}">{{$staff->name}}</option>
+                                            <option 
+                                            value="{{$staff->name}},{{$staff->id}},">
+                                                {{$staff->name}}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-6 mb-3">
-                                        <label for="">Staff Percentage</label>
-                                        <input type="number" id="staff-pct"  step="0.1" class="form-select form-select-sm" required value="1">
+                                        <label f>Percentage</label>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value="1" id="name-checkbox">
+                                            <label class="form-check-label" for="name-checkbox">
+                                              By Name
+                                            </label>
+                                        </div>
                                     </div>
                                     
                                     @foreach($services as $service)
                                     <div class="col-4 service-btn-wapper mb-2">
                                         <button class="service-button btn btn-secondary"
-                                        onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}')">
+                                        onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}', '{{$service->normal_pct}}','{{$service->name_pct}}')">
                                             {{$service->name}}
                                         </button>
                                     </div>
@@ -257,6 +265,23 @@
                                 </div>
                                 <div class="col-7 row">
                                     <div class="col-12 mt-auto">
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value="1" id="half-payment">
+                                            <label class="form-check-label" for="half-payment">
+                                              Half Payament
+                                            </label>
+                                        </div>
+                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                            <label for="" class="form-label me-3">Paymaent</label>
+                                            <select name="payment" id="payment" class="form-select form-select-sm mb-1" required>
+                                                <option value="cash" selected>
+                                                    Cash
+                                                </option>
+                                                <option value="banking" >
+                                                    Online Banking
+                                                </option>
+                                            </select>
+                                        </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Total </label>
                                             <input type="number" class="form-control form-control-sm" disabled id="total-amount">

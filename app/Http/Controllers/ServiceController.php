@@ -46,6 +46,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
+            'normal_pct' => 'required',
         ]);
 
         $this->authorize('create', Service::class);
@@ -54,6 +55,8 @@ class ServiceController extends Controller
         $service = new Service();
         $service->name = request('name');
         $service->price = request('price');
+        $service->normal_pct = request('normal_pct');
+        $service->name_pct = request('name_pct');
         $service->remark = request('remark');
         $service->save();
         
@@ -95,13 +98,16 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
+            'normal_pct'=> 'required',
         ]);
 
         $this->authorize('update', $service);
-
+        
         // store data 
         $service->name = request('name');
         $service->price = request('price');
+        $service->normal_pct = request('normal_pct');
+        $service->name_pct = request('name_pct');
         $service->remark = request('remark');
         $service->save();
         

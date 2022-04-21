@@ -69,7 +69,7 @@ function checkBtn(id){
     $( "#service-table" ).empty();
     $.each( services, function( i, item ) {
         if(servicesArray.includes(item['serviceName'])){
-            console.log('in');
+            // console.log('in');
         }else{
             servicesArray.push(item['serviceName']);
             total += item['servicePrice'] * 1;
@@ -126,6 +126,9 @@ function getVouchers(){
         $( "#total-amount" ).val('');
         $( "#voucher-discount" ).val(0);
         $( "#voucher-paid" ).val('');
+        $('#voucher-remark').val('');
+        $('#half-payment').prop('checked', false); 
+        $("#payment").val('cash');
         return;
     }
     $( "#customer-check" ).empty();
@@ -219,10 +222,45 @@ function delteItem(itemId, source){
 
 
 // add service
-function addService(serviceId, serviceName, servicePrice){
+function findWithAttr(array, attr, value) {
+    let indexs = [];
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            indexs.push(i);
+        }
+    }
+    return indexs;
+}
+
+function addService(serviceId, serviceName, servicePrice, normalPct, namePct){
+
     var staff = $('#staff-select').val().split(',');
-    var staffPct = $('#staff-pct').val();
-    var staffAmount = (staffPct/100)*servicePrice;
+
+    let allServices = getVoucherById(SELECTEDCHECK).services;
+    let staffCount = 1;
+
+    let getVoucherArray = getLocalstorage();
+    const index = getVoucherArray.findIndex(object => {
+        return object.id === SELECTEDCHECK;
+    });
+
+    if(getVoucherArray[index].hasOwnProperty('services')){
+        var indexs = findWithAttr(allServices, 'serviceName', serviceName);
+        if(indexs.length != 0){
+            staffCount = indexs.length + 1;
+        }
+    }
+
+    var nameCheckbox = $('#name-checkbox').is(':checked');
+    var staffPct = normalPct;
+    if(nameCheckbox){
+        staffPct = namePct/ staffCount;
+    }else{
+        staffPct = normalPct / staffCount;
+    }
+    staffPct = staffPct.toFixed(2);
+    var staffAmount = Math.floor((staffPct/100)*servicePrice);
+    
     var service = {
         serviceId,
         serviceName,
@@ -231,11 +269,19 @@ function addService(serviceId, serviceName, servicePrice){
         staffId: staff[1],
         staffPct,
         staffAmount,
+        normalPct,
+        namePct,
+        nameCheckbox,
     }
-    let getVoucherArray = getLocalstorage();
-    const index = getVoucherArray.findIndex(object => {
-        return object.id === SELECTEDCHECK;
-      });
+    
+    if(getVoucherArray[index].hasOwnProperty('services')){
+        if(indexs.length != 0){
+            indexs.forEach(function(sindex, i) {
+                getVoucherArray[index].services[sindex]['staffPct']= staffPct;
+                getVoucherArray[index].services[sindex]['staffAmount']= staffAmount;
+            });
+        }
+    }
 
     if(getVoucherArray[index].hasOwnProperty('services')){
         let getServices =  getVoucherArray[index].services;
@@ -248,6 +294,43 @@ function addService(serviceId, serviceName, servicePrice){
 }
 
 // delete service
+function removeServiceidFormArr(array, value){
+    var index = array.indexOf(value);
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+    return array;
+}
+
+function increaseStaffPct(getVoucherArray, index, serviceIndex){
+    let serviceName = getVoucherArray[index].services[serviceIndex].serviceName;
+    let nameCheckbox = getVoucherArray[index].services[serviceIndex].nameCheckbox;
+    let normalPct = getVoucherArray[index].services[serviceIndex].normalPct;
+    let namePct = getVoucherArray[index].services[serviceIndex].namePct;
+    let servicePrice = getVoucherArray[index].services[serviceIndex].servicePrice;
+
+    let allServices = getVoucherById(SELECTEDCHECK).services;
+    let indexs = findWithAttr(allServices, 'serviceName', serviceName);
+    let staffCount = indexs.length -1;
+    indexs = removeServiceidFormArr(indexs, serviceIndex);
+
+    var staffPct = normalPct;
+    if(nameCheckbox){
+        staffPct = namePct/ staffCount;
+    }else{
+        staffPct = normalPct / staffCount;
+    }
+    staffPct = staffPct.toFixed(2);
+    var staffAmount = Math.floor((staffPct/100)*servicePrice);
+
+    if(indexs.length != 0){
+        indexs.forEach(function(sindex, i) {
+            getVoucherArray[index].services[sindex]['staffPct']= staffPct;
+            getVoucherArray[index].services[sindex]['staffAmount']= staffAmount;
+        });
+    }
+}
+
 function delteService(serviceId, staffId){
     let getVoucherArray = getLocalstorage();
     const index = getVoucherArray.findIndex(object => {
@@ -256,6 +339,9 @@ function delteService(serviceId, staffId){
     const serviceIndex = getVoucherArray[index].services.findIndex(object => {
         return object.serviceId == serviceId && object.staffId == staffId;
     });
+
+ 
+    increaseStaffPct(getVoucherArray, index, serviceIndex);
     getVoucherArray[index].services.splice(serviceIndex, 1);
     localStorage.setItem("vouchers", JSON.stringify(getVoucherArray));
     checkBtn(SELECTEDCHECK);
@@ -270,6 +356,9 @@ function voucherSave(){
     voucherData.date = date; 
     voucherData.total = ALLTOTAL;   
     voucherData.paid =  $('#voucher-paid').val();
+    voucherData.paid =  $('#voucher-paid').val();
+    voucherData.payment = $('#payment').val();
+    voucherData.halfPayment = $('#half-payment').is(':checked') ? 1: 0;
     voucherData.discount=  $('#voucher-discount').val();
     voucherData.remark = $('#voucher-remark').val();
     voucherData._token = $('meta[name="csrf-token"]').attr('content');

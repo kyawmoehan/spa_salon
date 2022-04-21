@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
+            $table->float('normal_pct');
+            $table->float('name_pct')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
         });

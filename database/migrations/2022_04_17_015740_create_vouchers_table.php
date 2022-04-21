@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('paid');
             $table->integer('discount');
             $table->integer('voucher_staff');
+            $table->string('payment');
+            $table->boolean('half_payment');
             $table->text('remark')->nullable();
             $table->timestamps();
         });
