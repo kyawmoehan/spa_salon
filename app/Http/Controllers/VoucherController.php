@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ItemLisstController;
 
+use App\Exports\VoucherExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Session;
 
 class VoucherController extends Controller
 {
@@ -30,27 +34,40 @@ class VoucherController extends Controller
 
     public function index()
     {
+        Session::forget('voucherexport');
         $allVouchers= Voucher::query();
         $searched = false;
-        if(request('fromdate')){
+        $searched1 = false;
+        if(request('fromdate') && request('todate') && request("half-payment")){
             $from = request('fromdate');
             $to = request('todate');
-            $allVouchers->whereBetween('date', [$from, $to])->get();
-            $searched = true;
-        }else if (request('search')) {
-            $allVouchers
-            ->where('voucher_number', 'Like', '%' . request('search') . '%')
-            ->orwhere('payment', 'Like', '%' . request('search') . '%')           
+            Session::put('voucherexport', [$from, $to, true]);
+            $allVouchers->whereBetween('date', [$from, $to])
+            ->where('half_payment', '=', request("half-payment"))
             ->get();
             $searched = true;
+        }
+        else if(request('fromdate') && request('todate')){
+            $from = request('fromdate');
+            $to = request('todate');
+            Session::put('voucherexport', [$from, $to, false]);
+            $allVouchers->whereBetween('date', [$from, $to])->get();
+            $searched = true;
         }else if(request("half-payment")){
+            // Session::put('voucherexport', [null, null, true]);
             $allVouchers
             ->where('half_payment', '=', request("half-payment"))           
             ->get();
             $searched = true;
+        }else if(request('search')) {
+            $allVouchers
+            ->where('voucher_number', 'Like', '%' . request('search') . '%')
+            ->orwhere('payment', 'Like', '%' . request('search') . '%')      
+            ->get();
+            $searched1 = true;
         }
         $vouchers = $allVouchers->orderByDesc('date')->paginate(10);
-        return view('voucher.voucher_list', compact(['vouchers', 'searched']));
+        return view('voucher.voucher_list', compact(['vouchers', 'searched', 'searched1']));
     }
 
     /**
@@ -171,5 +188,15 @@ class VoucherController extends Controller
         }
         $voucher->delete();
         return redirect()->route('voucher.index');
+    }
+
+    public function export() 
+    {
+        $value = Session('voucherexport');
+        $from = $value[0];
+        $to = $value[1];
+        $halfPayment = $value[2];
+        // Session::forget('voucherexport');
+        return Excel::download(new VoucherExport($from, $to, $halfPayment), 'vouchers.xlsx');
     }
 }

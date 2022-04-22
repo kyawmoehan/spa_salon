@@ -13,3 +13,4 @@
 ## Packages
 
 - Carbon
+- maatwebsite/excel

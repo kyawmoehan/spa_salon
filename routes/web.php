@@ -47,4 +47,6 @@ Route::resource('salary', SalaryController::class, ["name" => "salary"]);
 Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 
+Route::get('voucherexport', [VoucherController::class, 'export'])->name('voucherexport');
+
 require __DIR__.'/auth.php';
