@@ -6,6 +6,11 @@ use App\Models\Salary;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
+use App\Exports\SalariesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Session;
+
 class SalaryController extends Controller
 {
     /**
@@ -20,6 +25,7 @@ class SalaryController extends Controller
 
     public function index()
     {
+        Session::forget('salaryexport');
         $this->authorize('viewAny', Salary::class);
        
         $allSalaries = Salary::query();
@@ -27,6 +33,7 @@ class SalaryController extends Controller
         if(request('fromdate')){
             $from = request('fromdate');
             $to = request('todate');
+            Session::put('salaryexport', [$from, $to]);
             $allSalaries->whereBetween('date', [$from, $to])->get();
             $searched = true;
         }else if (request('search')) {
@@ -149,5 +156,13 @@ class SalaryController extends Controller
         $this->authorize('delete', $salary);
         $salary->delete();
         return redirect()->route('salary.index');
+    }
+
+    public function export() 
+    {
+        $value = Session('salaryexport');
+        $from = $value[0];
+        $to = $value[1];
+        return Excel::download(new SalariesExport($from, $to), 'generalcost.xlsx');
     }
 }

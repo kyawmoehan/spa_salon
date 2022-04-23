@@ -15,6 +15,7 @@ use App\Http\Controllers\UsageItemController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\VoucherStaffController;
+use App\Http\Controllers\ItemVoucherController;
 
 use Illuminate\Http\Request;
 
@@ -44,9 +45,17 @@ Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
 Route::resource('salary', SalaryController::class, ["name" => "salary"]);
 
+Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
+
+// ajax route
 Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 
+// excel export roue
 Route::get('voucherexport', [VoucherController::class, 'export'])->name('voucherexport');
+Route::get('generalcostexport', [GeneralCostController::class, 'export'])->name('generalcostexport');
+Route::get('usageitemexport', [UsageItemController::class, 'export'])->name('usageitemexport');
+Route::get('salaryexport', [SalaryController::class, 'export'])->name('salaryexport');
+Route::get('saleexport', [ItemVoucherController::class, 'export'])->name('saleexport');
 
 require __DIR__.'/auth.php';

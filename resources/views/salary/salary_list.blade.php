@@ -89,6 +89,13 @@
          </tbody>
      </table>
      {{ $salaries->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
+
+     @if(Session::has("salaryexport"))
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary" href="{{route('salaryexport')}}">Export Excel</a>
+        </div>
+    @endif
+
      <div class="mt-3">
          <a href="{{route('salary.create')}}"
              class="btn mt-auto btn-info ml-auto mb-2 col-sm-1 d-flex justify-content-center align-items-center">

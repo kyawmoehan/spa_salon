@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ItemLisstController;
 use Carbon;
 
+use App\Exports\UsageItemsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Session;
+
 class UsageItemController extends Controller
 {
     /**
@@ -22,12 +27,14 @@ class UsageItemController extends Controller
 
     public function index()
     {
+        Session::forget('usageitemexport');
         $this->authorize('viewAny', UsageItem::class);
         $allUsage= UsageItem::query();
         $searched = false;
         if(request('fromdate')){
             $from = request('fromdate');
             $to = request('todate');
+            Session::put('usageitemexport', [$from, $to]);
             $allUsage->whereBetween('date', [$from, $to])->get();
             $searched = true;
         }else if (request('search')) {
@@ -157,5 +164,13 @@ class UsageItemController extends Controller
         $usage->delete();
         (new ItemListController)->addItem($usage->item_id, $usage->source, $usage->quantity);
         return redirect()->route('usage.index');
+    }
+
+    public function export() 
+    {
+        $value = Session('usageitemexport');
+        $from = $value[0];
+        $to = $value[1];
+        return Excel::download(new UsageItemsExport($from, $to), 'usageitem.xlsx');
     }
 }

@@ -21,4 +21,9 @@ class ItemVoucher extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
 }

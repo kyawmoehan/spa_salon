@@ -5,7 +5,7 @@ namespace App\Exports;
 use App\Models\Voucher;
 use App\Models\Customer;
 use App\Models\User;
-// use Maatwebsite\Excel\Concerns\FromCollection;
+
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;

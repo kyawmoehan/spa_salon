@@ -6,6 +6,11 @@ use App\Models\GeneralCost;
 use Illuminate\Http\Request;
 use Carbon;
 
+use App\Exports\GeneralCostsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Session;
+
 class GeneralCostController extends Controller
 {
     /**
@@ -20,6 +25,7 @@ class GeneralCostController extends Controller
 
     public function index()
     {
+        Session::forget('generalcostexport');
         $this->authorize('viewAny', GeneralCost::class);
         $allGeneralCost = GeneralCost::query();
         $searched = false;
@@ -27,6 +33,7 @@ class GeneralCostController extends Controller
         if(request('fromdate')){
             $from = request('fromdate');
             $to = request('todate');
+            Session::put('generalcostexport', [$from, $to]);
             $allGeneralCost->whereBetween('date', [$from, $to])->get();
             $totalCost = $allGeneralCost->whereBetween('date', [$from, $to])->sum('cost');
             $searched = true;
@@ -142,5 +149,13 @@ class GeneralCostController extends Controller
         $this->authorize('delete', $generalcost);
         $generalcost->delete();
         return redirect()->route('generalcost.index');
+    }
+
+    public function export() 
+    {
+        $value = Session('generalcostexport');
+        $from = $value[0];
+        $to = $value[1];
+        return Excel::download(new GeneralCostsExport($from, $to), 'generalcost.xlsx');
     }
 }
