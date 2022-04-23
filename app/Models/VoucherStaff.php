@@ -17,6 +17,11 @@ class VoucherStaff extends Model
         'date',
     ];
 
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
+    
     public function staff()
     {
         return $this->belongsTo(Staff::class);

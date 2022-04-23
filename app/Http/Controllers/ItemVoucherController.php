@@ -60,6 +60,6 @@ class ItemVoucherController extends Controller
         $value = Session('saleexport');
         $from = $value[0];
         $to = $value[1];
-        return Excel::download(new SalesExport($from, $to), 'generalcost.xlsx');
+        return Excel::download(new SalesExport($from, $to), 'saleslist.xlsx');
     }
 }

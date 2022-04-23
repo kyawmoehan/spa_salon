@@ -22,10 +22,14 @@ class GeneralCostsExport implements FromQuery, WithStrictNullComparison, WithMap
         $this->to = $to;
     }
 
+    private $rowNumber = 0;
     public function map($generalcost): array
     {
+        $this->rowNumber++;
+
         return [
-            $generalcost->id,
+            // $generalcost->id,
+            $this->rowNumber,
             $generalcost->cost_type,
             $generalcost->reason,
             $generalcost->cost,

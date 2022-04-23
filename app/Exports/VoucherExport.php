@@ -26,10 +26,14 @@ class VoucherExport implements FromQuery, WithStrictNullComparison, WithMapping,
         $this->half = $halfPayment;
     }
 
+    private $rowNumber = 0;
     public function map($voucher): array
     {
+        $this->rowNumber++;
+
         return [
-            $voucher->id,
+            // $voucher->id,
+            $this->rowNumber,
             $voucher->voucher_number,
             $voucher->customer->name,
             $voucher->date,

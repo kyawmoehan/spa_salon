@@ -67,11 +67,11 @@
             </a>
         </div>
         <div class="col-lg-3 mb-2">
-            <a href="./saleList.php" class="card  sale-card">
+            <a href="{{route('salelist')}}" class="card  sale-card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-7 report_text">
-                            <h3 class="text-light">37</h3>
+                            <h3 class="text-light">{{$todaySales}}</h3>
                             <p class="text-light">Today Sale</p>
                         </div>
                         <div class="col-sm-5 report_icons_sale">
@@ -81,14 +81,75 @@
                 </div>
                 <div class="bg-transparent">
                     <div class="col sale-card-more text-center p-2 text-light">
-                        more info<i class="ml-2 fa fa-arrow-right"></i>
+                        <a class="link-light" href="{{route('salelist')}}">more info<i class="ml-2 fa fa-arrow-right"></i></a>
                     </div>
                 </div>
 
             </a>
         </div>
     </div>
-    <div class="card h-full col-4">
+    <div class="row mt-5">
+        <div class="col-lg-6 mb-2">
+            <div  class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Top Item</h5>
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="item-month">
+                          <option selected disabled>Choose...</option>
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">Setember</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="11">December</option>
+                        </select>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody class="" id="jshow-item">
+
+                        </tbody>
+                        <tbody class="" id="show-item">
+                            @php
+                                $i =1
+                            @endphp
+                            @foreach($countItems as $key=>$countItem)
+                              <tr>
+                                <th scope="row">{{$i++}}</th>
+                                <td>{{$key}}</td>
+                                <td>{{$countItem}}</td>
+                              </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-2">
+            <div  class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Top Service</h5>
+                        @foreach($countItems as $key=>$countItem)
+                            <p>{{$key}}</p>
+                            <p>{{$countItem}}</p>
+                        @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card h-full col-4">
         <div class="card-body">
             <div class="chartjs-size-monitor"
                 style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -105,11 +166,12 @@
             <canvas id="chart_detail" height="242" width="313"
                 style="display: block; height: 194px; width: 251px;" class="chartjs-render-monitor"></canvas>
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection
 
 @section('script')
+<script src="{{asset('js/home.js')}}"></script>
 <script>
     if ($("#chart_detail").length) {
         var ctx = document.getElementById("chart_detail").getContext("2d");

@@ -46,10 +46,12 @@ Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
 Route::resource('salary', SalaryController::class, ["name" => "salary"]);
 
 Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
+Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servicelist');
 
 // ajax route
 Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
+Route::get('topitems', [PageController::class, "getTopItems"]);
 
 // excel export roue
 Route::get('voucherexport', [VoucherController::class, 'export'])->name('voucherexport');
@@ -57,5 +59,6 @@ Route::get('generalcostexport', [GeneralCostController::class, 'export'])->name(
 Route::get('usageitemexport', [UsageItemController::class, 'export'])->name('usageitemexport');
 Route::get('salaryexport', [SalaryController::class, 'export'])->name('salaryexport');
 Route::get('saleexport', [ItemVoucherController::class, 'export'])->name('saleexport');
+Route::get('serviceexport', [VoucherStaffController::class, 'export'])->name('serviceexport');
 
 require __DIR__.'/auth.php';

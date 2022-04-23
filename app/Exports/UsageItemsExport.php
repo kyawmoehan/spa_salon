@@ -22,10 +22,14 @@ class UsageItemsExport implements FromQuery, WithStrictNullComparison, WithMappi
         $this->to = $to;
     }
 
+    private $rowNumber = 0;
     public function map($usageitem): array
     {
+        $this->rowNumber++;
+
         return [
-            $usageitem->id,
+            // $usageitem->id,
+            $this->rowNumber,
             $usageitem->item->name,
             $usageitem->quantity,
             $usageitem->source,

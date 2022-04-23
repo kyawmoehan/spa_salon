@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Salary;
+use App\Models\VoucherStaff;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class SalariesExport implements FromQuery, WithStrictNullComparison, WithMapping, WithHeadings ,ShouldAutoSize
+class ServicesExport implements FromQuery, WithStrictNullComparison, WithMapping, WithHeadings ,ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -23,19 +23,19 @@ class SalariesExport implements FromQuery, WithStrictNullComparison, WithMapping
     }
 
     private $rowNumber = 0;
-    public function map($salary): array
+    public function map($serviceVoucher): array
     {
         $this->rowNumber++;
-
         return [
-            // $salary->id,
+            // $serviceVoucher->id,
             $this->rowNumber,
-            $salary->staff->name,
-            $salary->amount,
-            $salary->service_amount,
-            $salary->total_amount,
-            $salary->remark,
-            $salary->date,
+            $serviceVoucher->voucher->voucher_number,
+            $serviceVoucher->voucher->customer->name,
+            $serviceVoucher->service->name,
+            $serviceVoucher->staff->name,
+            $serviceVoucher->staff_pct,
+            $serviceVoucher->staff_amount,
+            $serviceVoucher->date,
         ];
     }
 
@@ -43,17 +43,18 @@ class SalariesExport implements FromQuery, WithStrictNullComparison, WithMapping
     {
         return [
             '#',
+            'Voucher Number',
+            'Customer',
+            'Service',
             'Staff',
+            'Percentage',
             'Amount',
-            'Service Amount',
-            'Total Amount',
-            'Remark',
-            'Date',
+            'date',
         ];
     }
 
     public function query()
     {
-        return Salary::query()->whereBetween('date', [$this->from, $this->to]);
+        return VoucherStaff::query()->whereBetween('date', [$this->from, $this->to]);
     }
 }

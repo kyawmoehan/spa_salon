@@ -22,10 +22,14 @@ class SalesExport implements FromQuery, WithStrictNullComparison, WithMapping, W
         $this->to = $to;
     }
 
+    private $rowNumber = 0;
     public function map($itemVoucher): array
     {
+        $this->rowNumber++;
+
         return [
-            $itemVoucher->id,
+            // $itemVoucher->id,
+            $this->rowNumber,
             $itemVoucher->voucher->voucher_number,
             $itemVoucher->voucher->customer->name,
             $itemVoucher->item->name,
