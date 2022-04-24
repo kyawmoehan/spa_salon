@@ -52,6 +52,7 @@ Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servi
 Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 Route::get('topitems', [PageController::class, "getTopItems"]);
+Route::get('topservices', [PageController::class, "getTopServices"]);
 
 // excel export roue
 Route::get('voucherexport', [VoucherController::class, 'export'])->name('voucherexport');

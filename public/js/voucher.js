@@ -27,6 +27,7 @@ function checkBtn(id){
     let customerName = document.getElementById('customer-name');
     customerName.innerHTML = voucher['customerName'];
     
+    document.getElementById('voucher-date').valueAsDate = new Date();
     // item table
     let items = voucher.items;
     $( "#items-table" ).empty();
@@ -130,6 +131,8 @@ function getVouchers(){
         $('#voucher-remark').val('');
         $('#half-payment').prop('checked', false); 
         $("#payment").val('cash');
+        document.getElementById('voucher-date').valueAsDate = new Date();
+
         return;
     }
     $('#item-search').val('');
@@ -375,6 +378,7 @@ function voucherSave(){
 
     let voucherData = voucher;
     voucherData.date = date; 
+    console.log(date);
     voucherData.total = ALLTOTAL;   
     voucherData.paid =  $('#voucher-paid').val();
     voucherData.paid =  $('#voucher-paid').val();

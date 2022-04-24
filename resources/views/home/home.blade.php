@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-7 report_text">
-                            <h3 class="text-light">15</h3>
+                            <h3 class="text-light">{{$todayServices}}</h3>
                             <p class="text-light">Today Service</p>
                         </div>
                         <div class="col-sm-5 report_icons_service">
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-7 report_text">
-                            <h3 class="text-light">55</h3>
+                            <h3 class="text-light">{{$itemsStock}}</h3>
                             <p class="text-light">Items instock</p>
                         </div>
                         <div class="col-sm-5 report_icons_item">
@@ -140,11 +140,48 @@
         <div class="col-lg-6 mb-2">
             <div  class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Top Service</h5>
-                        @foreach($countItems as $key=>$countItem)
-                            <p>{{$key}}</p>
-                            <p>{{$countItem}}</p>
-                        @endforeach
+                    <h5 class="card-title">Top Serivces</h5>
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="service-month">
+                          <option selected disabled>Choose...</option>
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">Setember</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="11">December</option>
+                        </select>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody class="" id="jshow-service">
+
+                        </tbody>
+                        <tbody class="" id="show-service">
+                            @php
+                                $is =1
+                            @endphp
+                            @foreach($countServices as $key=>$countService)
+                              <tr>
+                                <th scope="row">{{$is++}}</th>
+                                <td>{{$key}}</td>
+                                <td>{{$countService}}</td>
+                              </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>
