@@ -137,7 +137,7 @@
                                     class="ti-home"></i><span>Reports</span></a>
                             <ul class="collapse">
                                 <!-- <li><a href="./purchase-report.php">Purchase Report</a></li> -->
-                                <li><a href="./inventory.php">Inventory</a></li>
+                                <li><a href="{{route('iteminventory')}}">Inventory</a></li>
                             </ul>
                         </li>
                         @endif

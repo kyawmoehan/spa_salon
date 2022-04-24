@@ -12,6 +12,28 @@ class ItemListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() 
+    {
+        $this->middleware('role:admin');
+    }
+
+    public function index()
+    {
+        $allItemList = ItemList::query();
+        $searched = false;
+        if (request('search')) {
+            $data = request('search');
+            $allItemList
+            ->orWhereHas('item', function($query) use ($data) {
+                $query
+                ->where('name', 'Like', "%{$data}%");          
+            })
+            ->get();
+            $searched = true;
+        }
+        $itemList = $allItemList->orderBy('id')->paginate(15);
+        return view('report.item_inventory', compact(['itemList', 'searched']));
+    }
 
     public function addItem($item_id, $source, $quantity){
         $item = ItemList::where('item_id', '=', $item_id)->exists();

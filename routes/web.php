@@ -16,6 +16,7 @@ use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\VoucherStaffController;
 use App\Http\Controllers\ItemVoucherController;
+use App\Http\Controllers\ItemListController;
 
 use Illuminate\Http\Request;
 
@@ -47,6 +48,7 @@ Route::resource('salary', SalaryController::class, ["name" => "salary"]);
 
 Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
 Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servicelist');
+Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
 
 // ajax route
 Route::get('getitems', [itemController::class, 'getitems']);
