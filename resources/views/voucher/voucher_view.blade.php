@@ -6,15 +6,34 @@
             <h4>Voucher Number: {{$voucher->voucher_number}}</h4>
             <div class="d-flex">
                 <h4>Casher: {{$voucher->user->name}}</h4>
-                <form action="{{route('voucher.destroy', $voucher)}}" 
-                method="POST"
-                class="d-inline-block" onsubmit="return confirm('Are you sure?')" >
-                @csrf
-                @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                        <i class="ti-trash"></i>
-                    </button>
-                </form> 
+                @if(Auth::user()->hasRole('admin'))
+                    <a href="{{route('voucher.edit', $voucher)}}" class="btn btn-info">
+                        <i class="fa fa-edit"></i></a>
+                    <form action="{{route('voucher.destroy', $voucher)}}" 
+                    method="POST"
+                    class="d-inline-block" onsubmit="return confirm('Are you sure?')" >
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="ti-trash"></i>
+                        </button>
+                    </form> 
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Customer Name: {{$voucher->Customer->name}}</p>
+                <p>Total: {{$voucher->total}}</p>
+                <p>Paid: {{$voucher->paid}}</p>
+                <p>Discount: {{$voucher->discount}}</p>
+            </div>
+            <div class="col-6">
+                <p>Date: {{$voucher->date}}</p>
+                <p>Payment: {{$voucher->payment}}</p>
+                <input class="form-check-input" type="checkbox" 
+                    {{$voucher->half_payment ? 'checked': ""}}  >
+                <p>Remark: {{$voucher->remark}}</p>
             </div>
         </div>
         <div class="mt-4">

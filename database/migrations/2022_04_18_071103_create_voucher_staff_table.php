@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('service_id');
             $table->float('staff_pct');
             $table->integer('staff_amount');
+            $table->boolean('name_checkbox');
             $table->date('date');
             $table->timestamps();
         });

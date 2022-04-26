@@ -114,6 +114,7 @@ class VoucherController extends Controller
                 $staff->service_id = $service['serviceId'];
                 $staff->staff_pct = $service['staffPct'];
                 $staff->staff_amount = $service['staffAmount'];
+                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1: 0;
                 $staff->date = $input['date'];
                 $voucher->voucherStaff()->save($staff);
             }
@@ -157,7 +158,52 @@ class VoucherController extends Controller
      */
     public function edit(Voucher $voucher)
     {
-        //
+        $getItemList = $voucher->voucherItems;
+        $getServiceList = $voucher->voucherStaff;
+        $items = Item::all();
+        $services = Service::all();
+        $staffs = Staff::all();
+
+        $itemList = [];
+        foreach($getItemList as $item){
+            $itemData = [
+                'itemId' => $item->item_id,
+                'itemName' => $item->item->name,
+                'itemPrice' => $item->item_price,
+                'quantity' => $item->quantity,
+                'source' => $item->source,
+            ];
+            array_push($itemList, $itemData);
+        }
+
+        $serviceList = [];
+        foreach($getServiceList as $service){
+            $serviceData = [
+                'nameCheckbox' => $service->name_checkbox == 1 ? true: false,
+                'namePct' => $service->service->name_pct,
+                'normalPct' => $service->service->normal_pct,
+                'serviceId' => $service->service_id,
+                'serviceName' => $service->service->name,
+                'servicePrice' => $service->service->price,
+                'staffAmount' => $service->staff_amount,
+                'staffId' => $service->staff_id,
+                'staffName' => $service->staff->name,
+                'staffPct' => $service->staff_pct,
+            ];
+            array_push($serviceList, $serviceData);
+        }
+
+
+        $getData = [
+            'customerId' => $voucher->customer_id,
+            'customerName' => $voucher->customer->name,
+            'voucherId' => $voucher->id,
+            'id' => $voucher->voucher_number,
+            'items' => $itemList,
+            'services' => $serviceList,
+        ];
+        $data = json_encode($getData);
+        return view('voucher.voucher_edit', compact(['voucher','data','items', 'services', 'staffs']));
     }
 
     /**
@@ -169,7 +215,60 @@ class VoucherController extends Controller
      */
     public function update(Request $request, Voucher $voucher)
     {
-        //
+        $this->authorize('update', $voucher);
+        $input = $request->all();
+
+        // delete old
+        $oldVoucher = Voucher::find($input['voucherId']);
+        if(count($oldVoucher->voucherItems) != 0){
+            foreach($oldVoucher->voucherItems as $item){
+                (new ItemListController)->addItem($item->item_id, $item->source, 
+                $item->quantity);
+            }
+        }
+        $oldVoucher->delete();
+
+        // new voucher
+        $voucher = new Voucher();
+        $voucher->voucher_number = $input['id'];
+        $voucher->date = $input['date'];
+        $voucher->customer_id = $input['customerId'];
+        $voucher->total = $input['total'] ;
+        $voucher->paid = $input['paid'];
+        $voucher->payment = $input['payment'];
+        $voucher->half_payment = $input['halfPayment'];
+        $voucher->discount = $input['discount'];
+        $voucher->remark = $input['remark'];
+        $voucher->voucher_staff = Auth::user()->id;
+        $voucher->save();
+
+        if(array_key_exists('services', $input)){
+            foreach($input['services'] as $service){
+                $staff = new VoucherStaff();
+                $staff->staff_id = $service['staffId'];
+                $staff->service_id = $service['serviceId'];
+                $staff->staff_pct = $service['staffPct'];
+                $staff->staff_amount = $service['staffAmount'];
+                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1: 0;
+                $staff->date = $input['date'];
+                $voucher->voucherStaff()->save($staff);
+            }
+        }
+        
+        if(array_key_exists('items', $input)){
+            foreach($input['items'] as $item){
+                $itemV = new ItemVoucher();
+                $itemV->item_id = $item['itemId'];
+                $itemV->quantity = $item['quantity'];
+                $itemV->item_price = $item['itemPrice'];
+                $itemV->total = $item['itemPrice']*$item['quantity'];
+                $itemV->source = $item['source'];
+                $itemV->date = $input['date'];
+                $voucher->voucherItems()->save($itemV);
+                (new ItemListController)->removeItem($item['itemId'], $item['source'], $item['quantity']);
+            }
+        }
+        return response()->json(['success'=>'hi', 'data'=> $input['voucherId']]);
     }
 
     /**

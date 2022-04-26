@@ -61,7 +61,8 @@
                     <th scope="col">Paid</th>
                     <th scope="col">Discount</th>
                     <th scope="col">Customer</th>
-                    <th scope="cool">Payment</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Half Paymaent</th>
                     <th scope="col">Casher</th>
                     <th scope="col">Date</th>
                     <th scope="col">Action</th>
@@ -77,6 +78,10 @@
                     <th>{{$voucher->discount}}</th>
                     <th>{{$voucher->customer->name}}</th>
                     <th>{{$voucher->payment}}</th>
+                    <th>
+                        <input class="form-check-input" type="checkbox" 
+                        {{$voucher->half_payment ? 'checked': ""}}  >
+                    </th>
                     <th>{{$voucher->user->name}}</th>
                     <th>{{$voucher->date}}</th>
                     <th>
