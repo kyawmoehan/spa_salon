@@ -19,11 +19,8 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Item Name</th>
-                <th scope="col">Opening Stock</th>
                 <th scope="col">Counter Stock</th>
                 <th scope="col">Purchase Stock</th>
-                <th scope="col">Sold Stock</th>
-                <th scope="col">Closing Stock</th>
             </tr>
         </thead>
         <tbody>
@@ -31,11 +28,8 @@
             <tr>
                 <th>{{$key+1}}</th>
                 <td>{{$item->item->name}}</td>
-                <td>0</td>
                 <td>{{$item->counter}}</td>
                 <td>{{$item->purchase}}</td>
-                <td>0</td>
-                <td>0</td>
             </tr>
             @endforeach
         </tbody>

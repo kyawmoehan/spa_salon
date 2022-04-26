@@ -49,12 +49,15 @@ Route::resource('salary', SalaryController::class, ["name" => "salary"]);
 Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
 Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servicelist');
 Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
+Route::get('popular', [PageController::class, 'popular'])->name('popular');
+Route::get('profit', [PageController::class, 'profit'])->name('profit');
 
 // ajax route
 Route::get('getitems', [itemController::class, 'getitems']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 Route::get('topitems', [PageController::class, "getTopItems"]);
 Route::get('topservices', [PageController::class, "getTopServices"]);
+Route::get('getprofit', [PageController::class, "getProfit"]);
 
 // excel export roue
 Route::get('voucherexport', [VoucherController::class, 'export'])->name('voucherexport');

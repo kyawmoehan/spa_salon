@@ -125,6 +125,7 @@ class VoucherController extends Controller
                 $itemV->item_id = $item['itemId'];
                 $itemV->quantity = $item['quantity'];
                 $itemV->item_price = $item['itemPrice'];
+                $itemV->total = $item['itemPrice']*$item['quantity'];
                 $itemV->source = $item['source'];
                 $itemV->date = $input['date'];
                 $voucher->voucherItems()->save($itemV);

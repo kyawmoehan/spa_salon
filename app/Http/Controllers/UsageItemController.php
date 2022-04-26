@@ -79,11 +79,14 @@ class UsageItemController extends Controller
         
         $this->authorize('create', UsageItem::class);
 
+        // get price
+        $itemPrice = Item::whereId(request('item_id'))->first()->price;
         // store data 
         $usage = new UsageItem();
         $usage->item_id = request('item_id');
         $usage->date = Carbon\Carbon::parse($request->date);
         $usage->quantity = request('quantity');
+        $usage->total = request('quantity')* $itemPrice;
         $usage->source = request('source');
         $usage->remark = request('remark');
        
@@ -134,9 +137,12 @@ class UsageItemController extends Controller
 
         $this->authorize('update', $usage);
 
-         // store data 
+        // get price
+         $itemPrice = Item::whereId($usage->item_id)->first()->price;
+        // store data 
         $usage->date = Carbon\Carbon::parse($request->date);
         $usage->quantity = request('quantity');
+        $usage->total = request('quantity')* $itemPrice;
         $usage->remark = request('remark');
         
         $usage->save();

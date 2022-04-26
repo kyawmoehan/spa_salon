@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('item_id');
             $table->integer('quantity');
             $table->integer('item_price');
+            $table->integer('total');
             $table->string('source');
             $table->date('date');
             $table->timestamps();

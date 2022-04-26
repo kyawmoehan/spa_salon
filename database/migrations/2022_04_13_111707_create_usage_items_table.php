@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('item_id');
             $table->date('date');
             $table->integer('quantity');
+            $table->integer('total');
             $table->string('source');
             $table->text('remark')->nullable();
             $table->timestamps();

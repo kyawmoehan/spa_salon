@@ -138,6 +138,8 @@
                             <ul class="collapse">
                                 <!-- <li><a href="./purchase-report.php">Purchase Report</a></li> -->
                                 <li><a href="{{route('iteminventory')}}">Inventory</a></li>
+                                <li><a href="{{route('popular')}}">Popular Item/Service</a></li>
+                                <li><a href="{{route('profit')}}">Profit</a></li>
                             </ul>
                         </li>
                         @endif
