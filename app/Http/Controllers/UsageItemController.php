@@ -31,7 +31,16 @@ class UsageItemController extends Controller
         $this->authorize('viewAny', UsageItem::class);
         $allUsage= UsageItem::query();
         $searched = false;
-        if(request('fromdate')){
+        if(request('fromdate') && request('todate') && request('search')){
+            $from = request('fromdate');
+            $to = request('todate');
+            $data = request('search');
+            $allUsage->whereBetween('date', [$from, $to])->whereHas('item', function($query) use ($data) {
+                $query
+                ->where('name', 'Like', "%{$data}%");          
+            });
+            $searched = true;
+        }else if(request('fromdate') && request('todate')){
             $from = request('fromdate');
             $to = request('todate');
             Session::put('usageitemexport', [$from, $to]);

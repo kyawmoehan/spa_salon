@@ -8,41 +8,28 @@
             <div class="form-group row mr-3">
                 <label class="col-form-label">From Date:</label>
                 <div class="col-sm-8">
-                    <input type="date" class="form-control form-control-sm" name="fromdate" required/>
+                    <input type="date" class="form-control form-control-sm" name="fromdate" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-form-label">To Date:</label>
                 <div class="col-sm-8">
-                    <input type="date" class="form-control form-control-sm" name="todate" required/>
+                    <input type="date" class="form-control form-control-sm" name="todate" />
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="submit" class="form-control form-control-sm btn btn-primary" value="Search"/>
+            <div class="row align-self-end">
+                <div class="col-12">
+                    <div class="input-group">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <input type="submit" class="btn btn-outline-primary" value="Search"/>
+                        @if($searched)
+                            <a href="{{route('counter.index')}}" class="btn btn-outline-info">Clear Search</a>
+                        @endif
+                    </div>
                 </div>
             </div>
-            @if($searched)
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <a href="{{route('counter.index')}}" class="btn btn-info">Clear Search</a>
-                </div>
-            </div>
-            @endif
-            </div>
+        </div>
     </form>
-    <div class="mt-3 mb-3">
-            <form method="GET" action="{{route('counter.index')}}">
-                @csrf
-                <div class="d-flex">
-                    <input type="search" placeholder="Search here" class=""  name="search" />
-                    <button type="submit" >Search</button>
-                    @if($searched)
-                        <a href="{{route('counter.index')}}" >Clear Search</a>
-                    @endif
-                </div>
-            </form>
-    </div >
         <table class="table table-hover progress-table text-center" id="myTable1">
             <thead class="text-uppercase">
                 <tr>

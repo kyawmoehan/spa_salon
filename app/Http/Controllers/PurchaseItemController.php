@@ -25,7 +25,16 @@ class PurchaseItemController extends Controller
         $this->authorize('viewAny', PurchaseItem::class);
         $allPurchase= PurchaseItem::query();
         $searched = false;
-        if(request('fromdate')){
+        if(request('fromdate') && request('todate') && request('search')){
+            $from = request('fromdate');
+            $to = request('todate');
+            $data = request('search');
+            $allPurchase->whereBetween('date', [$from, $to])->whereHas('item', function($query) use ($data) {
+                $query
+                ->where('name', 'Like', "%{$data}%");          
+            });
+            $searched = true;
+        }else if(request('fromdate') && request('todate')){
             $from = request('fromdate');
             $to = request('todate');
             $allPurchase->whereBetween('date', [$from, $to])->get();
@@ -36,7 +45,6 @@ class PurchaseItemController extends Controller
                 $query
                 ->where('name', 'Like', "%{$data}%");          
             });
-            // $this->page = 1;
             $searched = true;
         }
        

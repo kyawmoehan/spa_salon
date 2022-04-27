@@ -26,7 +26,16 @@ class CounterItemController extends Controller
         $this->authorize('viewAny', CounterItem::class);
         $allCounter= CounterItem::query();
         $searched = false;
-        if(request('fromdate')){
+        if(request('fromdate') && request('todate') && request('search')){
+            $from = request('fromdate');
+            $to = request('todate');
+            $data = request('search');
+            $allCounter->whereBetween('date', [$from, $to])->whereHas('item', function($query) use ($data) {
+                $query
+                ->where('name', 'Like', "%{$data}%");          
+            });
+            $searched = true;
+        }else if(request('fromdate') && request('todate')){
             $from = request('fromdate');
             $to = request('todate');
             $allCounter->whereBetween('date', [$from, $to])->get();

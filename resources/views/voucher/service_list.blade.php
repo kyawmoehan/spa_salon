@@ -17,21 +17,17 @@
                     <input type="date" class="form-control form-control-sm" name="todate" />
                 </div>
             </div>
-            <div class="d-flex">
-                <input type="search" placeholder="Search here" class=""  name="search" />
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="submit" class="form-control form-control-sm btn btn-primary" value="Search"/>
-                </div>
-            </div>
-            @if($searched)
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <a href="{{route('servicelist')}}" class="btn btn-info">Clear Search</a>
+            <div class="row align-self-end">
+                <div class="col-12">
+                    <div class="input-group">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <input type="submit" class="btn btn-outline-primary" value="Search"/>
+                        @if($searched)
+                            <a href="{{route('servicelist')}}" class="btn btn-outline-info">Clear Search</a>
+                        @endif
                     </div>
                 </div>
-            @endif
+            </div>
             </div>
         </form>
         <table class="table table-hover progress-table text-center" id="myTable1">

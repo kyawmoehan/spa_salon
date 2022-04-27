@@ -3,13 +3,21 @@
 @section('content')
 <div class="main-content-inner">
 
-    <form method="GET" action="{{route('user.index')}}">
+    <form method="GET" action="{{route('user.index')}}" class="mt-2">
         @csrf
-        <input type="search" placeholder="Search here" name="search"/>
-        <button type="submit">Search</button>
-        @if($searched)
-            <a href="{{route('user.index')}}" >Clear Search</a>
-        @endif
+        <div class="row justify-content-end">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-secondary" >Search</button>
+                        @if($searched)
+                            <a href="{{route('user.index')}}" class="btn btn-outline-info">Clear Search</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
     <table class="table table-hover progress-table text-center" id="myTable1">
         <thead class="text-uppercase">

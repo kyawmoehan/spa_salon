@@ -5,12 +5,18 @@
     <div class="mt-3 mb-3">
         <form method="GET" action="{{route('iteminventory')}}">
             @csrf
-            <div class="d-flex">
-                <input type="search" placeholder="Search here" class=""  name="search" />
-                <button type="submit" >Search</button>
-                @if($searched)
-                    <a href="{{route('iteminventory')}}" >Clear Search</a>
-                @endif
+            <div class="row justify-content-end">
+                <div class="col-4">
+                    <div class="input-group mb-3">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-secondary" >Search</button>
+                            @if($searched)
+                                <a href="{{route('iteminventory')}}" class="btn btn-outline-info">Clear Search</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div >

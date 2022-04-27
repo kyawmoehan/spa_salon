@@ -1,36 +1,20 @@
 @extends('dashboard')
 
 @section('content')
-<!-- <div class="main-content-inner">
-    <div class="mt-3 mb-2 d-flex align-items-end">
-       <div class="form-group row mr-3">
-          <label class="col-form-label">From Date:</label>
-          <div class="col-sm-8">
-             <input type="date" class="form-control form-control-sm" />
-           </div>
-       </div>
-       <div class="form-group row">
-          <label class="col-form-label">To Date:</label>
-          <div class="col-sm-8">
-             <input type="date" class="form-control form-control-sm" />
-           </div>
-       </div>
-       <div class="form-group row">
-          <div class="col-sm-12">
-             <input type="submit" class="form-control form-control-sm btn btn-primary" value="Search"/>
-           </div>
-       </div>
-    </div> -->
 <div class="main-content-inner">
     <div class="mt-3 mb-3">
         <form method="GET" action="{{route('customer.index')}}">
             @csrf
-            <div class="d-flex">
-                <input type="search" placeholder="Search here" class=""  name="search" />
-                <button type="submit" >Search</button>
-                @if($searched)
-                    <a href="{{route('customer.index')}}" >Clear Search</a>
-                @endif
+            <div class="row justify-content-end">
+                <div class="col-4">
+                    <div class="input-group">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <input type="submit" class="btn btn-outline-primary" value="Search"/>
+                        @if($searched)
+                            <a href="{{route('customer.index')}}" class="btn btn-outline-info">Clear Search</a>
+                        @endif
+                    </div>
+                </div>
             </div>
         </form>
     </div >

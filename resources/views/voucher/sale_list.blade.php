@@ -4,7 +4,7 @@
 <div class="main-content-inner">
     <form method="GET" action="{{route('salelist')}}">
         @csrf
-            <div class="mt-3 mb-2 d-flex align-items-end">
+            <div class="mt-3 mb-2 d-flex ">
             <div class="form-group row mr-3">
                 <label class="col-form-label">From Date:</label>
                 <div class="col-sm-8">
@@ -17,21 +17,17 @@
                     <input type="date" class="form-control form-control-sm" name="todate" />
                 </div>
             </div>
-            <div class="d-flex">
-                <input type="search" placeholder="Search here" class=""  name="search" />
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="submit" class="form-control form-control-sm btn btn-primary" value="Search"/>
-                </div>
-            </div>
-            @if($searched)
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <a href="{{route('salelist')}}" class="btn btn-info">Clear Search</a>
+            <div class="row align-self-end">
+                <div class="col-12">
+                    <div class="input-group">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <input type="submit" class="btn btn-outline-primary" value="Search"/>
+                        @if($searched)
+                            <a href="{{route('salelist')}}" class="btn btn-outline-info">Clear Search</a>
+                        @endif
                     </div>
                 </div>
-            @endif
+            </div>
             </div>
         </form>
         <table class="table table-hover progress-table text-center" id="myTable1">

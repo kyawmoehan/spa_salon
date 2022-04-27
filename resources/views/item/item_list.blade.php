@@ -1,31 +1,22 @@
 @extends('dashboard')
 
 @section('content')
-    <div class="main-content-inner">
-     <!-- <div class="mt-3 mb-2 d-flex">
-         <div class="form-group row mr-3">
-            <label class="col-form-label">From Date:</label>
-            <div class="col-sm-8">
-               <input type="date" class="form-control form-control-sm" />
-             </div>
-         </div>
-         <div class="form-group row">
-            <label class="col-form-label">To Date:</label>
-            <div class="col-sm-8">
-               <input type="date" class="form-control form-control-sm" />
-             </div>
-         </div>
-        </div> -->
-    
+    <div class="main-content-inner"> 
         <div class="mt-3 mb-3">
             <form method="GET" action="{{route('item.index')}}">
                 @csrf
-                <div class="d-flex">
-                    <input type="search" placeholder="Search here" class=""  name="search" />
-                    <button type="submit" >Search</button>
-                    @if($searched)
-                        <a href="{{route('item.index')}}" >Clear Search</a>
-                    @endif
+                <div class="row justify-content-end">
+                    <div class="col-4">
+                        <div class="input-group mb-3">
+                            <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-secondary" >Search</button>
+                                @if($searched)
+                                    <a href="{{route('item.index')}}" class="btn btn-outline-info">Clear Search</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div >
