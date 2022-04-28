@@ -8,7 +8,7 @@
     <form class="form-horizontal" method="POST" action="{{ route('usage.store')}}">
         @csrf
         <div class="card-body col-md-10">
-            <h2 class="py-2 mb-4 d-flex align-items-center">Usage Items</h2>
+            <h2 class="py-2 mb-4 d-flex align-items-center">Add Usage Items</h2>
 
             <div class="form-group row">
                 <label for="item_code" class="form-label col-sm-2">Items:</label>
@@ -60,10 +60,8 @@
             </div>
 
             <!-- /.card-body -->
-            <div class="mt-3 form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-10 ml-0">
-                    <button type="submit" class="btn btn-lg btn-default mr-3">Cancel</button>
+            <div class="mt-3 d-flex justify-content-end">
+                <div>
                     <button type="submit" class="btn btn-lg text btn-info "> Add <i
                             class="ml-1 fa fa-plus"></i></button>
                 </div>

@@ -41,10 +41,8 @@
             </div>
 
             <!-- /.card-body -->
-            <div class="mt-3 form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-10 ml-0">
-                    <button type="submit" class="btn btn-lg btn-default mr-3">Cancel</button>
+            <div class="mt-3 d-flex justify-content-end">
+                <div>
                     <button type="submit" class="btn btn-lg text btn-info "> Add <i
                             class="ml-1 fa fa-plus"></i></button>
                 </div>

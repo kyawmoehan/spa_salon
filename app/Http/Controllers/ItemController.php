@@ -21,7 +21,7 @@ class ItemController extends Controller
 
     public function index()
     {
-        $this->authorize('create', Item::class);
+        $this->authorize('viewAny', Item::class);
         $all_item = Item::query();
         $searched = false;
         if (request('search')) {
@@ -32,7 +32,7 @@ class ItemController extends Controller
             ->get();
             $searched = true;
         }
-        $items = $all_item->orderBy('id')->paginate(10);
+        $items = $all_item->orderBy('id')->paginate(15);
         return view('item.item_list', compact(['items', 'searched']));
     }
 

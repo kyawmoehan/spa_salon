@@ -66,7 +66,7 @@ class VoucherController extends Controller
             ->get();
             $searched1 = true;
         }
-        $vouchers = $allVouchers->orderByDesc('date')->paginate(10);
+        $vouchers = $allVouchers->orderByDesc('date')->paginate(15);
         return view('voucher.voucher_list', compact(['vouchers', 'searched', 'searched1']));
     }
 

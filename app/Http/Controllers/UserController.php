@@ -23,6 +23,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', User::class);
         $allusers = User::query();
         $searched = false;
         if (request('search')) {
@@ -32,7 +33,7 @@ class UserController extends Controller
             ->get();
             $searched = true;
         }
-        $users = $allusers->orderBy('id')->paginate(10);
+        $users = $allusers->orderBy('id')->paginate(15);
         return view('user.user_list', compact(['users', 'searched']));
     }
 
@@ -116,8 +117,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
         $this->authorize('delete', $user);
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('user.index');
     }

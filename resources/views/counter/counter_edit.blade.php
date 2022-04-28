@@ -9,7 +9,7 @@
         @csrf
         @method('PUT')
         <div class="card-body col-md-10">
-            <h2 class="py-2 mb-4 d-flex align-items-center">Counter Item Update</h2>
+            <h2 class="py-2 mb-4 d-flex align-items-center">Update Counter Item</h2>
 
             <div class="form-group row">
                 <label for="purchase_item" class="form-label col-sm-2">Item :</label>
@@ -66,10 +66,9 @@
                 <textarea style="resize: none; padding-top: 35px; height:200px;" class="form-control col-sm-10 mb-2"
                     type="tel" id="remark" name="remark">{{$counter->remark}}</textarea>
             </div>
-            <div class="mt-3 form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-10 ml-0">
-                    <button type="submit" class="btn btn-lg btn-default mr-3">Cancel</button>
+            <div class="mt-3 d-flex justify-content-end">
+                <div>
+                    <a href="{{route('counter.index')}}" class="btn btn-lg btn-default mr-3">Cancel</a>
                     <button type="submit" class="btn btn-lg text btn-info "> Update <i
                             class="ml-1 fa fa-plus"></i></button>
                 </div>

@@ -48,7 +48,7 @@ class PurchaseItemController extends Controller
             $searched = true;
         }
        
-        $purchaseItems = $allPurchase->orderByDesc('date')->paginate(20);
+        $purchaseItems = $allPurchase->orderByDesc('date')->paginate(15);
         return view('purchase.purchase_list', compact(['purchaseItems', 'searched']));
     }
 

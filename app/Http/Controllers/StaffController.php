@@ -20,6 +20,7 @@ class StaffController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Staff::class);
         $AllStaff = Staff::query();
         $searched = false;
         if (request('search')) {
@@ -33,7 +34,7 @@ class StaffController extends Controller
             ->get();
             $searched = true;
         }
-        $all_staff = $AllStaff->orderBy('id')->paginate(10);
+        $all_staff = $AllStaff->orderBy('id')->paginate(15);
         return view('staff.staff_list', compact(['all_staff', 'searched']));
     }
 

@@ -55,7 +55,7 @@ class UsageItemController extends Controller
             $searched = true;
         }
        
-        $usageItems = $allUsage->orderByDesc('date')->paginate(10);
+        $usageItems = $allUsage->orderByDesc('date')->paginate(15);
         return view('usage.usage_list', compact(['usageItems', 'searched']));
     }
 

@@ -53,7 +53,7 @@ class SalaryController extends Controller
             });
             $searched = true;
         }
-        $salaries = $allSalaries->orderByDesc('date')->paginate(10);
+        $salaries = $allSalaries->orderByDesc('date')->paginate(15);
         return view('salary.salary_list', compact(['salaries', 'searched']));
     }
 

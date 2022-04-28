@@ -49,7 +49,7 @@ class CounterItemController extends Controller
             $searched = true;
         }
        
-        $counterItems = $allCounter->orderByDesc('date')->paginate(10);
+        $counterItems = $allCounter->orderByDesc('date')->paginate(15);
         return view('counter.counter_list', compact(['counterItems', 'searched']));
     }
 

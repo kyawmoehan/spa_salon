@@ -39,7 +39,7 @@ class GeneralCostController extends Controller
             $searched = true;
         }
        
-        $generalCosts = $allGeneralCost->orderBy('id')->paginate(20);
+        $generalCosts = $allGeneralCost->orderBy('id')->paginate(15);
         return view('generalcost.generalcost_list', compact(['generalCosts','searched', 'totalCost']));
     }
 

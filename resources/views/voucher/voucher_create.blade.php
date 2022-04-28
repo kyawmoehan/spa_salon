@@ -12,7 +12,7 @@
                 </div>
                 <h4 class="page-title pull-left">Customer appointment</h4>
                 <ul class="breadcrumbs pull-left">
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
                     <li><span>Dashboard</span></li>
                 </ul>
             </div>

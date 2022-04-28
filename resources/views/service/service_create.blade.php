@@ -7,7 +7,7 @@
     <form class="form-horizontal"  method="POST" action="{{ route('service.store') }}">
         @csrf
         <div class="card-body col-md-10">
-            <h2 class="py-2 mb-4 d-flex align-items-center">Service</h2>
+            <h2 class="py-2 mb-4 d-flex align-items-center">Add Service</h2>
             <div class="form-group row">
                 <label for="Name" class="form-label col-sm-2">Service Name :</label>
                 <input class="form-control col-sm-10 mb-2" type="text" id="Name" name="name"/>
@@ -41,10 +41,8 @@
             </div>
 
             <!-- /.card-body -->
-            <div class="mt-3 form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-10 ml-0">
-                    <button type="submit" class="btn btn-lg btn-default mr-3">Cancel</button>
+            <div class="mt-3 d-flex justify-content-end">
+                <div>
                     <button type="submit" class="btn btn-lg text btn-info "> <i class="mr-1 fa fa-plus"></i> Add
                     </button>
                 </div>

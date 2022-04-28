@@ -19,7 +19,7 @@ class PageController extends Controller
     public function __construct() 
     {   
         $this->middleware('auth')->only('dashboard');
-        $this->middleware('role:admin')->only('popular');
+        $this->middleware('role:admin')->only('popular', 'profit');
     }
 
     public function topItemsList($from,$to)

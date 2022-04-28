@@ -89,11 +89,9 @@
                     type="tel" id="remark" name="remark">{{$item->remark}}</textarea>
             </div>
             <!-- /.card-body -->
-            <div class="mt-3 form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-10 ml-0">
-                    <button  class="btn btn-lg mr-3">Cancel
-                    </button>
+            <div class="mt-3  d-flex justify-content-end">
+                <div >
+                    <a  href="{{route('item.index')}}" class="btn btn-lg btn-default mr-3">Cancel</a>
                     <button type="submit" class="btn btn-lg text btn-info "> Update 
                         <i class="ml-1 fa fa-plus"></i>
                     </button>

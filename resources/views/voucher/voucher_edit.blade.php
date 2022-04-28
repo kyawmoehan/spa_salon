@@ -243,8 +243,8 @@
                                             <input type="number" class="form-control form-control-sm" id="voucher-discount" value="0" step="0.1" onkeyup="voucherDiscount()">
                                         </div>
                                         <div class="form-group d-flex justify-content-between row">
-                                            <button class="btn btn-secondary col-4" style="height: 80px;" onclick="voucherSave()">Save</button>
-                                            <button class="btn btn-secondary col-7" style="height: 80px;">print</button>
+                                            <button class="btn btn-secondary col-4" style="height: 80px;" onclick="voucherSave()">Update</button>
+                                            <!-- <button class="btn btn-secondary col-7" style="height: 80px;">print</button> -->
                                         </div>
                                     </div>
                                 </div>
