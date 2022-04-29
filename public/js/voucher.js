@@ -378,7 +378,6 @@ function voucherSave(){
 
     let voucherData = voucher;
     voucherData.date = date; 
-    console.log(date);
     voucherData.total = ALLTOTAL;   
     voucherData.paid =  $('#voucher-paid').val();
     voucherData.paid =  $('#voucher-paid').val();
@@ -387,7 +386,6 @@ function voucherSave(){
     voucherData.discount=  $('#voucher-discount').val();
     voucherData.remark = $('#voucher-remark').val();
     voucherData._token = $('meta[name="csrf-token"]').attr('content');
-    console.log(voucherData);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -400,8 +398,9 @@ function voucherSave(){
         // contentType: 'application/json',
         data: voucherData,
         success:function(data){
-            console.log(data);
+            localStorage.setItem("printvoucher", JSON.stringify(voucherData));
             deleteVoucher();
+            window.location.replace("http://localhost:8000/printvoucher");
         },
     });
 }

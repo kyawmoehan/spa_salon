@@ -415,4 +415,9 @@ $(window).load(function(){
     let getData = $('#all-data').val();
     localStorage.setItem(LOCALSTORAGENAME, getData);
     getVouchers();
+
+    // exit
+    window.onbeforeunload = function (e) {
+        deleteVoucher();  
+    };
 });

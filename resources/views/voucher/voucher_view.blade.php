@@ -94,5 +94,8 @@
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-end mt-3">
+            <a href="{{route('viewprintvoucher', $voucher->id)}}" class="btn btn-primary">Print Voucher</a>
+        </div>
     </div>
 @endsection

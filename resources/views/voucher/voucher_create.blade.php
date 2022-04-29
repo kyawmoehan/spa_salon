@@ -308,7 +308,7 @@
                                         </div>
                                         <div class="form-group d-flex justify-content-between row">
                                             <button class="btn btn-secondary col-4" style="height: 80px;" onclick="voucherSave()">Save</button>
-                                            <button class="btn btn-secondary col-7" style="height: 80px;">print</button>
+                                            <!-- <a href="{{route('printvoucher')}}" class="btn btn-secondary col-7" style="height: 80px;">print</a> -->
                                         </div>
                                     </div>
                                 </div>

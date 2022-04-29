@@ -51,6 +51,8 @@ Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servi
 Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
 Route::get('popular', [PageController::class, 'popular'])->name('popular');
 Route::get('profit', [PageController::class, 'profit'])->name('profit');
+Route::get('printvoucher', [VoucherController::class, 'printVoucher'])->name('printvoucher');
+Route::get('viewprintvoucher/{id}', [VoucherController::class, 'viewPrintVoucher'])->name('viewprintvoucher');
 
 // ajax route
 Route::get('getitems', [itemController::class, 'getitems']);

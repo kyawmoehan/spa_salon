@@ -299,4 +299,15 @@ class VoucherController extends Controller
         // Session::forget('voucherexport');
         return Excel::download(new VoucherExport($from, $to, $halfPayment), 'vouchers.xlsx');
     }
+
+    public function printVoucher()
+    {
+        return view('voucher.print_voucher');
+    }
+
+    public function viewPrintVoucher($id)
+    {
+        $voucher = Voucher::find($id);
+        return view('voucher.view_print_voucher', compact('voucher'));
+    }
 }
