@@ -20,7 +20,7 @@ class ServiceController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Service::class);
-        $services = Service::all();
+        $services = Service::paginate(15);
         return view('service.service_list', compact('services'));
     }
 

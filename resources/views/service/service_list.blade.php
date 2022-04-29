@@ -65,6 +65,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $services->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
     <div>
         <a href="{{route('service.create')}}"
             class="btn mt-auto btn-info ml-auto mb-2 col-sm-1 d-flex justify-content-center align-items-center">

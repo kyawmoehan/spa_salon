@@ -20,7 +20,7 @@ class TypeController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Type::class);
-        $types = Type::all();
+        $types = Type::paginate(15);
         return view('type.type_list', compact('types'));
     }
 
