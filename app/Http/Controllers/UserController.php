@@ -117,8 +117,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', $user);
         $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
         $user->delete();
         return redirect()->route('user.index');
     }

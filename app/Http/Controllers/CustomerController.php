@@ -53,8 +53,7 @@ class CustomerController extends Controller
         //Validation
         $request->validate([
             'name' => 'required|min:4',
-            'address' => 'required',
-            'phone' => 'required',
+            'email' => ['unique:staff'],
         ]);
 
          // store data 
@@ -105,8 +104,7 @@ class CustomerController extends Controller
         //Validation
         $request->validate([
             'name' => 'required|min:4',
-            'address' => 'required',
-            'phone' => 'required',
+            'email' => ['unique:staff'],
         ]);
         
         // store data 

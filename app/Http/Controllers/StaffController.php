@@ -65,7 +65,7 @@ class StaffController extends Controller
             'image' => 'required|mimes:jpeg,jpg,png',
             'address' => 'required',
             'phone' => 'required',
-            'email' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
         ]);
 
@@ -132,7 +132,7 @@ class StaffController extends Controller
             'nrc' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'email' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
         ]);
         $this->authorize('update', $staff);

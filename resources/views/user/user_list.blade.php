@@ -36,8 +36,6 @@
                     <td>{{$user->email}}</td>
                     <td>
                         <ul class="d-flex justify-content-center">
-                            <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a>
-                            </li>
                             <form action="{{route('user.destroy', $user->id)}}" method="POST"
                                 class="d-inline-block" onsubmit="return confirm('Are you sure?')" >
                                     @csrf
