@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->bigInteger('phone')->nullable();
             $table->text('remark')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -49,7 +49,7 @@
                     <th>{{$key+1}}</th>
                     <td>{{$counterItem->item->name}}</td>
                     <td>{{$counterItem->item->type->name}}</td>
-                    <td>{{$counterItem->purchase_price}}</td>
+                    <td>{{$counterItem->purchase_price}} Ks</td>
                     <td>{{$counterItem->quantity}}</td>
                     <td>{{$counterItem->date}}</td>
                     <td>{{$counterItem->remark}}</td>

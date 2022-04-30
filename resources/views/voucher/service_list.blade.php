@@ -37,6 +37,7 @@
                     <th scope="col">Voucher Number</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Service</th>
+                    <th scope="col">Service Price</th>
                     <th scope="col">Staff</th>
                     <th scope="col">Percentage</th>
                     <th scope="col">Total</th>
@@ -50,9 +51,10 @@
                         <td>{{$voucherStaff->voucher->voucher_number}}</td>
                         <td>{{$voucherStaff->voucher->customer->name}}</td>
                         <td>{{$voucherStaff->service->name}}</td>
+                        <td>{{$voucherStaff->service->price}}</td>
                         <td>{{$voucherStaff->staff->name}}</td>
-                        <td>{{$voucherStaff->staff_pct}}</td>
-                        <td>{{$voucherStaff->staff_amount}}</td>
+                        <td>{{$voucherStaff->staff_pct}} %</td>
+                        <td>{{$voucherStaff->staff_amount}} Ks</td>
                         <td>{{$voucherStaff->date}}</td>
                     </tr>
                 @endforeach

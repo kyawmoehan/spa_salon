@@ -36,11 +36,11 @@
             <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$months[$key]}}</td>
-                <td>{{$profit['voucherCost']}}</td>
-                <td>{{$profit['generalCost']}}</td>
-                <td>{{$profit['usageCost']}}</td>
-                <td>{{$profit['salaryCost']}}</td>
-                <td>{{$profit['profit']}}</td>
+                <td>{{$profit['voucherCost']}} Ks</td>
+                <td>{{$profit['generalCost']}} Ks</td>
+                <td>{{$profit['usageCost']}} Ks</td>
+                <td>{{$profit['salaryCost']}} Ks</td>
+                <td>{{$profit['profit']}} Ks</td>
             </tr>
            @endforeach
         </tbody>

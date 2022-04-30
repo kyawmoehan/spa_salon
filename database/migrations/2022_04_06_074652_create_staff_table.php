@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('position');
             $table->text('remark')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

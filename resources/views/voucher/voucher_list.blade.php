@@ -73,9 +73,9 @@
                 <tr>
                     <th>{{$key+1}}</th>
                     <th>{{$voucher->voucher_number}}</th>
-                    <th>{{$voucher->total}}</th>
-                    <th>{{$voucher->paid}}</th>
-                    <th>{{$voucher->discount}}</th>
+                    <th>{{$voucher->total}} Ks</th>
+                    <th>{{$voucher->paid}} Ks</th>
+                    <th>{{$voucher->discount}} %</th>
                     <th>{{$voucher->customer->name}}</th>
                     <th>{{$voucher->payment}}</th>
                     <th>

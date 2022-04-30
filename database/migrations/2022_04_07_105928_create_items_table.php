@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('available');
             $table->text('remark')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

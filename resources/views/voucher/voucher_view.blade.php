@@ -24,9 +24,9 @@
         <div class="row">
             <div class="col-6">
                 <p>Customer Name: {{$voucher->Customer->name}}</p>
-                <p>Total: {{$voucher->total}}</p>
-                <p>Paid: {{$voucher->paid}}</p>
-                <p>Discount: {{$voucher->discount}}</p>
+                <p>Total: {{$voucher->total}} Ks</p>
+                <p>Paid: {{$voucher->paid}} Ks</p>
+                <p>Discount: {{$voucher->discount}} %</p>
             </div>
             <div class="col-6">
                 <p>Date: {{$voucher->date}}</p>
@@ -58,8 +58,8 @@
                         <td>{{$item->item->name}}</td>
                         <td>{{$item->quantity}}</td>
                         <td>{{$item->source}}</td>
-                        <td>{{$item->item_price}}</td>
-                        <td>{{$item->item_price*$item->quantity}}</td>
+                        <td>{{$item->item_price}} Ks</td>
+                        <td>{{$item->item_price*$item->quantity}} Ks</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -85,10 +85,10 @@
                     <tr>
                         <th>{{$key+1}}</th>
                         <td>{{$staff->service->name}}</td>
-                        <td>{{$staff->service->price}}</td>
+                        <td>{{$staff->service->price}} Ks</td>
                         <td>{{$staff->staff->name}}</td>
-                        <td>{{$staff->staff_pct}}</td>
-                        <td>{{$staff->staff_amount}}</td>
+                        <td>{{$staff->staff_pct}} %</td>
+                        <td>{{$staff->staff_amount}} Ks</td>
                     </tr>
                     @endforeach
                 </tbody>

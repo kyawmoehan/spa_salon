@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('name_pct')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

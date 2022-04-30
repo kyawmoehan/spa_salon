@@ -52,8 +52,8 @@
                         <td>{{$itemVoucher->voucher->customer->name}}</td>
                         <td>{{$itemVoucher->item->name}}</td>
                         <td>{{$itemVoucher->quantity}}</td>
-                        <td>{{$itemVoucher->item_price}}</td>
-                        <td>{{$itemVoucher->quantity * $itemVoucher->item_price}}</td>
+                        <td>{{$itemVoucher->item_price}} Ks</td>
+                        <td>{{$itemVoucher->quantity * $itemVoucher->item_price}} Ks</td>
                         <td>{{$itemVoucher->source}}</td>
                         <th>{{$itemVoucher->date}}</th>
                     </tr>

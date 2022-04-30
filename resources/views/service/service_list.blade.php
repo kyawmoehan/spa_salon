@@ -38,7 +38,7 @@
             <tr>
                 <th>{{$key+1}}</th>
                 <td>{{$service->name}}</td>
-                <td>{{$service->price}} ks</td>
+                <td>{{$service->price}} Ks</td>
                 <td>{{$service->normal_pct}}</td>
                 <td>{{$service->name_pct}}</td>
                 <td>

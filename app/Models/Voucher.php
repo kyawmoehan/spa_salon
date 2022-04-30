@@ -32,10 +32,10 @@ class Voucher extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'voucher_staff');
+        return $this->belongsTo(User::class, 'voucher_staff')->withTrashed();
     }
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id')->withTrashed();
     }
 }

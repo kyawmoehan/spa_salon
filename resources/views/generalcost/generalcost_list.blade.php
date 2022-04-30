@@ -49,7 +49,7 @@
                  <th>{{$key+1}}</th>
                  <th>{{$generalCost->cost_type}}</th>
                  <td>{{$generalCost->reason}}</td>
-                 <td>{{$generalCost->cost}}</td>
+                 <td>{{$generalCost->cost}} Ks</td>
                  <td>{{$generalCost->date}}</td>
                  <td>{{$generalCost->remark}}</td>
                  <td>
@@ -71,16 +71,7 @@
                  </td>
              </tr>
             @endforeach
-            @if($searched)
-                <tr>
-                    <th colspan="3">
-                        Total General Cost
-                    </th>
-                <th>
-                        {{$totalCost}}
-                </th>
-                </tr>
-            @endif
+
          </tbody>
      </table>
      {{ $generalCosts->appends(Request::except('page'))->links("pagination::bootstrap-5") }}

@@ -48,9 +48,9 @@
              <tr>
                  <th>{{$key+1}}</th>
                  <td>{{$salary->staff->name}}</td>
-                 <td>{{$salary->amount}}</td>
-                 <td>{{$salary->service_amount}}</td>
-                 <td>{{$salary->total_amount}}</td>
+                 <td>{{$salary->amount}} Ks</td>
+                 <td>{{$salary->service_amount}} Ks</td>
+                 <td>{{$salary->total_amount}} Ks</td>
                  <td>{{$salary->date}}</td>
                  <td>{{$salary->remark}}</td>
                  <td>

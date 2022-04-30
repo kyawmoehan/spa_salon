@@ -44,7 +44,7 @@
                 @enderror
             </div>
             <div class="form-group row">
-                <label for="Purchase_price" class="form-label col-sm-2">Purchase Price:</label>
+                <label for="Purchase_price" class="form-label col-sm-2">Price:</label>
                 <input class="form-control col-sm-10 mb-2" type="number" id="Purchase_price" name="price"/>
                 @error('price')
                     <div class="text-danger">{{ $message }}</div>
