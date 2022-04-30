@@ -59,7 +59,7 @@ class ItemController extends Controller
         $request->validate([
             'name' => 'required',
             'type_id' => 'required',
-            'code' => 'required',
+            'code' => ['required', 'unique:items'],
             'price' => 'required',
             'unit' => 'required',
             'available' => 'required',
