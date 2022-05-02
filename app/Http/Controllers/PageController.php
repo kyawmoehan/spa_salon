@@ -34,7 +34,8 @@ class PageController extends Controller
             }
         }
         arsort($countItems);
-        return $countItems;
+
+        return array_slice($countItems, 0, 10);
     }
 
     public function topServicesList($from, $to)
@@ -61,7 +62,7 @@ class PageController extends Controller
                 }
         }
         arsort($countServices);
-        return $countServices;
+        return array_slice($countServices, 0, 10);
     }
 
     public function existYears()

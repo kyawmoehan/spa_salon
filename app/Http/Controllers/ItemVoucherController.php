@@ -51,7 +51,7 @@ class ItemVoucherController extends Controller
             $searched = true;
         }
        
-        $itemVouchers = $allItemVoucher->orderByDesc('date')->paginate(10);
+        $itemVouchers = $allItemVoucher->orderByDesc('date')->orderBy('voucher_id', 'DESC')->paginate(15);
         return view('voucher.sale_list', compact(['itemVouchers', 'searched']));
     }
 

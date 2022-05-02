@@ -30,11 +30,11 @@
             </div>
             <div class="form-group row">
                 <label for="service" class="form-label col-sm-2">Service% :</label>
-                <input class="form-control col-sm-10 mb-2" type="number" id="service-amount" name="service_amount"/>
+                <input class="form-control col-sm-10 mb-2" type="number" id="service-amount" name="service_amount" readonly/>
             </div>
             <div class="form-group row">
                 <label for="total" class="form-label col-sm-2">Total Amount:</label>
-                <input class="form-control col-sm-10 mb-2" type="number" id="total-amount" name="total_amount"/>
+                <input class="form-control col-sm-10 mb-2" type="number" id="total-amount" name="total_amount" readonly/>
             </div>
             <div class="form-group row">
                 <label for="date" class="form-label col-sm-2">Date :</label>

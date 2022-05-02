@@ -31,7 +31,7 @@
             </div>
             <div class="form-group row">
                 <label for="name_pct" class="form-label col-sm-2">By Name Percentage (Optional)</label>
-                <input class="form-control col-sm-10 mb-2" type="number" id="name_pct" name="name_pct" step="0.1"/>
+                <input class="form-control col-sm-10 mb-2" type="number" id="name_pct" name="name_pct" step="0.1" value="0"/>
             </div>
             
             <div class="form-group row">

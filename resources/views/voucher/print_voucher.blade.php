@@ -106,7 +106,7 @@
             </tr>
             <tr>
               <th>Total:</th>
-              <td><span id="paid"></span></td>
+              <td><span id="paid"></span> Ks</td>
             </tr>
           </table>
         </div>
@@ -156,10 +156,10 @@
               ${item['quantity']}
           </td>
           <td>
-              ${item['itemPrice']}
+              ${item['itemPrice']} Ks
           </td>
           <td>
-              ${item['itemPrice']* item['quantity']}
+              ${item['itemPrice']* item['quantity']} Ks
           </td>
         </tr>
           `; 
@@ -187,10 +187,10 @@
             ${1}
         </td>
         <td>
-            ${item['servicePrice']}
+            ${item['servicePrice']} Ks
         </td>
         <td>
-          ${item['servicePrice']}
+          ${item['servicePrice']} Ks
         </td>
     </tr>
         `; 

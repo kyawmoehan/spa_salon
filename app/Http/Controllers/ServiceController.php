@@ -126,4 +126,11 @@ class ServiceController extends Controller
         $service->delete();
         return redirect()->route('service.index');
     }
+
+    public function getServices(Request $request)
+    {
+        $searched = $request->searched;
+        $allServices = Service::where('name', 'Like', '%' . $searched . '%')->get();
+        return response()->json($allServices, 200);
+    }
 }

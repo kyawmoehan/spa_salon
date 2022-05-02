@@ -65,8 +65,8 @@
                 <th>{{$key+1}}</th>
                 <td>{{$item->item->name}}</td>
                 <td>{{$item->quantity}}</td>
-                <td>{{$item->item_price}}</td>
-                <td>{{$item->item_price*$item->quantity}}</td>
+                <td>{{$item->item_price}} Ks</td>
+                <td>{{$item->item_price*$item->quantity}} Ks</td>
             </tr>
             @endforeach
           </tbody>
@@ -106,8 +106,8 @@
                 <th>{{$key+1}}</th>
                 <td>{{$staff->service->name}}</td>
                 <td>{{1}}</td>
-                <td>{{$staff->service->price}}</td>
-                <td>{{$staff->service->price}}</td>
+                <td>{{$staff->service->price}} Ks</td>
+                <td>{{$staff->service->price}} Ks</td>
             </tr>
             @endforeach
           </tbody>
@@ -137,7 +137,7 @@
             </tr>
             <tr>
               <th>Total:</th>
-              <td>{{$voucher->paid}}</td>
+              <td>{{$voucher->paid}} Ks</td>
             </tr>
           </table>
         </div>

@@ -55,7 +55,8 @@ Route::get('printvoucher', [VoucherController::class, 'printVoucher'])->name('pr
 Route::get('viewprintvoucher/{id}', [VoucherController::class, 'viewPrintVoucher'])->name('viewprintvoucher');
 
 // ajax route
-Route::get('getitems', [itemController::class, 'getitems']);
+Route::get('getitems', [itemController::class, 'getItems']);
+Route::get('getservices', [ServiceController::class, 'getServices']);
 Route::get('staffrecord', [VoucherStaffController::class, "getStaffRecord"]);
 Route::get('topitems', [PageController::class, "getTopItems"]);
 Route::get('topservices', [PageController::class, "getTopServices"]);

@@ -45,13 +45,13 @@ function checkBtn(id){
             <button onclick="increaseItem(${item['itemId']}, '${item['source']}')">+</button>
         </td>
         <td>
-            ${item['itemPrice']}
+            ${item['itemPrice']} Ks
         </td>
         <td>
             ${item['source']}
         </td>
         <td>
-            ${item['itemPrice']* item['quantity']}
+            ${item['itemPrice']* item['quantity']} Ks
         </td>
         <td>
             <a class="btn btn-sm text-danger" 
@@ -87,13 +87,13 @@ function checkBtn(id){
             ${item['staffName']}
         </td>
         <td>
-            ${item['staffPct']}
+            ${item['staffPct'] === null ? '0': item['staffPct']} %
         </td>
         <td>
-            ${item['staffAmount']}
+            ${item['staffAmount']} Ks
         </td>
         <td>
-            ${item['servicePrice']}
+            ${item['servicePrice']} Ks
         </td>
         <td>
             <a class="btn btn-sm text-danger" 
@@ -380,12 +380,15 @@ function voucherSave(){
     voucherData.date = date; 
     voucherData.total = ALLTOTAL;   
     voucherData.paid =  $('#voucher-paid').val();
-    voucherData.paid =  $('#voucher-paid').val();
     voucherData.payment = $('#payment').val();
     voucherData.halfPayment = $('#half-payment').is(':checked') ? 1: 0;
     voucherData.discount=  $('#voucher-discount').val();
     voucherData.remark = $('#voucher-remark').val();
     voucherData._token = $('meta[name="csrf-token"]').attr('content');
+
+    if(voucherData.paid == 0){
+        return;
+    }
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -445,6 +448,44 @@ function itemSearch(){
                     </div>
                     `; 
                     $( "#get-show-items" ).append( newListItem );
+                });
+            },
+        });
+}
+
+// service searched
+function serviceSearch(){
+    let search = $('#service-search').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "/getservices",
+            type: "get",
+            data: {searched: search},
+            success:function(data){
+                // console.log(data);
+                if(search == null || search == ""){
+                    $("#show-services").removeClass( "d-none" );
+                    $("#get-show-services").addClass( "d-none" );
+                }else{
+                    $("#show-services").addClass( "d-none" );
+                    $("#get-show-services").removeClass( "d-none" );
+                }
+                $( "#get-show-services" ).empty();
+                $.each( data, function( i, service ) { 
+                    var newListItem = `
+                    <div class="col-4 service-btn-wapper mb-2">
+                        <button class="service-button btn btn-secondary"
+                        onclick="addService('${service['id']}', '${service['name']}',
+                        '${service['price']}', '${service['normal_pct']}', '${service['name_pct']}')">
+                            ${service['name']}
+                        </button>
+                    </div>
+                    `; 
+                    $( "#get-show-services" ).append( newListItem );
                 });
             },
         });

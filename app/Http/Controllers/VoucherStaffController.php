@@ -66,7 +66,7 @@ class VoucherStaffController extends Controller
             $searched = true;
         }
        
-        $voucherStaffs = $allVoucherStaff->orderByDesc('date')->paginate(15);
+        $voucherStaffs = $allVoucherStaff->orderByDesc('date')->orderBy('voucher_id', 'DESC')->paginate(15);
         return view('voucher.service_list', compact(['voucherStaffs', 'searched']));
     }
 

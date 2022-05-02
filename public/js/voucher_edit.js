@@ -345,7 +345,6 @@ function voucherSave(){
     voucherData.discount=  $('#voucher-discount').val();
     voucherData.remark = $('#voucher-remark').val();
     voucherData._token = $('meta[name="csrf-token"]').attr('content');
-    console.log(voucherData);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -150,15 +150,26 @@
                                             </label>
                                         </div>
                                     </div>
-                                    
-                                    @foreach($services as $service)
-                                    <div class="col-4 service-btn-wapper mb-2">
-                                        <button class="service-button btn btn-secondary"
-                                        onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}', '{{$service->normal_pct}}','{{$service->name_pct}}')">
-                                            {{$service->name}}
-                                        </button>
+
+                                    <div class="col-12 mb-3">
+                                        <input type="text" class="form-select form-select-sm"
+                                        placeholder="Search Services" required id="service-search"
+                                        onkeyup="serviceSearch()">
                                     </div>
-                                    @endforeach
+
+                                    <div class="row d-none" id="get-show-services">
+
+                                    </div>
+                                    <div class="row" id="show-services">
+                                        @foreach($services as $service)
+                                        <div class="col-4 service-btn-wapper mb-2">
+                                            <button class="service-button btn btn-secondary"
+                                            onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}', '{{$service->normal_pct}}','{{$service->name_pct}}')">
+                                                {{$service->name}}
+                                            </button>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +234,7 @@
                                             <th class="text-dark">Staff</th>
                                             <th class="text-dark">Staff Percentage</th>
                                             <th class="text-dark">Staff Amount</th>
-                                            <th class="text-dark">Amount</th>
+                                            <th class="text-dark">Service Price</th>
                                             <th>
                                                 <!-- <a class="btn btn-sm btn-success add_more rounded-circle">
                                             <i class="fa fa-plus"></i>
@@ -300,7 +311,7 @@
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paid </label>
-                                            <input type="number" class="form-control form-control-sm" id="voucher-paid">
+                                            <input type="number" class="form-control form-control-sm" id="voucher-paid" disabled>
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Discount </label>
