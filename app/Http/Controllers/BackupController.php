@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class BackupController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('role:admin');
+    }
+    
     public function index()
     {
         return view('report.backup_database');

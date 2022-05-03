@@ -22,8 +22,16 @@ class ServiceController extends Controller
     {
         $this->authorize('viewAny', Service::class);
         Session::put('currentpage', "Service List");
-        $services = Service::paginate(15);
-        return view('service.service_list', compact('services'));
+        $all_service = Service::query();
+        $searched = false;
+        if (request('search')) {
+            $all_service
+            ->where('name', 'Like', '%' . request('search') . '%')            
+            ->get();
+            $searched = true;
+        }
+        $services = $all_service->orderBy('id')->paginate(15);
+        return view('service.service_list', compact(['services', 'searched']));
     }
 
     /**

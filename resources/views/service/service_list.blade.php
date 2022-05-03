@@ -2,25 +2,24 @@
 
 @section('content')
 <div class="main-content-inner">
-    <!-- <div class="mt-3 mb-2 d-flex align-items-end">
-        <div class="form-group row mr-3">
-            <label class="col-form-label">From Date:</label>
-            <div class="col-sm-8">
-                <input type="date" class="form-control form-control-sm" />
+    <div class="mt-3 mb-3">
+        <form method="GET" action="{{route('service.index')}}">
+            @csrf
+            <div class="row justify-content-end">
+                <div class="col-4">
+                    <div class="input-group mb-3">
+                        <input type="search" placeholder="Search here" class="form-control"  name="search" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-secondary" >Search</button>
+                            @if($searched)
+                                <a href="{{route('service.index')}}" class="btn btn-outline-info">Clear Search</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-form-label">To Date:</label>
-            <div class="col-sm-8">
-                <input type="date" class="form-control form-control-sm" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <input type="submit" class="form-control form-control-sm btn btn-primary" value="Search" />
-            </div>
-        </div>
-    </div> -->
+        </form>
+    </div >
     <table class="table table-hover progress-table text-center" id="myTable1">
         <thead class="text-uppercase">
             <tr>

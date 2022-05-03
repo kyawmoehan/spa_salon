@@ -22,8 +22,16 @@ class TypeController extends Controller
     {
         $this->authorize('viewAny', Type::class);
         Session::put('currentpage', "Item Type List");
-        $types = Type::paginate(15);
-        return view('type.type_list', compact('types'));
+        $all_type = Type::query();
+        $searched = false;
+        if (request('search')) {
+            $all_type
+            ->where('name', 'Like', '%' . request('search') . '%')            
+            ->get();
+            $searched = true;
+        }
+        $types = $all_type->orderBy('id')->paginate(15);
+        return view('type.type_list', compact(['types', 'searched']));
     }
 
     /**
