@@ -17,6 +17,7 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\VoucherStaffController;
 use App\Http\Controllers\ItemVoucherController;
 use App\Http\Controllers\ItemListController;
+use App\Http\Controllers\BackupController;
 
 use Illuminate\Http\Request;
 
@@ -53,6 +54,9 @@ Route::get('popular', [PageController::class, 'popular'])->name('popular');
 Route::get('profit', [PageController::class, 'profit'])->name('profit');
 Route::get('printvoucher', [VoucherController::class, 'printVoucher'])->name('printvoucher');
 Route::get('viewprintvoucher/{id}', [VoucherController::class, 'viewPrintVoucher'])->name('viewprintvoucher');
+Route::get('/backupdatabase', [BackupController::class, 'index'])->name('backupdatabase');
+Route::get('/getbackupdatabase', [BackupController::class, 'backupDatabase'])->name('getbackupdatabase');
+
 
 // ajax route
 Route::get('getitems', [itemController::class, 'getItems']);

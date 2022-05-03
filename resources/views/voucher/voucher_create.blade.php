@@ -24,7 +24,6 @@
                     {{Auth::user()->name}} <i
                         class="fa fa-angle-down"></i></h4>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Settings</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 

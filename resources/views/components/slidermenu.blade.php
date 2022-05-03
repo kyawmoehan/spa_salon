@@ -135,14 +135,21 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-home"></i><span>Reports</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true">
+                                <i
+                                    class="ti-calendar"></i><span>Reports</span></a>
                             <ul class="collapse">
                                 <!-- <li><a href="./purchase-report.php">Purchase Report</a></li> -->
                                 <li><a href="{{route('iteminventory')}}">Inventory</a></li>
                                 <li><a href="{{route('popular')}}">Popular Item/Service</a></li>
                                 <li><a href="{{route('profit')}}">Profit</a></li>
+                                
                             </ul>
+                        </li>
+                        <li>
+                            <a href="{{route('backupdatabase')}}">
+                                <i class="fa fa-database"></i><span>Backup Data</span>
+                            </a>
                         </li>
                         @endif
                     </ul>
