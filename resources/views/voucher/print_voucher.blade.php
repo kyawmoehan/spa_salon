@@ -205,7 +205,7 @@
   });
   window.onafterprint = function(){
     localStorage.removeItem('printvoucher');
-    window.location.replace("http://localhost:8000/voucher/create");
+    window.location.replace("/voucher/create");
   }
 
 </script>

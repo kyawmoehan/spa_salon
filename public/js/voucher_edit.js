@@ -359,7 +359,7 @@ function voucherSave(){
         success:function(data){
             console.log(data);
             deleteVoucher();
-            window.location.replace("http://localhost:8000/voucher");
+            window.location.replace("/voucher");
         },
     });
 }

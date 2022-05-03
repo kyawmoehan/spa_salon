@@ -403,7 +403,7 @@ function voucherSave(){
         success:function(data){
             localStorage.setItem("printvoucher", JSON.stringify(voucherData));
             deleteVoucher();
-            window.location.replace("http://localhost:8000/printvoucher");
+            window.location.replace("/printvoucher");
         },
     });
 }
