@@ -47,9 +47,6 @@
             <div class="form-group row">
                 <label for="email" class="form-label col-sm-2">Email :</label>
                 <input class="form-control col-sm-10 mb-2" type="email" id="email" name="email"/>
-                @error('email')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
             </div>
             <div class="form-group row">
                 <label for="position" class="form-label col-sm-2">Position :</label>

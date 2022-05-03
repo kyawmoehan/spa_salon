@@ -25,6 +25,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">User Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Role</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                     <th>{{$key+1}}</th>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>{{$user->role->name}}</td>
                     <td>
                         <ul class="d-flex justify-content-center">
                             <form action="{{route('user.destroy', $user->id)}}" method="POST"

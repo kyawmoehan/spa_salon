@@ -30,7 +30,7 @@ class ServiceController extends Controller
             ->get();
             $searched = true;
         }
-        $services = $all_service->orderBy('id')->paginate(15);
+        $services = $all_service->orderBy('id', 'DESC')->paginate(15);
         return view('service.service_list', compact(['services', 'searched']));
     }
 

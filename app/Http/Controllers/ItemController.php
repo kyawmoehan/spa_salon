@@ -34,7 +34,7 @@ class ItemController extends Controller
             ->get();
             $searched = true;
         }
-        $items = $all_item->orderBy('id')->paginate(15);
+        $items = $all_item->orderBy('id', 'DESC')->paginate(15);
         return view('item.item_list', compact(['items', 'searched']));
     }
 

@@ -30,7 +30,7 @@ class CustomerController extends Controller
             ->get();
             $searched = true;
         }
-        $customers = $all_customers->orderBy('id')->paginate(15);
+        $customers = $all_customers->orderBy('id', "DESC")->paginate(15);
         return view('customer.customer_list', compact(['customers', 'searched']));
     }
 

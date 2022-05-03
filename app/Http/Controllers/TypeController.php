@@ -30,7 +30,7 @@ class TypeController extends Controller
             ->get();
             $searched = true;
         }
-        $types = $all_type->orderBy('id')->paginate(15);
+        $types = $all_type->orderBy('id', 'DESC')->paginate(15);
         return view('type.type_list', compact(['types', 'searched']));
     }
 

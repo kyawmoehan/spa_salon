@@ -57,7 +57,7 @@
                         <th>{{$key+1}}</th>
                         <td>{{$item->item->name}}</td>
                         <td>{{$item->quantity}}</td>
-                        <td>{{$item->source}}</td>
+                        <td>{{ucfirst($item->source)}}</td>
                         <td>{{$item->item_price}} Ks</td>
                         <td>{{$item->item_price*$item->quantity}} Ks</td>
                     </tr>

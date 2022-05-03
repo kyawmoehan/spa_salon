@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('address');
             $table->bigInteger('phone');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('position');
             $table->text('remark')->nullable();
             $table->timestamps();

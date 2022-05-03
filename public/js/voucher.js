@@ -48,7 +48,7 @@ function checkBtn(id){
             ${item['itemPrice']} Ks
         </td>
         <td>
-            ${item['source']}
+            ${item['source'].charAt(0).toUpperCase() + item['source'].slice(1)}
         </td>
         <td>
             ${item['itemPrice']* item['quantity']} Ks

@@ -64,11 +64,11 @@ class StaffController extends Controller
         //Validation
         $request->validate([
             'name' => 'required|min:4',
-            'nrc' => 'required',
+            'nrc' => ['required', 'unique:staff'],
             'image' => 'required|mimes:jpeg,jpg,png',
             'address' => 'required',
             'phone' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
         ]);
 
@@ -136,7 +136,7 @@ class StaffController extends Controller
             'nrc' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
         ]);
         $this->authorize('update', $staff);

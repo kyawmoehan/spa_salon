@@ -78,7 +78,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
+        $customers = Customer::orderBy('id', "DESC")->get();
         $items = Item::all();
         $services = Service::all();
         $staffs = Staff::all();
