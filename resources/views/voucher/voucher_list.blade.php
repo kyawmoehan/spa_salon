@@ -95,7 +95,7 @@
         
         
         @if(Session::has("voucherexport"))
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-3">
             <a class="btn btn-primary" href="{{route('voucherexport')}}">Export Excel</a>
         </div>
         @endif

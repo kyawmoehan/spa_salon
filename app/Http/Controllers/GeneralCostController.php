@@ -27,6 +27,7 @@ class GeneralCostController extends Controller
     {
         Session::forget('generalcostexport');
         $this->authorize('viewAny', GeneralCost::class);
+        Session::put('currentpage', "General Cost List");
         $allGeneralCost = GeneralCost::query();
         $searched = false;
         $totalCost = 0;
@@ -50,6 +51,7 @@ class GeneralCostController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "General Cost Create");
         return view('generalcost.generalcost_create');
     }
 
@@ -104,6 +106,7 @@ class GeneralCostController extends Controller
      */
     public function edit(GeneralCost $generalcost)
     {
+        Session::put('currentpage', "General Cost Update");
         return view('generalcost.generalcost_edit', compact('generalcost'));
     }
 

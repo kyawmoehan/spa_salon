@@ -36,7 +36,7 @@ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3eda
     <script src="{{asset('assets/js/scripts.js')}}"></script>
     <script src="{{asset('assets/js/script.js')}}"></script>
     <script type="text/javascript" charset="utf8" src="{{asset('assets/data-table/datatable.js')}}"></script>
-    <script src="assets/js/select2.min.js"></script>
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable();

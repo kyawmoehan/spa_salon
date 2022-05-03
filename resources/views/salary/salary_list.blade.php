@@ -78,7 +78,7 @@
      {{ $salaries->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
 
      @if(Session::has("salaryexport"))
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-3">
             <a class="btn btn-primary" href="{{route('salaryexport')}}">Export Excel</a>
         </div>
     @endif

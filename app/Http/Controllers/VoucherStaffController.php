@@ -20,6 +20,7 @@ class VoucherStaffController extends Controller
     }
 
     public function index(){
+        Session::put('currentpage', "Service List");
         Session::forget('serviceexport');
         $allVoucherStaff= VoucherStaff::query();
         $searched = false;

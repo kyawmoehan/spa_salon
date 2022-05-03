@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Session;
 
 class TypeController extends Controller
 {
@@ -20,6 +21,7 @@ class TypeController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Type::class);
+        Session::put('currentpage', "Item Type List");
         $types = Type::paginate(15);
         return view('type.type_list', compact('types'));
     }
@@ -31,6 +33,7 @@ class TypeController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Item Type Create");
         return view('type.type_create');
     }
 
@@ -76,6 +79,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
+        Session::put('currentpage', "Item Type Update");
         return view('type.type_edit', compact('type'));
     }
 

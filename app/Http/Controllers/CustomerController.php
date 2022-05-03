@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Session;
 
 class CustomerController extends Controller
 {
@@ -19,6 +20,7 @@ class CustomerController extends Controller
 
     public function index()
     {
+        Session::put('currentpage', "Customer List");
         $all_customers = Customer::query();
         $searched = false;
         if (request('search')) {
@@ -39,6 +41,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Customer Create");
         return view('customer.customer_create');
     }
 
@@ -89,6 +92,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
+        Session::put('currentpage', "Customer Update");
         return view('customer.customer_edit', compact('customer'));
     }
 

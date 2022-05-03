@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Session;
 
 class ItemController extends Controller
 {
@@ -22,6 +23,7 @@ class ItemController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Item::class);
+        Session::put('currentpage', "Item List");
         $all_item = Item::query();
         $searched = false;
         if (request('search')) {
@@ -43,6 +45,7 @@ class ItemController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Item Create");
         $types = Type::all();
         return view('item.item_create', compact('types'));
     }
@@ -101,6 +104,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
+        Session::put('currentpage', "Item Update");
         $types = Type::all();
         return view('item.item_edit', compact(['item', 'types']));
     }

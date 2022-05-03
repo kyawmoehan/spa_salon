@@ -27,7 +27,7 @@ class SalaryController extends Controller
     {
         Session::forget('salaryexport');
         $this->authorize('viewAny', Salary::class);
-       
+        Session::put('currentpage', "Salary List");
         $allSalaries = Salary::query();
         $searched = false;
         if(request('fromdate') && request('todate') && request('search')){
@@ -64,6 +64,7 @@ class SalaryController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Salary Create");
         $staffs = Staff::all();
         return view('salary.salary_create', compact(['staffs']));
     }
@@ -118,6 +119,7 @@ class SalaryController extends Controller
      */
     public function edit(Salary $salary)
     {
+        Session::put('currentpage', "Salary Update");
         $staffs = Staff::all();
         return view('salary.salary_edit', compact(['salary', 'staffs']));
     }

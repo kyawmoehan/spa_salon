@@ -4,7 +4,7 @@
 <div class="main-content-inner">
     <div class="row mt-3 mb-4">
         <div class="col-4">
-            <h3>Yearly Profit</h3>
+            <h3>Monthly Profit</h3>
         </div>
         <div class="col-4"></div>
         <div class="col-4">

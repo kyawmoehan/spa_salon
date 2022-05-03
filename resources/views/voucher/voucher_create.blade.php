@@ -13,7 +13,7 @@
                 <h4 class="page-title pull-left">Customer appointment</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>Dashboard</span></li>
+                    <li><span>Voucher</span></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <div class="add-customer my-2">
                     <div class="btn-group w-100">
                         <!-- <input type="text" class="form-control form-control-sm"> -->
-                        <select name="" id="voucher-select-cust" class="form-select form-select-sm" required>
+                        <select name="state" id="voucher-select-cust" class="form-select form-select-sm" required>
                             <option value="" disabled>select customer ...</option>
                             @foreach($customers as $customer)
                             <option value="{{$customer->id}}">{{$customer->name}}</option>
@@ -55,6 +55,7 @@
                         </select>
                         <button id="voucher-add" class="btn btn-sm btn-info">Add</button>
                     </div>
+                    <a href="{{route('customer.create')}}" class="btn btn-primary mt-2 w-100">Add New Customer</a>
                 </div>
                 <hr>
                 <div class="customer-app">

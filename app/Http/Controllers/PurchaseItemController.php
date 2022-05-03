@@ -7,6 +7,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Carbon;
 use App\Http\Controllers\ItemLisstController;
+use Session;
 
 class PurchaseItemController extends Controller
 {
@@ -23,6 +24,7 @@ class PurchaseItemController extends Controller
     public function index()
     {
         $this->authorize('viewAny', PurchaseItem::class);
+        Session::put('currentpage', "Purchase Item List");
         $allPurchase= PurchaseItem::query();
         $searched = false;
         if(request('fromdate') && request('todate') && request('search')){
@@ -59,6 +61,7 @@ class PurchaseItemController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Purchase Item Create");
         $items = Item::all();
         return view('purchase.purchase_create', compact('items'));
     }
@@ -114,6 +117,7 @@ class PurchaseItemController extends Controller
      */
     public function edit(PurchaseItem $purchase)
     {
+        Session::put('currentpage', "Purchase Item Update");
         $items = Item::all();
         return view('purchase.purchase_edit', compact(['purchase', 'items']));
     }

@@ -35,6 +35,7 @@ class VoucherController extends Controller
     public function index()
     {
         Session::forget('voucherexport');
+        Session::put('currentpage', "Voucher List");
         $allVouchers= Voucher::query();
         $searched = false;
         $searched1 = false;
@@ -147,6 +148,7 @@ class VoucherController extends Controller
      */
     public function show(Voucher $voucher)
     {
+        Session::put('currentpage', "Voucher Detail");
         return view('voucher.voucher_view', compact('voucher'));
     }
 
@@ -158,6 +160,7 @@ class VoucherController extends Controller
      */
     public function edit(Voucher $voucher)
     {
+        Session::put('currentpage', "Voucher Update");
         $getItemList = $voucher->voucherItems;
         $getServiceList = $voucher->voucherStaff;
         $items = Item::all();

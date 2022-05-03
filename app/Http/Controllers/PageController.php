@@ -13,6 +13,7 @@ use App\Models\Voucher;
 use App\Models\GeneralCost;
 use App\Models\UsageItem;
 use App\Models\Salary;
+use Session;
 
 class PageController extends Controller
 {
@@ -80,6 +81,7 @@ class PageController extends Controller
     
     public function dashboard()
     {
+        Session::put('currentpage', "Dashboard");
         $new_customers = Customer::whereDate('created_at', '=', Carbon\Carbon::today())
                             ->count();
 
@@ -132,6 +134,7 @@ class PageController extends Controller
 
     public function popular()
     {
+        Session::put('currentpage', "Popular Item & Services");
         $t = Carbon\Carbon::now();
         $year = $t->year;
         $month = $t->month;
@@ -173,6 +176,7 @@ class PageController extends Controller
 
     public function profit()
     {
+        Session::put('currentpage', "Monthly Profit");
         $t = Carbon\Carbon::now();
         $year = $t->year;
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

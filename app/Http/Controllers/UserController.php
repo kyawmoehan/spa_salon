@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
+use Session;
 
 class UserController extends Controller
 {
@@ -24,6 +25,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', User::class);
+        Session::put('currentpage', "User List");
         $allusers = User::query();
         $searched = false;
         if (request('search')) {
@@ -44,6 +46,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "User Create");
         return view('user.user_create');
     }
 

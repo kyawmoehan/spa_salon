@@ -31,9 +31,9 @@ function checkBtn(id){
             ${item['itemName']}
         </td>
         <td>
-            <button onclick="decreaseItem(${item['itemId']}, '${item['source']}')">-</button>
+            <button  class="btn btn-primary voucher-btn" onclick="decreaseItem(${item['itemId']}, '${item['source']}')">-</button>
             ${item['quantity']}
-            <button onclick="increaseItem(${item['itemId']}, '${item['source']}')">+</button>
+            <button class="btn btn-primary voucher-btn" onclick="increaseItem(${item['itemId']}, '${item['source']}')">+</button>
         </td>
         <td>
             ${item['itemPrice']}

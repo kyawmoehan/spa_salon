@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemList;
 use Illuminate\Http\Request;
+use Session;
 
 class ItemListController extends Controller
 {
@@ -19,6 +20,7 @@ class ItemListController extends Controller
 
     public function index()
     {
+        Session::put('currentpage', "Item  Inventory");
         $allItemList = ItemList::query();
         $searched = false;
         if (request('search')) {

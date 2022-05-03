@@ -145,3 +145,8 @@ body {
 .s_invoice {
     height: 300px;
 }
+
+.voucher-btn{
+    padding: 5px 10px;
+    margin: 6px;
+}

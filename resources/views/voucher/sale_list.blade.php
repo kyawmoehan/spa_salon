@@ -63,7 +63,7 @@
         {{ $itemVouchers->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
 
         @if(Session::has("saleexport"))
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-3">
                 <a class="btn btn-primary" href="{{route('saleexport')}}">Export Excel</a>
             </div>
         @endif

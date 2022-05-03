@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Session;
 
 class ServiceController extends Controller
 {
@@ -20,6 +21,7 @@ class ServiceController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Service::class);
+        Session::put('currentpage', "Service List");
         $services = Service::paginate(15);
         return view('service.service_list', compact('services'));
     }
@@ -31,6 +33,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Service Create");
         return view('service.service_create');
     }
 
@@ -82,6 +85,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
+        Session::put('currentpage', "Service Update");
         return view('service.service_edit', compact('service'));
     }
 

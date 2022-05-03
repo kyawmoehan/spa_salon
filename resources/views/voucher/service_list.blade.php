@@ -63,7 +63,7 @@
         {{ $voucherStaffs->appends(Request::except('page'))->links("pagination::bootstrap-5") }}
 
         @if(Session::has("serviceexport"))
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-3">
                 <a class="btn btn-primary" href="{{route('serviceexport')}}">Export Excel</a>
             </div>
         @endif

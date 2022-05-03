@@ -19,6 +19,7 @@ class ItemVoucherController extends Controller
     }
 
     public function index(){
+        Session::put('currentpage', "Item Sale List");
         Session::forget('saleexport');
         $allItemVoucher= ItemVoucher::query();
         $searched = false;

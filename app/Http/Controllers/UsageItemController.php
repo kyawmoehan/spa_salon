@@ -29,6 +29,7 @@ class UsageItemController extends Controller
     {
         Session::forget('usageitemexport');
         $this->authorize('viewAny', UsageItem::class);
+        Session::put('currentpage', "Usage Item List");
         $allUsage= UsageItem::query();
         $searched = false;
         if(request('fromdate') && request('todate') && request('search')){
@@ -66,6 +67,7 @@ class UsageItemController extends Controller
      */
     public function create()
     {   
+        Session::put('currentpage', "Usage Item Create");
         $items = Item::all();
         return view('usage.usage_create', compact('items'));
     }
@@ -125,6 +127,7 @@ class UsageItemController extends Controller
      */
     public function edit(UsageItem $usage)
     {
+        Session::put('currentpage', "Usage Item Update");
         $items = Item::all();
         return view('usage.usage_edit', compact(['usage', 'items']));
     }

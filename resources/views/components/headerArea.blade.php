@@ -11,8 +11,8 @@
                 </script>
                 <h4 class="page-title pull-left">Dashboard</h4>
                 <ul class="breadcrumbs pull-left">
-                    <li><a href="index.php">Home</a></li>
-                    <li><span>Dashboard</span></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><span>{{Session::get('currentpage')}}</span></li>
                 </ul>
             </div>
         </div>

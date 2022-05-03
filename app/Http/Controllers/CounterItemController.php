@@ -7,6 +7,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Carbon;
 use App\Http\Controllers\ItemLisstController;
+use Session;
 
 class CounterItemController extends Controller
 {
@@ -24,6 +25,7 @@ class CounterItemController extends Controller
     public function index()
     {
         $this->authorize('viewAny', CounterItem::class);
+        Session::put('currentpage', "Counter Item List");
         $allCounter= CounterItem::query();
         $searched = false;
         if(request('fromdate') && request('todate') && request('search')){
@@ -60,6 +62,7 @@ class CounterItemController extends Controller
      */
     public function create()
     {
+        Session::put('currentpage', "Counter Item Create");
         $items = Item::all();
         return view('counter.counter_create', compact('items'));
     }
@@ -117,6 +120,7 @@ class CounterItemController extends Controller
      */
     public function edit(CounterItem $counter)
     {
+        Session::put('currentpage', "Counter Item Update");
         $items = Item::all();
         return view('counter.counter_edit', compact(['counter', 'items']));
     }

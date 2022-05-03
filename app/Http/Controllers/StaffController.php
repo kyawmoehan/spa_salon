@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use File;
+use Session;
 
 class StaffController extends Controller
 {
@@ -21,6 +22,7 @@ class StaffController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Staff::class);
+        Session::put('currentpage', "Staff List");
         $AllStaff = Staff::query();
         $searched = false;
         if (request('search')) {
@@ -47,6 +49,7 @@ class StaffController extends Controller
 
     public function create()
     {
+        Session::put('currentpage', "Staff Create");
         return view('staff.staff_create');
     }
 
@@ -114,6 +117,7 @@ class StaffController extends Controller
      */
     public function edit(Staff $staff)
     {
+        Session::put('currentpage', "Staff Update");
         return view('staff.staff_edit', compact('staff'));
     }
 
