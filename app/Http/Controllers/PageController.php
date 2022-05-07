@@ -15,6 +15,9 @@ use App\Models\UsageItem;
 use App\Models\Salary;
 use Session;
 
+use App\Exports\ProfitExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class PageController extends Controller
 {
     public function __construct() 
@@ -176,9 +179,11 @@ class PageController extends Controller
 
     public function profit()
     {
+        Session::forget('profitexport');
         Session::put('currentpage', "Monthly Profit");
         $t = Carbon\Carbon::now();
         $year = $t->year;
+        Session::put('profitexport', $year);
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         $yearProfits = $this->calculateProft($months, $year);
@@ -225,6 +230,7 @@ class PageController extends Controller
     public function getProfit(Request $request)
     {
         $profitYear = $request->profitYear;
+        Session::put('profitexport', $profitYear);
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         $yearProfits = $this->calculateProft($months, $profitYear);
@@ -235,5 +241,11 @@ class PageController extends Controller
         ];
 
         return response()->json($data, 200);
+    }
+
+    public function export() 
+    {
+        $year = Session('profitexport');
+        return Excel::download(new ProfitExport($year), 'monthlyporfit.xlsx');
     }
 }

@@ -73,5 +73,6 @@ Route::get('usageitemexport', [UsageItemController::class, 'export'])->name('usa
 Route::get('salaryexport', [SalaryController::class, 'export'])->name('salaryexport');
 Route::get('saleexport', [ItemVoucherController::class, 'export'])->name('saleexport');
 Route::get('serviceexport', [VoucherStaffController::class, 'export'])->name('serviceexport');
+Route::get('profitexport', [PageController::class, 'export'])->name('profitexport');
 
 require __DIR__.'/auth.php';

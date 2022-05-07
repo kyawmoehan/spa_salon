@@ -45,6 +45,9 @@
            @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{{route('profitexport')}}" class="btn btn-primary">Export Excel</a>
+    </div>
 </div>
 @endsection
 
