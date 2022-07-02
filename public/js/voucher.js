@@ -119,7 +119,7 @@ function checkBtn(id) {
 function getVouchers() {
     let getVoucherStr = localStorage.getItem("vouchers");
     let getVoucherArray = JSON.parse(getVoucherStr);
-    if (getVoucherArray.length == 0) {
+    if (!Array.isArray(getVoucherArray) || getVoucherArray.length == 0) {
         $("#customer-check").empty();
         $("#items-table").empty();
         $("#service-table").empty();
@@ -135,6 +135,9 @@ function getVouchers() {
 
         return;
     }
+    // if (getVoucherArray.length == 0) {
+
+    // }
     $("#item-search").val("");
     $("#show-items").removeClass("d-none");
     $("#get-show-items").addClass("d-none");
@@ -521,7 +524,11 @@ $(window).load(function () {
             customerName: customerName,
             customerId: customerId,
         };
-        if (localStorage.getItem("vouchers").length === 0) {
+        console.log(localStorage.getItem("vouchers"));
+        if (
+            localStorage.getItem("vouchers") == null ||
+            localStorage.getItem("vouchers").length === 0
+        ) {
             let voucherArray = [];
             voucherArray.push(voucher);
             let voucherStr = JSON.stringify(voucherArray);
