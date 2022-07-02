@@ -13,16 +13,14 @@
                     <ul class="metismenu" id="menu">
                         @if(Auth::user()->hasRole('admin'))
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="fa fa-shopping-basket"></i><span>Items</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-shopping-basket"></i><span>Items</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('item.create')}}">Add</a></li>
                                 <li><a href="{{route('item.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="fa fa-tags"></i><span>Item Type</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tags"></i><span>Item Type</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('type.create')}}">Add</a></li>
                                 <li><a href="{{route('type.index')}}">List</a></li>
@@ -36,15 +34,14 @@
                                 <li><a href="{{route('voucher.create')}}">Add</a></li>
                                 <li><a href="{{route('voucher.index')}}">Voucher List</a></li>
                                 @if(Auth::user()->hasRole('admin'))
-                                    <li><a href="{{route('salelist')}}">Sale List</a></li>
-                                    <li><a href="{{route('servicelist')}}">Service List</a></li>
+                                <li><a href="{{route('salelist')}}">Sale List</a></li>
+                                <li><a href="{{route('servicelist')}}">Service List</a></li>
                                 @endif
                             </ul>
                         </li>
                         @if(Auth::user()->hasRole('admin'))
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-dashboard"></i><span>Service</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Service</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('service.create')}}">Add</a></li>
                                 <li><a href="{{route('service.index')}}">Service List</a></li>
@@ -68,17 +65,15 @@
                             </ul>
                         </li> -->
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-user"></i><span>Customer</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>Customer</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('customer.create')}}">Add</a></li>
                                 <li><a href="{{route('customer.index')}}">List</a></li>
                             </ul>
                         </li>
-                         @if(Auth::user()->hasRole('admin'))
+                        @if(Auth::user()->hasRole('admin'))
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-shopping-cart-full"></i><span>Purchase</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-shopping-cart-full"></i><span>Purchase</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('purchase.create')}}">Add</a></li>
                                 <li><a href="{{route('purchase.index')}}">List</a></li>
@@ -92,7 +87,7 @@
                                 <li><a href="{{route('generalcost.index')}}">List</a></li>
                             </ul>
                         </li>
-                       
+
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-na"></i><span>Usage
                                     Items</span></a>
@@ -101,34 +96,30 @@
                                 <li><a href="{{route('usage.index')}}">List</a></li>
                             </ul>
                         </li>
-                        
+
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-id-badge"></i><span>User</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-id-badge"></i><span>User</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('user.create')}}">Add</a></li>
                                 <li><a href="{{route('user.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-face-smile"></i><span>Staff</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-face-smile"></i><span>Staff</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('staff.create')}}">Add </a></li>
                                 <li><a href="{{route('staff.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-money"></i><span>Salary</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-money"></i><span>Salary</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('salary.create')}}">Add </a></li>
                                 <li><a href="{{route('salary.index')}}">List</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i
-                                    class="ti-home"></i><span>Counter</span></a>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-home"></i><span>Counter</span></a>
                             <ul class="collapse">
                                 <li><a href="{{route('counter.create')}}">Add</a></li>
                                 <li><a href="{{route('counter.index')}}">Counter List</a></li>
@@ -136,14 +127,14 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true">
-                                <i
-                                    class="ti-calendar"></i><span>Reports</span></a>
+                                <i class="ti-calendar"></i><span>Reports</span></a>
                             <ul class="collapse">
                                 <!-- <li><a href="./purchase-report.php">Purchase Report</a></li> -->
                                 <li><a href="{{route('iteminventory')}}">Inventory</a></li>
                                 <li><a href="{{route('popular')}}">Popular Item/Service</a></li>
                                 <li><a href="{{route('profit')}}">Profit</a></li>
-                                
+                                <li><a href="{{route('daily')}}">Daily Report</a></li>
+
                             </ul>
                         </li>
                         <li>

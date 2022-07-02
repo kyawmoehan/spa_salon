@@ -18,7 +18,7 @@ use App\Http\Controllers\VoucherStaffController;
 use App\Http\Controllers\ItemVoucherController;
 use App\Http\Controllers\ItemListController;
 use App\Http\Controllers\BackupController;
-
+use App\Http\Controllers\DailyController;
 use Illuminate\Http\Request;
 
 /*
@@ -32,7 +32,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', [PageController::class, 'dashboard'])->name('home'); 
+Route::get('/', [PageController::class, 'dashboard'])->name('home');
 
 Route::resource('user', UserController::class, ["name" => "user"]);
 Route::resource('staff', StaffController::class, ["name" => "staff"]);
@@ -52,6 +52,7 @@ Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servi
 Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
 Route::get('popular', [PageController::class, 'popular'])->name('popular');
 Route::get('profit', [PageController::class, 'profit'])->name('profit');
+Route::get('dailyreport', [DailyController::class, 'dailyReport'])->name('daily');
 Route::get('printvoucher', [VoucherController::class, 'printVoucher'])->name('printvoucher');
 Route::get('viewprintvoucher/{id}', [VoucherController::class, 'viewPrintVoucher'])->name('viewprintvoucher');
 Route::get('/backupdatabase', [BackupController::class, 'index'])->name('backupdatabase');
@@ -75,4 +76,4 @@ Route::get('saleexport', [ItemVoucherController::class, 'export'])->name('saleex
 Route::get('serviceexport', [VoucherStaffController::class, 'export'])->name('serviceexport');
 Route::get('profitexport', [PageController::class, 'export'])->name('profitexport');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
