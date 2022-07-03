@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 
 class DailyController extends Controller
 {
-    public function getServices()
+    public function getServices($date)
     {
-        $allServices =  VoucherStaff::whereDate('date', '=', Carbon::today())->get();
+        $allServices =  VoucherStaff::whereDate('date', '=', $date)->get();
         $countServices = [];
         $voucherIds = [];
         foreach ($allServices as $service) {
@@ -47,9 +47,9 @@ class DailyController extends Controller
         return $service;
     }
 
-    public function getItems()
+    public function getItems($date)
     {
-        $allSaleItems =  ItemVoucher::whereDate('date', '=', Carbon::today())->get();
+        $allSaleItems =  ItemVoucher::whereDate('date', '=', $date)->get();
         $countItems = [];
         foreach ($allSaleItems as $item) {
             if (array_key_exists($item->item->id, $countItems)) {
@@ -70,12 +70,16 @@ class DailyController extends Controller
 
     public function dailyReport()
     {
+        $date = Carbon::today();
+        if (request('date')) {
+            $date = request('date');
+        }
         $report = [];
 
         $report['services'] = [];
         $report['items'] = [];
 
-        $todayServices = $this->getServices();
+        $todayServices = $this->getServices($date);
         foreach ($todayServices as $key => $quantity) {
             $detailService = $this->getDatilService($key);
             array_push($report['services'], [
@@ -85,7 +89,7 @@ class DailyController extends Controller
             ]);
         }
 
-        $todayItems = $this->getItems();
+        $todayItems = $this->getItems($date);
         foreach ($todayItems as $key => $quantity) {
             $detailItem = $this->getDetailItem($key);
             array_push($report['items'], [
