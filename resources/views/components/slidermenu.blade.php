@@ -116,6 +116,7 @@
                             <ul class="collapse">
                                 <li><a href="{{route('salary.create')}}">Add </a></li>
                                 <li><a href="{{route('salary.index')}}">List</a></li>
+                                 <li><a href="{{route('salaryreport')}}">Salary Report</a></li>
                             </ul>
                         </li>
                         <li>

@@ -9,9 +9,15 @@ use App\Models\Voucher;
 use App\Models\ItemVoucher;
 use App\Models\VoucherStaff;
 use Illuminate\Http\Request;
+use Session;
 
 class DailyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     public function getServices($date)
     {
         $allServices =  VoucherStaff::whereDate('date', '=', $date)->get();
@@ -70,6 +76,7 @@ class DailyController extends Controller
 
     public function dailyReport()
     {
+        Session::put('currentpage', "Daily Report");
         $date = Carbon::today();
         if (request('date')) {
             $date = request('date');

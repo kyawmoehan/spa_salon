@@ -19,6 +19,7 @@ use App\Http\Controllers\ItemVoucherController;
 use App\Http\Controllers\ItemListController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\DailyController;
+use App\Http\Controllers\SalaryReportController;
 use Illuminate\Http\Request;
 
 /*
@@ -46,6 +47,7 @@ Route::resource('counter', CounterItemController::class, ["name" => "counter"]);
 Route::resource('usage', UsageItemController::class, ["name" => "usage"]);
 Route::resource('voucher', VoucherController::class, ["name" => "voucher"]);
 Route::resource('salary', SalaryController::class, ["name" => "salary"]);
+Route::get('salaryreport', [SalaryReportController::class, 'salaryReport'])->name('salaryreport');
 
 Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
 Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servicelist');
@@ -75,5 +77,6 @@ Route::get('salaryexport', [SalaryController::class, 'export'])->name('salaryexp
 Route::get('saleexport', [ItemVoucherController::class, 'export'])->name('saleexport');
 Route::get('serviceexport', [VoucherStaffController::class, 'export'])->name('serviceexport');
 Route::get('profitexport', [PageController::class, 'export'])->name('profitexport');
+Route::get('salaryreportexport', [SalaryReportController::class, 'export'])->name('salaryreportexport');
 
 require __DIR__ . '/auth.php';
