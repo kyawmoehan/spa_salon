@@ -29,6 +29,7 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 <th scope="col">Position</th>
+                <th scope="col">Status</th>
                 <th scope="col">Remark</th>
                 <th scope="col">Action</th>
             </tr>
@@ -44,6 +45,7 @@
                 <td>{{$staff->phone}}</td>
                 <td>{{$staff->email}}</td>
                 <td>{{$staff->position}}</td>
+                <th><p class="{{ $staff->status ? 'text-success': 'text-danger'}}">{{ $staff->status ? 'Avaliable': 'Unavaliable' }}</p></th>
                 <td>{{$staff->remark}}</td>
                 <td>
                     <ul class="d-flex justify-content-center">

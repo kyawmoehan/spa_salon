@@ -14,7 +14,7 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('role:admin');
     }
@@ -27,16 +27,16 @@ class StaffController extends Controller
         $searched = false;
         if (request('search')) {
             $AllStaff
-            ->where('name', 'Like', '%' . request('search') . '%')
-            ->orWhere('email', 'Like', '%' . request('search') . '%')
-            ->orWhere('phone', 'Like', '%' . request('search') . '%')
-            ->orWhere('nrc', 'Like', '%' . request('search') . '%')
-            ->orWhere('address', 'Like', '%' . request('search') . '%')
-            ->orWhere('position', 'Like', '%' . request('search') . '%')
-            ->get();
+                ->where('name', 'Like', '%' . request('search') . '%')
+                ->orWhere('email', 'Like', '%' . request('search') . '%')
+                ->orWhere('phone', 'Like', '%' . request('search') . '%')
+                ->orWhere('nrc', 'Like', '%' . request('search') . '%')
+                ->orWhere('address', 'Like', '%' . request('search') . '%')
+                ->orWhere('position', 'Like', '%' . request('search') . '%')
+                ->get();
             $searched = true;
         }
-        $all_staff = $AllStaff->orderBy('id')->paginate(15);
+        $all_staff = $AllStaff->orderBy('status', 'DESC')->paginate(15);
         return view('staff.staff_list', compact(['all_staff', 'searched']));
     }
 
@@ -45,7 +45,7 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
 
     public function create()
     {
@@ -70,18 +70,18 @@ class StaffController extends Controller
             'phone' => 'required',
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
+            'status' => 'required',
         ]);
 
         $this->authorize('create', Staff::class);
         //fileupload
-        if($request->hasfile('image'))
-        {
+        if ($request->hasfile('image')) {
             $photo = $request->file('image');
-            $name = time().'.'. $photo->getClientOriginalExtension();
-            $photo->move(public_path().'/images/staff/',$name);
-            $photo = '/images/staff/'. $name;
+            $name = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path() . '/images/staff/', $name);
+            $photo = '/images/staff/' . $name;
         }
-        
+
         // store data 
         $staff = new Staff();
         $staff->name = request('name');
@@ -91,10 +91,11 @@ class StaffController extends Controller
         $staff->phone = request('phone');
         $staff->email = request('email');
         $staff->position = request('position');
+        $staff->status = request('status');
         $staff->remark = request('remark');
 
         $staff->save();
-        
+
         return redirect()->route('staff.index');
     }
 
@@ -129,29 +130,26 @@ class StaffController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Staff $staff)
-    {   
-         //Validation
-         $request->validate([
+    {
+        //Validation
+        $request->validate([
             'name' => 'required|min:4',
-            'nrc' => 'required',
+            'nrc' => ['required'],
             'address' => 'required',
             'phone' => 'required',
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:staff'],
             'position' => 'required',
+            'status' => 'required',
         ]);
         $this->authorize('update', $staff);
         //fileupload
-        if($request->hasfile('image'))
-        {
+        if ($request->hasfile('image')) {
             $photo = $request->file('image');
-            $name = time().'.'. $photo->getClientOriginalExtension();
-            $photo->move(public_path().'/images/staff/',$name);
-            $photo = '/images/staff/'. $name;
+            $name = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path() . '/images/staff/', $name);
+            $photo = '/images/staff/' . $name;
             $oldImg = request('oldimg');
             File::delete(public_path($oldImg));
-        }
-        else
-        {
+        } else {
             $photo = request('oldimg');
         }
 
@@ -163,10 +161,11 @@ class StaffController extends Controller
         $staff->phone = request('phone');
         $staff->email = request('email');
         $staff->position = request('position');
+        $staff->status = request('status');
         $staff->remark = request('remark');
 
         $staff->save();
-        
+
         return redirect()->route('staff.index');
     }
 

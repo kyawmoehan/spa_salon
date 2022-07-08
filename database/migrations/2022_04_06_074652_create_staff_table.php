@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('phone');
             $table->string('email')->unique()->nullable();
             $table->string('position');
+            $table->boolean('status');
             $table->text('remark')->nullable();
             $table->timestamps();
             $table->softDeletes();

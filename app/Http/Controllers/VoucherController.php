@@ -26,7 +26,7 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -36,35 +36,34 @@ class VoucherController extends Controller
     {
         Session::forget('voucherexport');
         Session::put('currentpage', "Voucher List");
-        $allVouchers= Voucher::query();
+        $allVouchers = Voucher::query();
         $searched = false;
         $searched1 = false;
-        if(request('fromdate') && request('todate') && request("half-payment")){
+        if (request('fromdate') && request('todate') && request("half-payment")) {
             $from = request('fromdate');
             $to = request('todate');
             Session::put('voucherexport', [$from, $to, true]);
             $allVouchers->whereBetween('date', [$from, $to])
-            ->where('half_payment', '=', request("half-payment"))
-            ->get();
+                ->where('half_payment', '=', request("half-payment"))
+                ->get();
             $searched = true;
-        }
-        else if(request('fromdate') && request('todate')){
+        } else if (request('fromdate') && request('todate')) {
             $from = request('fromdate');
             $to = request('todate');
             Session::put('voucherexport', [$from, $to, false]);
             $allVouchers->whereBetween('date', [$from, $to])->get();
             $searched = true;
-        }else if(request("half-payment")){
+        } else if (request("half-payment")) {
             // Session::put('voucherexport', [null, null, true]);
             $allVouchers
-            ->where('half_payment', '=', request("half-payment"))           
-            ->get();
+                ->where('half_payment', '=', request("half-payment"))
+                ->get();
             $searched = true;
-        }else if(request('search')) {
+        } else if (request('search')) {
             $allVouchers
-            ->where('voucher_number', 'Like', '%' . request('search') . '%')
-            ->orwhere('payment', 'Like', '%' . request('search') . '%')      
-            ->get();
+                ->where('voucher_number', 'Like', '%' . request('search') . '%')
+                ->orwhere('payment', 'Like', '%' . request('search') . '%')
+                ->get();
             $searched1 = true;
         }
         $vouchers = $allVouchers->orderByDesc('date')->paginate(15);
@@ -81,8 +80,8 @@ class VoucherController extends Controller
         $customers = Customer::orderBy('id', "DESC")->get();
         $items = Item::all();
         $services = Service::all();
-        $staffs = Staff::all();
-        return view('voucher.voucher_create', compact(['customers','items', 'services', 'staffs']));
+        $staffs = Staff::where('status', 1)->get();
+        return view('voucher.voucher_create', compact(['customers', 'items', 'services', 'staffs']));
     }
 
     /**
@@ -94,12 +93,12 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        
+
         $voucher = new Voucher();
         $voucher->voucher_number = $input['id'];
         $voucher->date = $input['date'];
         $voucher->customer_id = $input['customerId'];
-        $voucher->total = $input['total'] ;
+        $voucher->total = $input['total'];
         $voucher->paid = $input['paid'];
         $voucher->payment = $input['payment'];
         $voucher->half_payment = $input['halfPayment'];
@@ -108,26 +107,26 @@ class VoucherController extends Controller
         $voucher->voucher_staff = Auth::user()->id;
         $voucher->save();
 
-        if(array_key_exists('services', $input)){
-            foreach($input['services'] as $service){
+        if (array_key_exists('services', $input)) {
+            foreach ($input['services'] as $service) {
                 $staff = new VoucherStaff();
                 $staff->staff_id = $service['staffId'];
                 $staff->service_id = $service['serviceId'];
                 $staff->staff_pct = $service['staffPct'];
                 $staff->staff_amount = $service['staffAmount'];
-                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1: 0;
+                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1 : 0;
                 $staff->date = $input['date'];
                 $voucher->voucherStaff()->save($staff);
             }
         }
-        
-        if(array_key_exists('items', $input)){
-            foreach($input['items'] as $item){
+
+        if (array_key_exists('items', $input)) {
+            foreach ($input['items'] as $item) {
                 $itemV = new ItemVoucher();
                 $itemV->item_id = $item['itemId'];
                 $itemV->quantity = $item['quantity'];
                 $itemV->item_price = $item['itemPrice'];
-                $itemV->total = $item['itemPrice']*$item['quantity'];
+                $itemV->total = $item['itemPrice'] * $item['quantity'];
                 $itemV->source = $item['source'];
                 $itemV->date = $input['date'];
                 $voucher->voucherItems()->save($itemV);
@@ -137,7 +136,7 @@ class VoucherController extends Controller
 
         $test = array_key_exists('services', $input);
 
-        return response()->json(['success'=>'hi', 'data'=> $test]);
+        return response()->json(['success' => 'hi', 'data' => $test]);
     }
 
     /**
@@ -165,10 +164,10 @@ class VoucherController extends Controller
         $getServiceList = $voucher->voucherStaff;
         $items = Item::all();
         $services = Service::all();
-        $staffs = Staff::all();
+        $staffs = Staff::where('status', 1)->get();
 
         $itemList = [];
-        foreach($getItemList as $item){
+        foreach ($getItemList as $item) {
             $itemData = [
                 'itemId' => $item->item_id,
                 'itemName' => $item->item->name,
@@ -180,9 +179,9 @@ class VoucherController extends Controller
         }
 
         $serviceList = [];
-        foreach($getServiceList as $service){
+        foreach ($getServiceList as $service) {
             $serviceData = [
-                'nameCheckbox' => $service->name_checkbox == 1 ? true: false,
+                'nameCheckbox' => $service->name_checkbox == 1 ? true : false,
                 'namePct' => $service->service->name_pct,
                 'normalPct' => $service->service->normal_pct,
                 'serviceId' => $service->service_id,
@@ -206,7 +205,7 @@ class VoucherController extends Controller
             'services' => $serviceList,
         ];
         $data = json_encode($getData);
-        return view('voucher.voucher_edit', compact(['voucher','data','items', 'services', 'staffs']));
+        return view('voucher.voucher_edit', compact(['voucher', 'data', 'items', 'services', 'staffs']));
     }
 
     /**
@@ -223,10 +222,13 @@ class VoucherController extends Controller
 
         // delete old
         $oldVoucher = Voucher::find($input['voucherId']);
-        if(count($oldVoucher->voucherItems) != 0){
-            foreach($oldVoucher->voucherItems as $item){
-                (new ItemListController)->addItem($item->item_id, $item->source, 
-                $item->quantity);
+        if (count($oldVoucher->voucherItems) != 0) {
+            foreach ($oldVoucher->voucherItems as $item) {
+                (new ItemListController)->addItem(
+                    $item->item_id,
+                    $item->source,
+                    $item->quantity
+                );
             }
         }
         $oldVoucher->delete();
@@ -236,7 +238,7 @@ class VoucherController extends Controller
         $voucher->voucher_number = $input['id'];
         $voucher->date = $input['date'];
         $voucher->customer_id = $input['customerId'];
-        $voucher->total = $input['total'] ;
+        $voucher->total = $input['total'];
         $voucher->paid = $input['paid'];
         $voucher->payment = $input['payment'];
         $voucher->half_payment = $input['halfPayment'];
@@ -245,33 +247,33 @@ class VoucherController extends Controller
         $voucher->voucher_staff = Auth::user()->id;
         $voucher->save();
 
-        if(array_key_exists('services', $input)){
-            foreach($input['services'] as $service){
+        if (array_key_exists('services', $input)) {
+            foreach ($input['services'] as $service) {
                 $staff = new VoucherStaff();
                 $staff->staff_id = $service['staffId'];
                 $staff->service_id = $service['serviceId'];
                 $staff->staff_pct = $service['staffPct'];
                 $staff->staff_amount = $service['staffAmount'];
-                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1: 0;
+                $staff->name_checkbox = $service['nameCheckbox'] == 'true' ? 1 : 0;
                 $staff->date = $input['date'];
                 $voucher->voucherStaff()->save($staff);
             }
         }
-        
-        if(array_key_exists('items', $input)){
-            foreach($input['items'] as $item){
+
+        if (array_key_exists('items', $input)) {
+            foreach ($input['items'] as $item) {
                 $itemV = new ItemVoucher();
                 $itemV->item_id = $item['itemId'];
                 $itemV->quantity = $item['quantity'];
                 $itemV->item_price = $item['itemPrice'];
-                $itemV->total = $item['itemPrice']*$item['quantity'];
+                $itemV->total = $item['itemPrice'] * $item['quantity'];
                 $itemV->source = $item['source'];
                 $itemV->date = $input['date'];
                 $voucher->voucherItems()->save($itemV);
                 (new ItemListController)->removeItem($item['itemId'], $item['source'], $item['quantity']);
             }
         }
-        return response()->json(['success'=>'hi', 'data'=> $input['voucherId']]);
+        return response()->json(['success' => 'hi', 'data' => $input['voucherId']]);
     }
 
     /**
@@ -283,17 +285,20 @@ class VoucherController extends Controller
     public function destroy(Voucher $voucher)
     {
         $this->authorize('delete', $voucher);
-        if(count($voucher->voucherItems) != 0){
-            foreach($voucher->voucherItems as $item){
-                (new ItemListController)->addItem($item->item_id, $item->source, 
-                $item->quantity);
+        if (count($voucher->voucherItems) != 0) {
+            foreach ($voucher->voucherItems as $item) {
+                (new ItemListController)->addItem(
+                    $item->item_id,
+                    $item->source,
+                    $item->quantity
+                );
             }
         }
         $voucher->delete();
         return redirect()->route('voucher.index');
     }
 
-    public function export() 
+    public function export()
     {
         $value = Session('voucherexport');
         $from = $value[0];

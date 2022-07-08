@@ -62,6 +62,17 @@
                 @enderror
             </div>
             <div class="form-group row">
+                <label for="status" class="form-label col-sm-2">Status :</label>
+                <!-- <input class="form-control col-sm-10 mb-2" type="text" id="phone" /> -->
+                <select name="status" class="form-control col-sm-10 mb-2" id="status">
+                    <option value="1" class="text-light" selected>Avaliable</option>
+                    <option value="0">Unavaliable</option>
+                </select>
+                @error('status')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group row">
                 <label for="remark" class="form-label col-sm-2">Remark :</label>
                 <textarea style="resize: none; padding-top: 35px; height:200px;" class="form-control col-sm-10 mb-2"
                     type="text" id="remark" name="remark"></textarea>

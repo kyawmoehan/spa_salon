@@ -17,6 +17,7 @@ class Staff extends Model
         'phone',
         'email',
         'position',
+        'status',
         'remark',
     ];
 
