@@ -136,6 +136,10 @@
               <td>{{$voucher->discount}} %</td>
             </tr>
             <tr>
+              <th>Discount Crash:</th>
+              <td>{{$voucher->discount_crash}} Ks</td>
+            </tr>
+            <tr>
               <th>Total:</th>
               <td>{{$voucher->paid}} Ks</td>
             </tr>

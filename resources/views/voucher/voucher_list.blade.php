@@ -60,6 +60,7 @@
                     <th scope="col">Total Amount</th>
                     <th scope="col">Paid</th>
                     <th scope="col">Discount</th>
+                    <th scope="col">Discount Crash</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Payment</th>
                     <th scope="col">Half Paymaent</th>
@@ -76,6 +77,7 @@
                     <th>{{$voucher->total}} Ks</th>
                     <th>{{$voucher->paid}} Ks</th>
                     <th>{{$voucher->discount}} %</th>
+                      <th>{{$voucher->discount_crash}} Ks</th>
                     <th>{{$voucher->customer->name}}</th>
                     <th>{{$voucher->payment}}</th>
                     <th>

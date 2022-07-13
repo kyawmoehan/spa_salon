@@ -248,11 +248,15 @@
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paid </label>
-                                            <input type="number" class="form-control form-control-sm" id="voucher-paid">
+                                            <input type="number" class="form-control form-control-sm" id="voucher-paid" value="{{ $voucher->paid }}">
                                         </div>
                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Discount </label>
-                                            <input type="number" class="form-control form-control-sm" id="voucher-discount" value="0" step="0.1" onkeyup="voucherDiscount()">
+                                            <input type="number" class="form-control form-control-sm" id="voucher-discount" value="{{ $voucher->discount }}" step="0.1" onkeyup="voucherDiscount()">
+                                        </div>
+                                         <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                            <label for="" class="form-label me-3">Discount Crash </label>
+                                            <input type="number" class="form-control form-control-sm" id="voucher-discount-crash" value="{{ $voucher->discount_crash }}" onkeyup="voucherDiscountCrash()">
                                         </div>
                                         <div class="form-group d-flex justify-content-between row">
                                             <button class="btn btn-secondary col-4" style="height: 80px;" onclick="voucherSave()">Update</button>

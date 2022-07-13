@@ -103,6 +103,7 @@ class VoucherController extends Controller
         $voucher->payment = $input['payment'];
         $voucher->half_payment = $input['halfPayment'];
         $voucher->discount = $input['discount'];
+        $voucher->discount_crash = $input['discount_crash'];
         $voucher->remark = $input['remark'];
         $voucher->voucher_staff = Auth::user()->id;
         $voucher->save();
@@ -243,6 +244,7 @@ class VoucherController extends Controller
         $voucher->payment = $input['payment'];
         $voucher->half_payment = $input['halfPayment'];
         $voucher->discount = $input['discount'];
+        $voucher->discount_crash = $input['discount_crash'];
         $voucher->remark = $input['remark'];
         $voucher->voucher_staff = Auth::user()->id;
         $voucher->save();

@@ -105,6 +105,10 @@
               <td ><span id="discount"></span> %</td>
             </tr>
             <tr>
+              <th>Discount Crash:</th>
+              <td ><span id="discount-crash"></span> Ks</td>
+            </tr>
+            <tr>
               <th>Total:</th>
               <td><span id="paid"></span> Ks</td>
             </tr>
@@ -139,6 +143,7 @@
     $('#customer').html(getVoucherArray['customerName']);
     $('#total').html(getVoucherArray['total']);
     $('#discount').html(getVoucherArray['discount']);
+     $('#discount-crash').html(getVoucherArray['discount_crash']);
     $('#paid').html(getVoucherArray['paid']);
 
     if(!getVoucherArray.hasOwnProperty('items') || getVoucherArray['items'].length == 0){

@@ -16,6 +16,7 @@ class Voucher extends Model
         'total',
         'paid',
         'discount',
+        'discount_crash',
         'voucher_staff',
         'remark',
     ];

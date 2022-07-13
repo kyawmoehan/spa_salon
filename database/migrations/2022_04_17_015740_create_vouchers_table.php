@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('total');
             $table->integer('paid');
             $table->integer('discount');
+            $table->integer('discount_crash');
             $table->integer('voucher_staff');
             $table->string('payment');
             $table->boolean('half_payment');

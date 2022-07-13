@@ -102,9 +102,9 @@ function checkBtn(id) {
     // total amount
     ALLTOTAL = total;
     $("#total-amount").val(total);
-    voucherPct = $("#voucher-discount").val();
-    paid = total - (voucherPct / 100) * total;
-    $("#voucher-paid").val(paid);
+    // voucherPct = $("#voucher-discount").val();
+    // paid = total - (voucherPct / 100) * total;
+    // $("#voucher-paid").val(paid);
 }
 // get voucher
 function getVouchers() {
@@ -343,6 +343,7 @@ function voucherSave() {
     voucherData.payment = $("#payment").val();
     voucherData.halfPayment = $("#half-payment").is(":checked") ? 1 : 0;
     voucherData.discount = $("#voucher-discount").val();
+    voucherData.discount_crash = $("#voucher-discount-crash").val();
     voucherData.remark = $("#voucher-remark").val();
     voucherData._token = $('meta[name="csrf-token"]').attr("content");
     $.ajaxSetup({
@@ -366,11 +367,30 @@ function voucherSave() {
 
 // voucher discount
 function voucherDiscount() {
-    let total = $("#total-amount").val();
+    let total = ALLTOTAL;
+    let paid = 0;
     voucherPct = $("#voucher-discount").val();
+    voucherCrash = $("#voucher-discount-crash").val();
     paid = total - (voucherPct / 100) * total;
+    if (voucherCrash > 0) {
+        paid = total - (voucherPct / 100) * total - voucherCrash;
+    }
     $("#voucher-paid").val(paid);
 }
+
+// voucher discount crash
+function voucherDiscountCrash() {
+    let total = ALLTOTAL;
+    let crash = 0;
+    voucherCrash = $("#voucher-discount-crash").val();
+    voucherPct = $("#voucher-discount").val();
+    crash = total - voucherCrash;
+    if (voucherPct > 0) {
+        crash = total - (voucherPct / 100) * total - voucherCrash;
+    }
+    $("#voucher-paid").val(crash);
+}
+
 // item searched
 function itemSearch() {
     let search = $("#item-search").val();
