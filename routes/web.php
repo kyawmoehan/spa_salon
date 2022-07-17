@@ -51,7 +51,14 @@ Route::get('salaryreport', [SalaryReportController::class, 'salaryReport'])->nam
 
 Route::get('salelist', [ItemVoucherController::class, 'index'])->name('salelist');
 Route::get('servicelist', [VoucherStaffController::class, 'index'])->name('servicelist');
-Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
+// Route::get('iteminventory', [ItemListController::class, 'index'])->name('iteminventory');
+
+Route::controller(ItemListController::class)->group(function () {
+    Route::get('iteminventory', 'index')->name('iteminventory');
+    Route::get('iteminventory/{itemList}/edit', 'edit')->name('iteminventoryedit');
+    Route::put('iteminventory/{itemList}', 'update')->name('iteminventoryupdate');
+});
+
 Route::get('popular', [PageController::class, 'popular'])->name('popular');
 Route::get('profit', [PageController::class, 'profit'])->name('profit');
 Route::get('dailyreport', [DailyController::class, 'dailyReport'])->name('daily');

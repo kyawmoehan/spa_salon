@@ -13,7 +13,7 @@ class ItemListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('role:admin');
     }
@@ -26,40 +26,63 @@ class ItemListController extends Controller
         if (request('search')) {
             $data = request('search');
             $allItemList
-            ->orWhereHas('item', function($query) use ($data) {
-                $query
-                ->where('name', 'Like', "%{$data}%");          
-            })
-            ->get();
+                ->orWhereHas('item', function ($query) use ($data) {
+                    $query
+                        ->where('name', 'Like', "%{$data}%");
+                })
+                ->get();
             $searched = true;
         }
         $itemList = $allItemList->orderBy('id')->paginate(15);
         return view('report.item_inventory', compact(['itemList', 'searched']));
     }
 
-    public function addItem($item_id, $source, $quantity){
+    public function edit(ItemList $itemList)
+    {
+        Session::put('currentpage', "Item List Edit");
+        return view('report.iteminventory_edit', compact(['itemList']));
+    }
+
+    public function update(Request $request, ItemList $itemList)
+    {
+        $request->validate([
+            'counter' => 'required',
+            'purchase' => 'required',
+        ]);
+
+        $itemList->counter = request('counter');
+        $itemList->purchase = request('purchase');
+
+        $itemList->save();
+
+        return redirect()->route('iteminventory');
+    }
+
+
+    public function addItem($item_id, $source, $quantity)
+    {
         $item = ItemList::where('item_id', '=', $item_id)->exists();
-        if($item == null){
+        if ($item == null) {
             $itemList = new ItemList();
             $itemList->item_id = $item_id;
-            if($source == 'purchase'){
+            if ($source == 'purchase') {
                 $itemList->purchase = $quantity;
                 $itemList->counter = 0;
-            }else if($source == 'counter'){
+            } else if ($source == 'counter') {
                 $itemList->purchase = 0;
                 $itemList->counter = $quantity;
             }
             $itemList->save();
-        }else {
+        } else {
             $itemList =  ItemList::where('item_id', $item_id)->first();
-          
+
             $purchaseQuntity = $itemList->purchase;
             $counterQuntity = $itemList->counter;
             // $itemList->item_id = $item_id;
-            if($source == 'purchase'){
-                $itemList->purchase = $purchaseQuntity+ $quantity;
+            if ($source == 'purchase') {
+                $itemList->purchase = $purchaseQuntity + $quantity;
                 $itemList->counter = $counterQuntity;
-            }else if($source == 'counter'){
+            } else if ($source == 'counter') {
                 $itemList->purchase = $purchaseQuntity;
                 $itemList->counter = $counterQuntity + $quantity;
             }
@@ -67,23 +90,23 @@ class ItemListController extends Controller
         }
     }
 
-    public function removeItem($item_id, $source, $quantity){
+    public function removeItem($item_id, $source, $quantity)
+    {
         $item = ItemList::where('item_id', '=', $item_id)->exists();
-        if($item) {
+        if ($item) {
             $itemList =  ItemList::where('item_id', $item_id)->first();
-          
+
             $purchaseQuntity = $itemList->purchase;
             $counterQuntity = $itemList->counter;
-            
-            if($source == 'purchase'){
+
+            if ($source == 'purchase') {
                 $itemList->purchase = $purchaseQuntity - $quantity;
                 $itemList->counter = $counterQuntity;
-            }else if($source == 'counter'){
+            } else if ($source == 'counter') {
                 $itemList->purchase = $purchaseQuntity;
                 $itemList->counter = $counterQuntity - $quantity;
             }
             $itemList->save();
         }
     }
-
 }

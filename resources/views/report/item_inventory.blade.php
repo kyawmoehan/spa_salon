@@ -27,6 +27,7 @@
                 <th scope="col">Item Name</th>
                 <th scope="col">Counter Stock</th>
                 <th scope="col">Purchase Stock</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,9 @@
                 <td>{{$item->item->name}}</td>
                 <td>{{$item->counter}}</td>
                 <td>{{$item->purchase}}</td>
+                <td>
+                    <a href="{{route('iteminventoryedit', $item)}}" class="text-secondary"><i class="fa fa-edit"></i></a>
+                </td>
             </tr>
             @endforeach
         </tbody>
