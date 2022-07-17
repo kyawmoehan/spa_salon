@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\ItemList;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Session;
@@ -15,7 +16,7 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('role:admin');
     }
@@ -28,10 +29,10 @@ class ItemController extends Controller
         $searched = false;
         if (request('search')) {
             $all_item
-            ->where('name', 'Like', '%' . request('search') . '%')      
-            ->orWhere('code', 'Like', '%' . request('search') . '%')      
-            ->orWhere('unit', 'Like', '%' . request('search') . '%')        
-            ->get();
+                ->where('name', 'Like', '%' . request('search') . '%')
+                ->orWhere('code', 'Like', '%' . request('search') . '%')
+                ->orWhere('unit', 'Like', '%' . request('search') . '%')
+                ->get();
             $searched = true;
         }
         $items = $all_item->orderBy('id', 'DESC')->paginate(15);
@@ -69,7 +70,7 @@ class ItemController extends Controller
         ]);
 
         $this->authorize('create', Item::class);
-        
+
         // store data 
         $item = new Item();
         $item->name = request('name');
@@ -79,9 +80,15 @@ class ItemController extends Controller
         $item->unit = request('unit');
         $item->available = request('available');
         $item->remark = request('remark');
- 
+
         $item->save();
-         
+
+        ItemList::create([
+            'item_id' => $item->id,
+            'purchase' => 0,
+            'counter' => 0,
+        ]);
+
         return redirect()->route('item.index');
     }
 
@@ -135,9 +142,9 @@ class ItemController extends Controller
         $item->unit = request('unit');
         $item->available = request('available');
         $item->remark = request('remark');
- 
+
         $item->save();
-         
+
         return redirect()->route('item.index');
     }
 
@@ -150,6 +157,10 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $this->authorize('delete', $item);
+        $itemList = ItemList::where('item_id', $item->id)->first();
+        if ($itemList !== null) {
+            $itemList->delete();
+        }
         $item->delete();
         return redirect()->route('item.index');
     }
