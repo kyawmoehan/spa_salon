@@ -382,6 +382,7 @@ function delteService(serviceId, staffId) {
 
 // save voucher
 function voucherSave() {
+    console.log("h");
     let voucher = getVoucherById(SELECTEDCHECK);
     let date = $("#voucher-date").val();
 
@@ -396,7 +397,7 @@ function voucherSave() {
     voucherData.remark = $("#voucher-remark").val();
     voucherData._token = $('meta[name="csrf-token"]').attr("content");
 
-    if (voucherData.paid == 0) {
+    if (voucherData.total == 0) {
         return;
     }
     $.ajaxSetup({
@@ -413,7 +414,6 @@ function voucherSave() {
         success: function (data) {
             localStorage.setItem("printvoucher", JSON.stringify(voucherData));
             deleteVoucher();
-            window.location.replace("/printvoucher");
             window.open("http://localhost:8000/printvoucher", "_blank");
         },
     });
