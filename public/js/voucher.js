@@ -414,6 +414,7 @@ function voucherSave() {
             localStorage.setItem("printvoucher", JSON.stringify(voucherData));
             deleteVoucher();
             window.location.replace("/printvoucher");
+            window.open("http://localhost:8000/printvoucher", "_blank");
         },
     });
 }
