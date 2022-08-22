@@ -20,20 +20,20 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PageController extends Controller
 {
-    public function __construct() 
-    {   
+    public function __construct()
+    {
         $this->middleware('auth')->only('dashboard');
         $this->middleware('role:admin')->only('popular', 'profit');
     }
 
-    public function topItemsList($from,$to)
+    public function topItemsList($from, $to)
     {
         $allSaleItems =  ItemVoucher::whereBetween('date', [$from, $to])->get();
         $countItems = [];
-        foreach($allSaleItems as $item){
-            if(array_key_exists($item->item->name, $countItems)){
+        foreach ($allSaleItems as $item) {
+            if (array_key_exists($item->item->name, $countItems)) {
                 $countItems[$item->item->name] += $item->quantity;
-            }else{
+            } else {
                 $countItems[$item->item->name] = $item->quantity;
             }
         }
@@ -47,23 +47,25 @@ class PageController extends Controller
         $allServices =  VoucherStaff::whereBetween('date', [$from, $to])->get();
         $countServices = [];
         $voucherIds = [];
-        foreach($allServices as $service){
-            if(array_key_exists($service->voucher_id, $voucherIds) &&
-            !in_array($service->service->name, $voucherIds[$service->voucher_id]) ){
-                array_push($voucherIds[$service->voucher_id], $service->service->name );
-            }else if(!array_key_exists($service->voucher_id, $voucherIds)){
-                $voucherIds[$service->voucher_id] = [$service->service->name];   
+        foreach ($allServices as $service) {
+            if (
+                array_key_exists($service->voucher_id, $voucherIds) &&
+                !in_array($service->service->name, $voucherIds[$service->voucher_id])
+            ) {
+                array_push($voucherIds[$service->voucher_id], $service->service->name);
+            } else if (!array_key_exists($service->voucher_id, $voucherIds)) {
+                $voucherIds[$service->voucher_id] = [$service->service->name];
             }
         }
 
-        foreach($voucherIds as $services){
-                foreach($services as $service){
-                    if(array_key_exists($service, $countServices)){
-                        $countServices[$service] += 1;
-                    }else{
-                        $countServices[$service] = 1;
-                    }   
+        foreach ($voucherIds as $services) {
+            foreach ($services as $service) {
+                if (array_key_exists($service, $countServices)) {
+                    $countServices[$service] += 1;
+                } else {
+                    $countServices[$service] = 1;
                 }
+            }
         }
         arsort($countServices);
         return array_slice($countServices, 0, 10);
@@ -73,50 +75,52 @@ class PageController extends Controller
     {
         $allVouchers = Voucher::all();
         $years = [];
-        foreach($allVouchers as $voucher){
+        foreach ($allVouchers as $voucher) {
             $year = explode('-', $voucher->date)[0];
-            if(!in_array($year, $years)){
+            if (!in_array($year, $years)) {
                 array_push($years, $year);
             }
         }
         return $years;
     }
-    
+
     public function dashboard()
     {
         Session::put('currentpage', "Dashboard");
         $new_customers = Customer::whereDate('created_at', '=', Carbon\Carbon::today())
-                            ->count();
+            ->count();
 
         $getTodaySales = ItemVoucher::whereDate('created_at', '=', Carbon\Carbon::today())
-        ->get();
+            ->get();
         $todaySales = 0;
-        foreach($getTodaySales as $getTodaySale){
+        foreach ($getTodaySales as $getTodaySale) {
             $todaySales += $getTodaySale->quantity;
         }
 
 
         $gettodayServices = VoucherStaff::whereDate('created_at', '=', Carbon\Carbon::today())
-        ->get();
+            ->get();
         $todayServices = 0;
         $servicesId = [];
-        foreach($gettodayServices as $service){
-            if(array_key_exists($service->voucher_id, $servicesId) &&
-            !in_array($service->service->name, $servicesId[$service->voucher_id]) ){
-                array_push($servicesId[$service->voucher_id], $service->service->name );
-            }else if(!array_key_exists($service->voucher_id, $servicesId)){
-                $servicesId[$service->voucher_id] = [$service->service->name];   
+        foreach ($gettodayServices as $service) {
+            if (
+                array_key_exists($service->voucher_id, $servicesId) &&
+                !in_array($service->service->name, $servicesId[$service->voucher_id])
+            ) {
+                array_push($servicesId[$service->voucher_id], $service->service->name);
+            } else if (!array_key_exists($service->voucher_id, $servicesId)) {
+                $servicesId[$service->voucher_id] = [$service->service->name];
             }
         }
-        foreach($servicesId as $services){
-            foreach($services as $service){
+        foreach ($servicesId as $services) {
+            foreach ($services as $service) {
                 $todayServices++;
             }
         }
 
         $getItemLists = ItemList::all();
         $itemsStock = 0;
-        foreach($getItemLists as $getItemList){
+        foreach ($getItemLists as $getItemList) {
             $itemsStock += $getItemList->purchase;
             $itemsStock += $getItemList->counter;
         }
@@ -128,11 +132,11 @@ class PageController extends Controller
         $to = "{$year}-{$month}-31";
 
         $countItems = $this->topItemsList($from, $to);
-       
-        $countServices = $this->topServicesList($from, $to);
-       
 
-        return view('home/home', compact(['new_customers','todaySales', 'todayServices', 'itemsStock','countItems', 'countServices']));
+        $countServices = $this->topServicesList($from, $to);
+
+
+        return view('home/home', compact(['new_customers', 'todaySales', 'todayServices', 'itemsStock', 'countItems', 'countServices']));
     }
 
     public function popular()
@@ -147,7 +151,7 @@ class PageController extends Controller
         $countItems = $this->topItemsList($from, $to);
 
         $years = $this->existYears();
-       
+
         $countServices = $this->topServicesList($from, $to);
         return view('report.popular', compact(['countItems', 'countServices', 'years']));
     }
@@ -155,8 +159,8 @@ class PageController extends Controller
     public function calculateProft($months, $year)
     {
         $yearProfits = [];
-        foreach($months as $key=>$monthName){
-            $month = $key+1;
+        foreach ($months as $key => $monthName) {
+            $month = $key + 1;
             $from = "{$year}-{$month}-1";
             $to = "{$year}-{$month}-31";
             $voucherCost = Voucher::whereBetween('date', [$from, $to])->sum('paid');
@@ -164,13 +168,15 @@ class PageController extends Controller
             $generalCost = GeneralCost::whereBetween('date', [$from, $to])->sum('cost');
             $usageCost = UsageItem::whereBetween('date', [$from, $to])->sum('total');
             $salaryCost = Salary::whereBetween('date', [$from, $to])->sum('total_amount');
+            $onlineCost = Voucher::whereBetween('date', [$from, $to])->where('payment', 'banking')->sum('paid');
             $profit = [
-                'voucherCost'=> $voucherCost,
+                'voucherCost' => $voucherCost,
                 'itemCost' => $itemCost,
                 'generalCost' => $generalCost,
                 'usageCost' => $usageCost,
                 'salaryCost' => $salaryCost,
-                'profit' => $voucherCost-$itemCost-$generalCost-$usageCost-$salaryCost,
+                'onlineCost' => $onlineCost,
+                'profit' => $voucherCost - $itemCost - $generalCost - $usageCost - $salaryCost,
             ];
             array_push($yearProfits, $profit);
         }
@@ -187,7 +193,6 @@ class PageController extends Controller
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         $yearProfits = $this->calculateProft($months, $year);
-
         $years = $this->existYears();
         return view('report.profit', compact(['yearProfits', 'months', 'years']));
     }
@@ -198,7 +203,7 @@ class PageController extends Controller
         $itemSeletYear = $request->itemYear;
         $t = Carbon\Carbon::now();
         $year = $t->year;
-        if($itemSeletYear != null){
+        if ($itemSeletYear != null) {
             $year = $itemSeletYear;
         }
         $month = $itemSeletMonth;
@@ -215,14 +220,14 @@ class PageController extends Controller
         $serviceSeletYear = $request->serviceYear;
         $t = Carbon\Carbon::now();
         $year = $t->year;
-        if($serviceSeletYear != null){
+        if ($serviceSeletYear != null) {
             $year = $serviceSeletYear;
         }
         $month = $serviceSeletMonth;
         $from = "{$year}-{$month}-1";
         $to = "{$year}-{$month}-31";
-        
-       $countServices = $this->topServicesList($from, $to);
+
+        $countServices = $this->topServicesList($from, $to);
 
         return response()->json($countServices, 200);
     }
@@ -243,7 +248,7 @@ class PageController extends Controller
         return response()->json($data, 200);
     }
 
-    public function export() 
+    public function export()
     {
         $year = Session('profitexport');
         return Excel::download(new ProfitExport($year), 'monthlyporfit.xlsx');

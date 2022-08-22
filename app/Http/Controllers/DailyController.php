@@ -28,6 +28,8 @@ class DailyController extends Controller
         $itemsReport = [];
 
         $vouchers = Voucher::whereDate('date', '=', $date)->get();
+        $totalAmount = Voucher::whereDate('date', '=', $date)->sum('total');
+        $totalPaid = Voucher::whereDate('date', '=', $date)->sum('paid');
 
         foreach ($vouchers as $voucher) {
             if ($voucher->voucherStaff->isNotEmpty()) {
@@ -64,6 +66,11 @@ class DailyController extends Controller
                 );
             }
         }
-        return view('report.dailyreport', compact(['serviceReport', 'itemsReport']));
+        return view('report.dailyreport', compact([
+            'serviceReport',
+            'itemsReport',
+            'totalAmount',
+            'totalPaid',
+        ]));
     }
 }

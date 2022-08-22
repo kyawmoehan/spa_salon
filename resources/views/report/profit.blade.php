@@ -22,6 +22,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Month</th>
                 <th scope="col">Voucher Total</th>
+                <th scope="col">Online Banking</th>
                 <th scope="col">General Cost</th>
                 <th scope="col">Usage Item Cost</th>
                 <th scope="col">Salary Cost</th>
@@ -37,6 +38,7 @@
                 <td>{{$key+1}}</td>
                 <td>{{$months[$key]}}</td>
                 <td>{{$profit['voucherCost']}} Ks</td>
+                 <td>{{$profit['onlineCost']}} Ks</td>
                 <td>{{$profit['generalCost']}} Ks</td>
                 <td>{{$profit['usageCost']}} Ks</td>
                 <td>{{$profit['salaryCost']}} Ks</td>

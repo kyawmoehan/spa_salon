@@ -104,5 +104,10 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-end">
+        <p class="h5 px-5">Total Amount : <span class="fw-bold">{{ $totalAmount }} Ks</span></p>
+        <p class="h5">Total Paid: <spam class="fw-bold">{{ $totalPaid }} Ks</spam></p>
+    </div>
 </div>
 @endsection

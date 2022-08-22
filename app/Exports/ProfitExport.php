@@ -26,8 +26,8 @@ class ProfitExport implements FromView, WithStrictNullComparison, ShouldAutoSize
     public function calculateProft($months, $year)
     {
         $yearProfits = [];
-        foreach($months as $key=>$monthName){
-            $month = $key+1;
+        foreach ($months as $key => $monthName) {
+            $month = $key + 1;
             $from = "{$year}-{$month}-1";
             $to = "{$year}-{$month}-31";
             $voucherCost = Voucher::whereBetween('date', [$from, $to])->sum('paid');
@@ -35,13 +35,15 @@ class ProfitExport implements FromView, WithStrictNullComparison, ShouldAutoSize
             $generalCost = GeneralCost::whereBetween('date', [$from, $to])->sum('cost');
             $usageCost = UsageItem::whereBetween('date', [$from, $to])->sum('total');
             $salaryCost = Salary::whereBetween('date', [$from, $to])->sum('total_amount');
+            $onlineCost = Voucher::whereBetween('date', [$from, $to])->where('payment', 'banking')->sum('paid');
             $profit = [
-                'voucherCost'=> $voucherCost,
+                'voucherCost' => $voucherCost,
                 'itemCost' => $itemCost,
                 'generalCost' => $generalCost,
                 'usageCost' => $usageCost,
                 'salaryCost' => $salaryCost,
-                'profit' => $voucherCost-$itemCost-$generalCost-$usageCost-$salaryCost,
+                'onlineCost' => $onlineCost,
+                'profit' => $voucherCost - $itemCost - $generalCost - $usageCost - $salaryCost,
             ];
             array_push($yearProfits, $profit);
         }
