@@ -21,7 +21,7 @@ class SalaryReportController extends Controller
     {
         Session::forget('profitexport');
         Session::put('currentpage', "Salary Report");
-        $staffs = Staff::all();
+        $staffs = Staff::where('status', 1)->get();
 
         $fromDate = request('fromdate');
         $toDate = request('todate');
