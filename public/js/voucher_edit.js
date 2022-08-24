@@ -105,6 +105,10 @@ function checkBtn(id) {
     // voucherPct = $("#voucher-discount").val();
     // paid = total - (voucherPct / 100) * total;
     // $("#voucher-paid").val(paid);
+    voucherCrash = $("#voucher-discount-crash").val();
+    voucherPct = $("#voucher-discount").val();
+    paid = total - (voucherPct / 100) * total - voucherCrash;
+    $("#voucher-paid").val(paid);
 }
 // get voucher
 function getVouchers() {
@@ -342,8 +346,8 @@ function voucherSave() {
     voucherData.paid = $("#voucher-paid").val();
     voucherData.payment = $("#payment").val();
     voucherData.halfPayment = $("#half-payment").is(":checked") ? 1 : 0;
-    voucherData.discount = $("#voucher-discount").val();
-    voucherData.discount_crash = $("#voucher-discount-crash").val();
+    voucherData.discount = $("#voucher-discount").val() || 0;
+    voucherData.discount_crash = $("#voucher-discount-crash").val() || 0;
     voucherData.remark = $("#voucher-remark").val();
     voucherData._token = $('meta[name="csrf-token"]').attr("content");
     $.ajaxSetup({
