@@ -92,7 +92,9 @@ function checkBtn(id) {
             ${item["staffPct"] === null ? "0" : item["staffPct"]} %
         </td>
         <td>
-            ${item["staffAmount"]} Ks
+            <input type="number" id="staff_amount"  onkeyup="editStaffAmount(${
+                item["serviceId"]
+            }, ${item["staffId"]})" value="${item["staffAmount"]}" > Ks
         </td>
         <td>
             ${item["servicePrice"]} Ks
@@ -376,6 +378,24 @@ function delteService(serviceId, staffId) {
 
     increaseStaffPct(getVoucherArray, index, serviceIndex);
     getVoucherArray[index].services.splice(serviceIndex, 1);
+    localStorage.setItem("vouchers", JSON.stringify(getVoucherArray));
+    checkBtn(SELECTEDCHECK);
+}
+
+function editStaffAmount(serviceId, staffId) {
+    const changeAmount = $("#staff_amount").val();
+
+    let getVoucherArray = getLocalstorage();
+    const index = getVoucherArray.findIndex((object) => {
+        return object.id === SELECTEDCHECK;
+    });
+    const serviceIndex = getVoucherArray[index].services.findIndex((object) => {
+        return object.serviceId == serviceId && object.staffId == staffId;
+    });
+
+    getVoucherArray[index].services[serviceIndex]["staffAmount"] = changeAmount;
+
+    console.log(getVoucherArray);
     localStorage.setItem("vouchers", JSON.stringify(getVoucherArray));
     checkBtn(SELECTEDCHECK);
 }
