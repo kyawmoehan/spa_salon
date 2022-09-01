@@ -91,9 +91,20 @@
          @endif
      </table>
     @if ($data)
-        <div class="d-flex justify-content-end mt-3">
+        {{-- <div class="d-flex justify-content-end mt-3">
             <a href="{{route('salaryreportexport')}}" class="btn btn-primary">Export Excel</a>
+        </div> --}}
+        <div class="d-flex justify-content-end mt-3">
+            <button onclick="display()"  class="btn btn-primary">Click to Print</button>
         </div>
     @endif
 </div>
+@endsection
+
+@section('script')
+     <script>
+         function display() {
+            window.print();
+         }
+      </script>
 @endsection
