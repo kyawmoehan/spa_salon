@@ -84,9 +84,11 @@ function checkBtn(id) {
             ${item["staffPct"]}
         </td>
         <td>
-            <input type="number" id="staff_amount"  onkeyup="editStaffAmount(${
-                item["serviceId"]
-            }, ${item["staffId"]})" value="${item["staffAmount"]}" > Ks
+            <input type="number" id="${item["serviceId"]}-${
+            item["staffId"]
+        }"  onkeyup="editStaffAmount(${item["serviceId"]}, ${
+            item["staffId"]
+        })" value="${item["staffAmount"]}" > Ks
         </td>
         <td>
             ${item["servicePrice"]}
@@ -336,7 +338,8 @@ function delteService(serviceId, staffId) {
 }
 
 function editStaffAmount(serviceId, staffId) {
-    const changeAmount = $("#staff_amount").val();
+    const changeAmount = $(`#${serviceId}-${staffId}`).val();
+
     console.log(changeAmount);
     let getVoucherArray = getLocalstorage();
 

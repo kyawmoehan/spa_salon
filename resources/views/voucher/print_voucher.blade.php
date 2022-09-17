@@ -204,13 +204,15 @@
     });
 
   }
+  
+  addData();
   window.addEventListener("load", function(){
-    addData();
+    // addData();
     window.print();
   });
   window.onafterprint = function(){
     localStorage.removeItem('printvoucher');
-    window.location.replace("/voucher/create");
+    // window.location.replace("/voucher/create");
   }
 
 </script>
