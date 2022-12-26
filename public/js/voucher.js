@@ -39,12 +39,10 @@ function checkBtn(id) {
             ${item["itemName"]}
         </td>
         <td>
-            <button  class="btn btn-primary voucher-btn"  onclick="decreaseItem(${
-                item["itemId"]
+            <button  class="btn btn-primary voucher-btn"  onclick="decreaseItem(${item["itemId"]
             }, '${item["source"]}')">-</button>
             ${item["quantity"]}
-            <button class="btn btn-primary voucher-btn" onclick="increaseItem(${
-                item["itemId"]
+            <button class="btn btn-primary voucher-btn" onclick="increaseItem(${item["itemId"]
             }, '${item["source"]}')">+</button>
         </td>
         <td>
@@ -92,11 +90,9 @@ function checkBtn(id) {
             ${item["staffPct"] === null ? "0" : item["staffPct"]} %
         </td>
         <td>
-            <input type="number" id="${item["serviceId"]}-${
-            item["staffId"]
-        }"  onkeyup="editStaffAmount(${item["serviceId"]}, ${
-            item["staffId"]
-        })" value="${item["staffAmount"]}" > Ks
+            <input type="number" id="${item["serviceId"]}-${item["staffId"]
+            }"  onkeyup="editStaffAmount(${item["serviceId"]}, ${item["staffId"]
+            })" value="${item["staffAmount"]}" > Ks
         </td>
         <td>
             ${item["servicePrice"]} Ks
@@ -550,9 +546,12 @@ $(document).ready(function () {
 $(window).load(function () {
     // uuid
     function generate() {
-        return Math.floor((1 + Math.random()) * 0x10000)
+        const uuid = Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
+        const todayDate = new Date();
+        const date = `${todayDate.getFullYear()}${todayDate.getMonth()}${todayDate.getDate()}`
+        return `${date}-${uuid}`;
     }
 
     getVouchers();

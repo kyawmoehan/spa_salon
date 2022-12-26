@@ -5,7 +5,7 @@
         <div class="col-sm-6">
 
             <div class=" d-flex justify-content-start align-items-center">
-                <div class="my-auto m-1">
+                <div class="m-1 my-auto">
                     <a href="{{route('voucher.index')}}">
                         <i class="fa fa-arrow-left fw-bolder" style="color:#7801ff;"></i>
                     </a>
@@ -17,8 +17,8 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-6 clearfix row d-flex justify-content-end align-items-center">
-            <div class="user-profile  pull-right col-sm-11 d-flex justify-content-end pr-2">
+        <div class="clearfix col-sm-6 row d-flex justify-content-end align-items-center">
+            <div class="pr-2 user-profile pull-right col-sm-11 d-flex justify-content-end">
                 <img class="avatar user-thumb" src="{{asset('assets/images/author/avatar.png')}}" alt="avatar">
                 <h4 class="user-name text-dark dropdown-toggle" data-toggle="dropdown">
                     {{Auth::user()->name}} <i
@@ -32,7 +32,7 @@
                     </form>        
                 </div>
             </div>
-            <ul class="notification-area pull-right col-sm-1 pr-0">
+            <ul class="pr-0 notification-area pull-right col-sm-1">
                 <li id="full-view"><i class="fa fa-expand"></i></li>
                 <li id="full-view-exit"><i class="fa fa-compress"></i></li>
             </ul>
@@ -43,7 +43,7 @@
     <div class="mt-2 me-2">
         <div class="row">
             <div class="col-2 add-customer-content">
-                <div class="add-customer my-2">
+                <div class="my-2 add-customer">
                     <div class="btn-group w-100">
                         <!-- <input type="text" class="form-control form-control-sm"> -->
                         <select name="state" id="voucher-select-cust" class="form-select form-select-sm" required>
@@ -54,7 +54,7 @@
                         </select>
                         <button id="voucher-add" class="btn btn-sm btn-info">Add</button>
                     </div>
-                    <a href="{{route('customer.create')}}" class="btn btn-primary mt-2 w-100">Add New Customer</a>
+                    <a href="{{route('customer.create')}}" class="mt-2 btn btn-primary w-100">Add New Customer</a>
                 </div>
                 <hr>
                 <div class="customer-app">
@@ -83,7 +83,7 @@
                         value="<?php echo (new DateTime())->format('Y-m-d'); ?>">
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="mt-3 row">
                     <div class="col-5">
                         <div class="card">
                             <div class="card-header d-flex align-items-center justify-content-start">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="card-body" style="height: 450px;overflow-y: auto;">
                                 <div class="item-box row d-none">
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <label for="">Item Source</label>
                                         <select name="" id="item-from" class="form-select form-select-sm" required>
                                             <option value="purchase" >Default</option>
@@ -108,7 +108,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <input type="text" class="form-select form-select-sm"
                                         placeholder="Search Item" required id="item-search"
                                         onkeyup="itemSearch()">
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="row" id="show-items">
                                         @foreach($items as $item)
-                                            <div class="col-4 item-btn-wapper mb-2">
+                                            <div class="mb-2 col-4 item-btn-wapper">
                                                 <button class="item-button btn btn-secondary"
                                                 onclick="addItem('{{$item->id}}','{{$item->name}}','{{$item->price}}')">
                                                     {{$item->name}}
@@ -129,9 +129,9 @@
                                     </div>
                                 </div>
                                 <div class="service-box row d-none">
-                                    <div class="col-6 mb-3">
+                                    <div class="mb-3 col-6">
                                         <label for="">Staff</label>
-                                        <select name="" id="staff-select" class="form-select form-select-sm mb-1" required>
+                                        <select name="" id="staff-select" class="mb-1 form-select form-select-sm" required>
                                             <option value="" disabled>Select Staff ...</option>
                                             @foreach($staffs as $staff)
                                             <option 
@@ -141,7 +141,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-6 mb-3">
+                                    <div class="mb-3 col-6">
                                         <label f>Percentage</label>
                                         <div>
                                             <input class="form-check-input" type="checkbox" value="1" id="name-checkbox">
@@ -151,7 +151,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <input type="text" class="form-select form-select-sm"
                                         placeholder="Search Services" required id="service-search"
                                         onkeyup="serviceSearch()">
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="row" id="show-services">
                                         @foreach($services as $service)
-                                        <div class="col-4 service-btn-wapper mb-2">
+                                        <div class="mb-2 col-4 service-btn-wapper">
                                             <button class="service-button btn btn-secondary"
                                             onclick="addService('{{$service->id}}','{{$service->name}}','{{$service->price}}', '{{$service->normal_pct}}','{{$service->name_pct}}')">
                                                 {{$service->name}}
@@ -175,9 +175,9 @@
                         </div>
                     </div>
                     <div class="col-7">
-                        <div class="card mb-2">
+                        <div class="mb-2 card">
                             <div class="card-body s_item_card">
-                                <table align="center" class="table table-bordered mx-auto text-center">
+                                <table align="center" class="table mx-auto text-center table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="text-dark">No.</th>
@@ -224,9 +224,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card mb-2">
+                        <div class="mb-2 card">
                             <div class="card-body s_service_card">
-                                <table align="center" class="table table-bordered mx-auto text-center">
+                                <table align="center" class="table mx-auto text-center table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="text-dark">No.</th>
@@ -280,23 +280,23 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card s_invoice mb-2">
+                        <div class="mb-2 card s_invoice">
                             <div class="card-body row">
                                 <div class="col-5">
                                     <label for="remark">Remark</label>
                                     <textarea name="" id="voucher-remark" cols="30" rows="10" style="resize: none;"></textarea>
                                 </div>
                                 <div class="col-7 row">
-                                    <div class="col-12 mt-auto">
+                                    <div class="mt-auto col-12">
                                         <div>
                                             <input class="form-check-input" type="checkbox" value="1" id="half-payment">
                                             <label class="form-check-label" for="half-payment">
                                               Half Payament
                                             </label>
                                         </div>
-                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                        <div class="mb-2 form-group w-100 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paymaent</label>
-                                            <select name="payment" id="payment" class="form-select form-select-sm mb-1" required>
+                                            <select name="payment" id="payment" class="mb-1 form-select form-select-sm" required>
                                                 <option value="cash" selected>
                                                     Cash
                                                 </option>
@@ -305,19 +305,19 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                        <div class="mb-2 form-group w-100 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Total </label>
                                             <input type="number" class="form-control form-control-sm" disabled id="total-amount">
                                         </div>
-                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                        <div class="mb-2 form-group w-100 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Paid </label>
                                             <input type="number" class="form-control form-control-sm" id="voucher-paid" disabled>
                                         </div>
-                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                        <div class="mb-2 form-group w-100 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Discount </label>
                                             <input type="number" class="form-control form-control-sm" id="voucher-discount" value="0" step="0.1" onkeyup="voucherDiscount()">
                                         </div>
-                                        <div class="form-group w-100 mb-2 d-flex align-items-center">
+                                        <div class="mb-2 form-group w-100 d-flex align-items-center">
                                             <label for="" class="form-label me-3">Discount Crash </label>
                                             <input type="number" class="form-control form-control-sm" id="voucher-discount-crash" value="0" onkeyup="voucherDiscountCrash()">
                                         </div>
